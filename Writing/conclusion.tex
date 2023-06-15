@@ -1,0 +1,24 @@
+In this work, we applied the concept of adversarial attacks to leakage
+detection in water distribution networks. For this purpose, we proposed a
+taxonomy of potential adversarials against a leakage detector. We then focused
+on a particular type of adversarial: Attacking the network at the least
+sensitive point. We formalized the least sensitive point
+problem and proposed three algorithmic approaches to solve it.
+In practice, knowing the least sensitive point and the vulnerability to attacks constitutes crucial information which enables practitioners to develop more robust methods using e.g. adversarial training~\cite{bai2021recent} or an improvement of the robustness by introducing targeted sensors.
+
+We empirically evaluated our proposed methods in a case study on two benchmark WDNs.
+For the genetic algorithm with spectral embeddings, experiments yielded
+promising results on both networks. This method allows much faster solutions
+when compared to the Bisection Search, due to a lower runtime complexity. The
+locations of the least sensitive point indicate that the detectors weak spots
+are highly dependent on network topology, in particular on the location of the
+water sources.
+
+In future work, we plan to address the same problem with another leakage
+detection model to compare results between different leakage detectors.
+In order to increase the robustness, we will determine the
+effect of incremental sensor placement on the maximum undetected leak area.
+For this purpose, we will simulate sensors at the location where the least
+sensitive point has previously been detected and re-run the experiments with
+the new sensors in place. In this way, knowledge about adversarials can be 
+helpful in practical applications.

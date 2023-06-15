@@ -1,0 +1,9 @@
+In order to obtain pressure values as input for the leakage detector, we used the hydraulic modelling software EPANET \cite{epanet} which simmulates flow and pressure values over time, given an hydraulic model of a water distribution network and water demands for each node and timestep. EPANET also allows to run simulations with leaks of arbitrary area, location, starting time and duration.
+
+We first evaluate our proposed methodology on the Hanoi network~\cite{hanoi}. This network consists of $31$ junctions and one water reservoir from which water is entering the system through a pump.
+Realistic water demands at the network nodes are generated using the
+code provided with the LeakDB benchmark dataset~\cite{leakDB}.
+Next, we extend our case study to the larger and more realistic L-Town network~\cite{battledim}. This network contains $782$ junctions, receiving their water from two reservoirs and one tank which is used for intermediate storage. The authors of~\cite{battledim} provided realistic demand values along with the hydraulic model of the network.
+
+For both networks we train the leakage detector on the first five days of the timeseries and search for the least sensitive point (Definition~\ref{def:lsp}) during the two days afterwards. While detector training on realistic demands may not always be possible in advance, it is still reasonable to assume the that the first few days produced by those demands are utilized to calibrate the detector for the network at hand. In particular, infering thresholds from training errors on realistic data can help to avoid false alarms.
+For the Hanoi network, we conduct a second analysis with five training days and a search space of nine days afterwards. This is not done for L-Town as simulations over a longer timeseries are computationally demanding for larger networks.

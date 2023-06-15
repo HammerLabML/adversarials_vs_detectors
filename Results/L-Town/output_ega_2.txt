@@ -1,0 +1,391 @@
+First simulation to train detector...
+Solution: 0
+Maximize the leak area for junction n523
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> no alarm
+Leak area: 4.69 cm^2 -> no alarm
+Leak area: 5.47 cm^2 -> no alarm
+Leak area: 5.86 cm^2 -> no alarm
+Leak area: 6.05 cm^2 -> no alarm
+Solution: 1
+Maximize the leak area for junction n136
+Leak area: 6.05 cm^2 -> no alarm
+Leak area: 7.27 cm^2 -> no alarm
+Leak area: 8.72 cm^2 -> no alarm
+Leak area: 10.46 cm^2 -> no alarm
+Leak area: 12.56 cm^2 -> alarm
+Leak area: 11.51 cm^2 -> alarm
+Leak area: 10.99 cm^2 -> alarm
+Leak area: 10.72 cm^2 -> no alarm
+Leak area: 10.85 cm^2 -> no alarm
+Leak area: 10.92 cm^2 -> alarm
+Solution: 2
+Solution: 3
+Maximize the leak area for junction n70
+Leak area: 10.85 cm^2 -> no alarm
+Leak area: 13.03 cm^2 -> no alarm
+Leak area: 15.63 cm^2 -> no alarm
+Leak area: 18.76 cm^2 -> no alarm
+Leak area: 22.51 cm^2 -> alarm
+Leak area: 20.63 cm^2 -> no alarm
+Leak area: 21.57 cm^2 -> alarm
+Leak area: 21.10 cm^2 -> no alarm
+Leak area: 21.34 cm^2 -> no alarm
+Leak area: 21.45 cm^2 -> alarm
+Solution: 4
+Solution: 5
+Solution: 6
+Solution: 7
+Solution: 8
+Solution: 9
+Solution: 10
+Solution: 11
+Solution: 12
+Solution: 13
+Solution: 14
+Solution: 15
+Solution: 16
+Solution: 17
+Solution: 18
+Solution: 19
+Solution: 1
+Solution: 3
+Solution: 4
+Solution: 5
+Solution: 6
+Solution: 7
+Solution: 8
+Solution: 9
+Solution: 10
+Solution: 11
+Solution: 13
+Solution: 14
+Solution: 16
+Solution: 18
+Solution: 1
+Solution: 4
+Solution: 5
+Solution: 7
+Solution: 10
+Solution: 13
+Solution: 16
+Maximize the leak area for junction n70
+Leak area: 21.34 cm^2 -> no alarm
+Leak area: 25.60 cm^2 -> alarm
+Leak area: 23.47 cm^2 -> no alarm
+Leak area: 24.54 cm^2 -> alarm
+Leak area: 24.00 cm^2 -> alarm
+Leak area: 23.74 cm^2 -> alarm
+Leak area: 23.60 cm^2 -> alarm
+Leak area: 23.54 cm^2 -> no alarm
+Leak area: 23.57 cm^2 -> alarm
+Leak area: 23.55 cm^2 -> alarm
+Solution: 1
+Solution: 4
+Solution: 5
+Solution: 6
+Solution: 10
+Solution: 14
+Solution: 15
+Solution: 19
+Solution: 1
+Solution: 4
+Solution: 5
+Solution: 8
+Solution: 13
+Solution: 16
+Maximize the leak area for junction n70
+Leak area: 23.54 cm^2 -> no alarm
+Leak area: 28.24 cm^2 -> alarm
+Leak area: 25.89 cm^2 -> alarm
+Leak area: 24.71 cm^2 -> alarm
+Leak area: 24.12 cm^2 -> alarm
+Leak area: 23.83 cm^2 -> alarm
+Leak area: 23.68 cm^2 -> no alarm
+Leak area: 23.76 cm^2 -> alarm
+Leak area: 23.72 cm^2 -> no alarm
+Leak area: 23.74 cm^2 -> no alarm
+Solution: 2
+Solution: 6
+Solution: 7
+Solution: 11
+Solution: 13
+Solution: 17
+Solution: 13
+Solution: 12
+Solution: 13
+Solution: 18
+Solution: 1
+Solution: 2
+Solution: 4
+Solution: 8
+Maximize the leak area for junction n45
+Leak area: 23.74 cm^2 -> no alarm
+Leak area: 28.49 cm^2 -> no alarm
+Leak area: 34.18 cm^2 -> alarm
+Leak area: 31.34 cm^2 -> no alarm
+Leak area: 32.76 cm^2 -> no alarm
+Leak area: 33.47 cm^2 -> no alarm
+Leak area: 33.83 cm^2 -> no alarm
+Leak area: 34.01 cm^2 -> alarm
+Leak area: 33.92 cm^2 -> no alarm
+Leak area: 33.96 cm^2 -> no alarm
+Solution: 12
+Solution: 14
+Solution: 15
+Solution: 3
+Solution: 6
+Maximize the leak area for junction n45
+Leak area: 33.96 cm^2 -> no alarm
+Leak area: 40.75 cm^2 -> alarm
+Leak area: 37.36 cm^2 -> alarm
+Leak area: 35.66 cm^2 -> alarm
+Leak area: 34.81 cm^2 -> no alarm
+Leak area: 35.23 cm^2 -> no alarm
+Leak area: 35.45 cm^2 -> no alarm
+Leak area: 35.55 cm^2 -> no alarm
+Leak area: 35.61 cm^2 -> alarm
+Leak area: 35.58 cm^2 -> alarm
+Solution: 17
+Solution: 19
+Solution: 2
+Maximize the leak area for junction n45
+Leak area: 35.55 cm^2 -> no alarm
+Leak area: 42.66 cm^2 -> alarm
+Leak area: 39.11 cm^2 -> alarm
+Leak area: 37.33 cm^2 -> alarm
+Leak area: 36.44 cm^2 -> alarm
+Leak area: 36.00 cm^2 -> no alarm
+Leak area: 36.22 cm^2 -> no alarm
+Leak area: 36.33 cm^2 -> no alarm
+Leak area: 36.39 cm^2 -> no alarm
+Leak area: 36.41 cm^2 -> no alarm
+Solution: 12
+Solution: 19
+Solution: 5
+Solution: 6
+Solution: 17
+Solution: 3
+Maximize the leak area for junction n45
+Leak area: 36.41 cm^2 -> no alarm
+Leak area: 43.70 cm^2 -> alarm
+Leak area: 40.06 cm^2 -> alarm
+Leak area: 38.24 cm^2 -> alarm
+Leak area: 37.32 cm^2 -> alarm
+Leak area: 36.87 cm^2 -> no alarm
+Leak area: 37.10 cm^2 -> alarm
+Leak area: 36.98 cm^2 -> alarm
+Leak area: 36.93 cm^2 -> alarm
+Leak area: 36.90 cm^2 -> no alarm
+Solution: 4
+Solution: 6
+Solution: 14
+Solution: 16
+Solution: 9
+Solution: 11
+Maximize the leak area for junction n45
+Leak area: 36.90 cm^2 -> no alarm
+Leak area: 44.28 cm^2 -> alarm
+Leak area: 40.59 cm^2 -> no alarm
+Leak area: 42.43 cm^2 -> no alarm
+Leak area: 43.36 cm^2 -> alarm
+Leak area: 42.89 cm^2 -> alarm
+Leak area: 42.66 cm^2 -> no alarm
+Leak area: 42.78 cm^2 -> no alarm
+Leak area: 42.84 cm^2 -> alarm
+Leak area: 42.81 cm^2 -> alarm
+Solution: 12
+Solution: 2
+Solution: 3
+Solution: 11
+Solution: 14
+Solution: 18
+Maximize the leak area for junction n45
+Leak area: 42.78 cm^2 -> no alarm
+Leak area: 51.33 cm^2 -> alarm
+Leak area: 47.06 cm^2 -> alarm
+Leak area: 44.92 cm^2 -> alarm
+Leak area: 43.85 cm^2 -> alarm
+Leak area: 43.31 cm^2 -> alarm
+Leak area: 43.05 cm^2 -> alarm
+Leak area: 42.91 cm^2 -> no alarm
+Leak area: 42.98 cm^2 -> no alarm
+Leak area: 43.01 cm^2 -> no alarm
+Solution: 19
+Solution: 3
+Solution: 4
+Solution: 6
+Solution: 13
+Solution: 14
+Solution: 18
+Solution: 19
+Solution: 1
+Solution: 2
+Solution: 5
+Solution: 9
+Solution: 11
+Solution: 16
+Solution: 1
+Solution: 18
+Solution: 1
+Solution: 2
+Solution: 4
+Solution: 14
+Solution: 1
+Solution: 4
+Solution: 6
+Solution: 9
+Solution: 11
+Solution: 4
+Solution: 9
+Solution: 2
+Solution: 6
+Solution: 11
+Solution: 3
+Solution: 5
+Solution: 9
+Solution: 11
+Solution: 2
+Solution: 3
+Solution: 5
+Solution: 8
+Maximize the leak area for junction n45
+Leak area: 43.01 cm^2 -> no alarm
+Leak area: 51.62 cm^2 -> alarm
+Leak area: 47.31 cm^2 -> alarm
+Leak area: 45.16 cm^2 -> alarm
+Leak area: 44.09 cm^2 -> no alarm
+Leak area: 44.63 cm^2 -> alarm
+Leak area: 44.36 cm^2 -> no alarm
+Leak area: 44.49 cm^2 -> alarm
+Leak area: 44.42 cm^2 -> alarm
+Leak area: 44.39 cm^2 -> no alarm
+Solution: 11
+Solution: 12
+Solution: 13
+Solution: 4
+Solution: 6
+Solution: 18
+Solution: 6
+Solution: 10
+Solution: 12
+Solution: 15
+Solution: 16
+Solution: 19
+Solution: 1
+Solution: 10
+Solution: 17
+Solution: 3
+Solution: 7
+Solution: 8
+Solution: 17
+Solution: 5
+Solution: 7
+Solution: 1
+Solution: 5
+Solution: 7
+Solution: 11
+Solution: 3
+Solution: 4
+Solution: 6
+Solution: 7
+Solution: 8
+Solution: 18
+Solution: 10
+Solution: 13
+Solution: 15
+Solution: 1
+Solution: 2
+Solution: 5
+Solution: 8
+Solution: 12
+Solution: 3
+Solution: 9
+Solution: 14
+Solution: 5
+Solution: 6
+Solution: 14
+Solution: 3
+Solution: 6
+Solution: 7
+Solution: 18
+Solution: 1
+Solution: 2
+Solution: 4
+Solution: 8
+Solution: 12
+Solution: 15
+Solution: 1
+Solution: 7
+Solution: 10
+Solution: 11
+Solution: 3
+Solution: 5
+Solution: 11
+Solution: 16
+Solution: 19
+Solution: 4
+Solution: 6
+Solution: 8
+Solution: 9
+Solution: 18
+Solution: 1
+Solution: 5
+Solution: 6
+Solution: 12
+Solution: 2
+Solution: 5
+Solution: 9
+Solution: 13
+Solution: 15
+Solution: 7
+Solution: 11
+Solution: 14
+Solution: 2
+Solution: 3
+Solution: 7
+Solution: 13
+Solution: 3
+Solution: 6
+Solution: 10
+Solution: 14
+Solution: 19
+Maximize the leak area for junction n303
+Leak area: 44.39 cm^2 -> no alarm
+Leak area: 53.27 cm^2 -> no alarm
+Leak area: 63.92 cm^2 -> no alarm
+Leak area: 76.71 cm^2 -> no alarm
+Leak area: 92.05 cm^2 -> no alarm
+Leak area: 110.46 cm^2 -> no alarm
+Leak area: 132.55 cm^2 -> no alarm
+Leak area: 159.06 cm^2 -> no alarm
+Leak area: 190.87 cm^2 -> no alarm
+Leak area: 229.04 cm^2 -> alarm
+Solution: 5
+Maximize the leak area for junction n303
+Leak area: 190.87 cm^2 -> no alarm
+Leak area: 229.04 cm^2 -> no alarm
+Leak area: 274.85 cm^2 -> alarm
+Leak area: 251.95 cm^2 -> alarm
+Leak area: 240.50 cm^2 -> alarm
+Leak area: 234.77 cm^2 -> alarm
+Leak area: 231.91 cm^2 -> no alarm
+Leak area: 233.34 cm^2 -> alarm
+Leak area: 232.62 cm^2 -> alarm
+Leak area: 232.27 cm^2 -> alarm
+Solution: 7
+Solution: 12
+Solution: 16
+Solution: 5
+Solution: 9
+Solution: 10
+Solution: 5
+Solution: 9
+Solution: 10
+The least sensitive point is junction n303 at 1970-01-06 19:45:00 with a leak area of 231.91 cm^2
+The best solution was found in generation 49.
+

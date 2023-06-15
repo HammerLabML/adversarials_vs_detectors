@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ga_func</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ga_func</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/ga_func.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/ga_func.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-crossover_function_factory"><strong>crossover_function_factory</strong></a>(evecs)</dt><dd><tt>Perform&nbsp;uniform&nbsp;crossover&nbsp;and&nbsp;match&nbsp;offspring&nbsp;afterwards.<br>
+&nbsp;<br>
+Matching&nbsp;is&nbsp;necessary&nbsp;because&nbsp;after&nbsp;combination&nbsp;of&nbsp;genes&nbsp;in&nbsp;the&nbsp;embedding<br>
+space,&nbsp;the&nbsp;result&nbsp;is&nbsp;not&nbsp;guaranteed&nbsp;to&nbsp;match&nbsp;a&nbsp;node&nbsp;existing&nbsp;in&nbsp;the<br>
+network.&nbsp;Hence,&nbsp;the&nbsp;nearest&nbsp;node&nbsp;representation&nbsp;is&nbsp;picked.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+evecs:&nbsp;np.ndarray<br>
+eigenvectors&nbsp;of&nbsp;the&nbsp;water&nbsp;network's&nbsp;graph&nbsp;Laplacian&nbsp;used&nbsp;for&nbsp;the&nbsp;embedding<br>
+After&nbsp;the&nbsp;crossover,&nbsp;each&nbsp;member&nbsp;of&nbsp;the&nbsp;offspring&nbsp;generation&nbsp;is&nbsp;replaced<br>
+by&nbsp;its&nbsp;nearest&nbsp;neighbour&nbsp;in&nbsp;the&nbsp;embedding&nbsp;space&nbsp;i.e.&nbsp;its&nbsp;nearest&nbsp;row&nbsp;in<br>
+evecs<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;crossover&nbsp;function&nbsp;that&nbsp;can&nbsp;be&nbsp;used&nbsp;by&nbsp;an&nbsp;instance&nbsp;of&nbsp;pygad.GA</tt></dd></dl>
+ <dl><dt><a name="-index_of_closest"><strong>index_of_closest</strong></a>(query, search_space)</dt><dd><tt>Index&nbsp;of&nbsp;closest&nbsp;element&nbsp;to&nbsp;query&nbsp;in&nbsp;search_space&nbsp;(in&nbsp;L2-norm)</tt></dd></dl>
+ <dl><dt><a name="-match_node_representations"><strong>match_node_representations</strong></a>(offspring, evecs)</dt><dd><tt>Match&nbsp;all&nbsp;members&nbsp;of&nbsp;offspring&nbsp;to&nbsp;the&nbsp;embedding&nbsp;space.<br>
+&nbsp;<br>
+Matching&nbsp;is&nbsp;necessary&nbsp;because&nbsp;after&nbsp;combination&nbsp;of&nbsp;genes&nbsp;in&nbsp;the&nbsp;embedding<br>
+space,&nbsp;the&nbsp;result&nbsp;is&nbsp;not&nbsp;guaranteed&nbsp;to&nbsp;match&nbsp;a&nbsp;node&nbsp;existing&nbsp;in&nbsp;the<br>
+network.&nbsp;Hence,&nbsp;the&nbsp;nearest&nbsp;node&nbsp;representation&nbsp;is&nbsp;picked.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+offspring:&nbsp;np.ndarray<br>
+offspring&nbsp;must&nbsp;have&nbsp;the&nbsp;following&nbsp;form:<br>
+-&nbsp;first&nbsp;column:&nbsp;start&nbsp;time&nbsp;idxs<br>
+-&nbsp;remaining&nbsp;columns:&nbsp;elements&nbsp;in&nbsp;the&nbsp;node&nbsp;embedding&nbsp;space&nbsp;after&nbsp;crossover<br>
+&nbsp;<br>
+evecs:&nbsp;np.ndarray<br>
+eigenvectors&nbsp;in&nbsp;the&nbsp;embedding&nbsp;space<br>
+must&nbsp;have&nbsp;the&nbsp;same&nbsp;shape&nbsp;as&nbsp;remaining&nbsp;columns&nbsp;in&nbsp;offspring<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+matched_offspring:&nbsp;offspring&nbsp;matching&nbsp;actual&nbsp;nodes&nbsp;in&nbsp;the&nbsp;network<br>
+This&nbsp;must&nbsp;have&nbsp;the&nbsp;following&nbsp;structure:<br>
+-&nbsp;first&nbsp;column:&nbsp;indices&nbsp;of&nbsp;start&nbsp;times<br>
+-&nbsp;second&nbsp;column:&nbsp;indices&nbsp;of&nbsp;junction&nbsp;names<br>
+-&nbsp;remaining&nbsp;columns:&nbsp;junction&nbsp;representations&nbsp;in&nbsp;the&nbsp;embedding&nbsp;space</tt></dd></dl>
+ <dl><dt><a name="-mutation_function_factory"><strong>mutation_function_factory</strong></a>(evecs, mutation_tracker=None, mutate_junctions_directly=True)</dt><dd><tt>Create&nbsp;a&nbsp;mutation&nbsp;function&nbsp;that&nbsp;is&nbsp;compliant&nbsp;with&nbsp;node&nbsp;embeddings.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+evecs:&nbsp;np.ndarray<br>
+eigenvectors&nbsp;of&nbsp;the&nbsp;network's&nbsp;graph&nbsp;Laplacian&nbsp;used&nbsp;for&nbsp;the&nbsp;node&nbsp;embedding<br>
+&nbsp;<br>
+mutation_tracker:&nbsp;dict,&nbsp;default=None<br>
+if&nbsp;start_time&nbsp;and&nbsp;junction&nbsp;mutations&nbsp;should&nbsp;be&nbsp;tracked,&nbsp;you&nbsp;may&nbsp;pass&nbsp;a<br>
+dictionary&nbsp;with&nbsp;keys&nbsp;'start_time'&nbsp;and&nbsp;'junction_name'&nbsp;and&nbsp;initial&nbsp;values<br>
+of&nbsp;zero&nbsp;for&nbsp;both.&nbsp;Counts&nbsp;will&nbsp;be&nbsp;updated&nbsp;as&nbsp;the&nbsp;genetic&nbsp;algorithm<br>
+progresses.<br>
+&nbsp;<br>
+mutate_junctions_directly:&nbsp;bool,&nbsp;default=True<br>
+if&nbsp;true,&nbsp;junction&nbsp;ids&nbsp;are&nbsp;mutated&nbsp;directly.&nbsp;Otherwise,&nbsp;mutation&nbsp;takes<br>
+place&nbsp;in&nbsp;the&nbsp;embedding&nbsp;space&nbsp;and&nbsp;the&nbsp;resulting&nbsp;offspring&nbsp;is&nbsp;matched&nbsp;to<br>
+existing&nbsp;junctions.&nbsp;The&nbsp;first&nbsp;version&nbsp;appears&nbsp;to&nbsp;work&nbsp;better.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;mutation&nbsp;function&nbsp;according&nbsp;to&nbsp;the&nbsp;parameters.&nbsp;Random&nbsp;mutation&nbsp;is&nbsp;used.</tt></dd></dl>
+ <dl><dt><a name="-random_mutation_wrapper"><strong>random_mutation_wrapper</strong></a>(mutation_tracker)</dt><dd><tt>Return&nbsp;a&nbsp;wrapper&nbsp;of&nbsp;random&nbsp;mutation&nbsp;where&nbsp;mutations&nbsp;are&nbsp;tracked.</tt></dd></dl>
+ <dl><dt><a name="-track_mutations"><strong>track_mutations</strong></a>(mutation_tracker, old_offspring, offspring)</dt><dd><tt>Count&nbsp;number&nbsp;of&nbsp;start_time&nbsp;and&nbsp;junction&nbsp;mutations.</tt></dd></dl>
+</td></tr></table>
+</body></html>

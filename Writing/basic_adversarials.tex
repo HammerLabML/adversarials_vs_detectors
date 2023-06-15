@@ -1,0 +1,14 @@
+The concept of adversarial attacks was first described in the context of image classification in~\cite{basic_adversarials}: There exist small and imperceptible perturbations of the original image that fool the classifier to output a completely different high-certainty classification.
+The concept of an adversarial attack can be generalized (similar to~\cite{adversarial_definition}) as follows:
+\begin{definition}[Adversarial Attack]
+An adversarial attack is a procedure to create inputs to a Machine Learning
+model, that will cause the model to make a mistake.
+\end{definition}
+It is important to note that the procedure for constructing an adversarial does not necessarily operate in the input space directly. In particular, consider a ML model that uses measurements as inputs:
+These measurements reflect the state of a system monitored by the model.
+Procedures that change the system in order to create measurements that will
+cause the model to make a mistake are also considered as adversarial attacks
+here. These attacks have the advantage that they are intrinsically
+physics-constrained: When changing measurements directly, one has to make sure
+that the resulting measurements obey physical laws, as discussed in~\cite{conaml}. Making changes to the system itself will
+automatically result in measurements that reflect physical processes.

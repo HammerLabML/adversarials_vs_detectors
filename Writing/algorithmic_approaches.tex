@@ -1,0 +1,57 @@
+We propose the following algorithmic approaches to find the least
+sensitive point (Definition~\ref{def:lsp}):
+\begin{itemize}
+\item Bisection Search
+\item Basic Genetic Algorithm
+\item Genetic Algorithm with Spectral Embeddings
+\end{itemize}
+We empirically evluate all three mehods in a case study in Section~\ref{sec:case_study}.
+
+\paragraph*{Bisection Search}
+The Bisection Search is based on the fact that for the least sensitive point
+there has to exist some leak area $\alpha^*$, such that a leak of that area
+remains undetected only at the LSP, while a leak of the same area would be
+detected at every other node. Thus, one can perform a simple line search over
+the leak area in order to find $\alpha^*$. Bisection search can be costly, in
+particular when all timesteps in the simulation are viewed as potential
+starting times of the leak. However, it yields the benefit that it is
+guaranteed to find the least sensitive point in the given search space. To
+reduce the computational load, we implement a pruning of nodes and starting
+times based on intermediate results. Let $\alpha^i$ be the leak area after
+iteration $i$. If a leak of size $\alpha^i$ remained undetected for at least
+one node-time pair, we remove the following elements from the search space:
+\begin{enumerate}
+\item Every node for which a leak of size $\alpha^i$ was detected at every
+starting time
+\item Every starting time for which a leak of size $\alpha^i$ was detected at
+every node
+\end{enumerate}
+In practise, this lead to a strong reduction of the search space after the
+first iteration.
+
+\paragraph*{Genetic Algorithm}
+In the Basic Genetic Algorithm, we encode nodes and leak starting time as genes
+and optimize the following fitness function
+\begin{equation}
+\Fitness (v_n,t) = \max \alpha \quad \text{s.t.} \fdetect(\fmeasure(\alpha
+\V{e}_n, t)) = 0
+\end{equation}
+The largest undetected leak for each node-time pair is again computed via
+a line search. In order to avoid unnecessary area maximization, we use
+dynamic programming: The largest undetected leak area found so far is tested
+first for every new node-time pair. If this is detected, no area maximization
+was performed and the fitness is set to zero.
+
+\paragraph*{Genetic Algorithm with Spectral Embeddings}
+In order to take the network topology into account, we consider a second
+version of the Genetic Algorithm, using a spectral analysis of the network's
+graph Laplacian. Every node is assigned a four dimensional vector, containing
+elements of the 2nd through 5th eigenvector of the graph Laplacian for that
+node. Each vector element of the node embedding is then treated as a
+different gene by the Genetic Algorithm. After every recombination and
+mutation step, the nearest neighbour of the resulting embedding vector is
+returned as offspring.\\
+
+None of the approaches used here makes any assumptions on the type of leakage
+detector. Hence, they are all model-agnostic in terms of the taxonomy (Figure
+~\ref{fig:adversarial_taxonomy}).

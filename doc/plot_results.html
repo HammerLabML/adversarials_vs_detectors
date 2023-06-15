@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module plot_results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>plot_results</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/plot_results.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/plot_results.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-compare_results"><strong>compare_results</strong></a>(result_path, max_area_bisection, labels=None)</dt><dd><tt>Compare&nbsp;results&nbsp;of&nbsp;different&nbsp;genetic&nbsp;algorithms.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;save&nbsp;a&nbsp;figure&nbsp;to&nbsp;{result_path}/result.comparison.png<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+result_path:&nbsp;path&nbsp;(str)&nbsp;containing&nbsp;result&nbsp;folders&nbsp;in&nbsp;the&nbsp;form<br>
+{algorithm_name}/Trial-{n}&nbsp;where&nbsp;algorithm_name&nbsp;is&nbsp;one&nbsp;of&nbsp;Basic_GA,<br>
+Basic_GA&nbsp;or&nbsp;Spectral_GA&nbsp;and&nbsp;n&nbsp;is&nbsp;a&nbsp;positive&nbsp;integer<br>
+starting&nbsp;from&nbsp;1.&nbsp;The&nbsp;subdirectories&nbsp;must&nbsp;contain&nbsp;files&nbsp;as&nbsp;created&nbsp;by<br>
+wn_util.describe_performance<br>
+&nbsp;<br>
+max_area_bisection:&nbsp;float,&nbsp;area&nbsp;in&nbsp;m^2<br>
+maximum&nbsp;undetected&nbsp;leak&nbsp;area&nbsp;found&nbsp;by&nbsp;bisection&nbsp;search&nbsp;as&nbsp;a&nbsp;comparison<br>
+&nbsp;<br>
+labels:&nbsp;dict,&nbsp;labels&nbsp;of&nbsp;the&nbsp;different&nbsp;algorithms&nbsp;in&nbsp;the&nbsp;plot<br>
+default:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genetic:&nbsp;basic&nbsp;genetic<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spectral:&nbsp;genetic&nbsp;spectral</tt></dd></dl>
+ <dl><dt><a name="-get_best_areas"><strong>get_best_areas</strong></a>(path)</dt><dd><tt>Retrieve&nbsp;the&nbsp;best&nbsp;leak&nbsp;areas&nbsp;from&nbsp;multiple&nbsp;trials.<br>
+&nbsp;<br>
+Trials&nbsp;are&nbsp;supposed&nbsp;to&nbsp;be&nbsp;contained&nbsp;in&nbsp;subfolders&nbsp;of&nbsp;results_path&nbsp;in&nbsp;the<br>
+form&nbsp;Trial-&lt;n&gt;&nbsp;where&nbsp;n&nbsp;is&nbsp;a&nbsp;positive&nbsp;integer.&nbsp;See<br>
+wn_util.describe_performance&nbsp;on&nbsp;how&nbsp;to&nbsp;generate&nbsp;the&nbsp;results.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+path:&nbsp;path&nbsp;to&nbsp;the&nbsp;directory&nbsp;containing&nbsp;the&nbsp;trials<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+maximal&nbsp;leak&nbsp;areas&nbsp;in&nbsp;an&nbsp;np.ndarray.&nbsp;The&nbsp;leak&nbsp;areas&nbsp;are&nbsp;sorted&nbsp;according<br>
+to&nbsp;the&nbsp;trial&nbsp;numbers&nbsp;(Trial-1,&nbsp;Trial-2,&nbsp;...)</tt></dd></dl>
+</td></tr></table>
+</body></html>

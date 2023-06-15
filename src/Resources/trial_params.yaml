@@ -1,0 +1,5 @@
+# Trial parameters for global bisection search
+start_time_trials: 3
+trials_per_timestep: 10
+maximization_trials: 6
+global_trials: 6

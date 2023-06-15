@@ -1,0 +1,1 @@
+{"num_genes": 6, "num_generations": 50, "sol_per_pop": 20, "num_parents_mating": 5, "parent_selection_type": "sss", "keep_parents": 1, "crossover_type": "<function crossover_function_factory.<locals>.crossover_func at 0x17d88f4c0>", "mutation_type": "<function mutation_function_factory.<locals>.mutation_func at 0x17d588dc0>", "mutation_probability": 0.1}

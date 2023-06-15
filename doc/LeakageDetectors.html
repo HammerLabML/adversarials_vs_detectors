@@ -1,0 +1,753 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module LeakageDetectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>LeakageDetectors</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/LeakageDetectors.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/LeakageDetectors.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top><a href="wn_util.html">wn_util</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="LeakageDetectors.html#BetweenSensorForecaster">BetweenSensorForecaster</a>
+</font></dt><dt><font face="helvetica, arial"><a href="LeakageDetectors.html#BetweenSensorInterpolator">BetweenSensorInterpolator</a>
+</font></dt><dt><font face="helvetica, arial"><a href="LeakageDetectors.html#SingleSensorForecaster">SingleSensorForecaster</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="AbstractLeakageDetector">class <strong>AbstractLeakageDetector</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#AbstractLeakageDetector">AbstractLeakageDetector</a>(nodes_with_sensors,&nbsp;train_days,&nbsp;k,&nbsp;thresholds,&nbsp;decision_strategy,&nbsp;ensemble_weights,&nbsp;detector_type)<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;is&nbsp;not&nbsp;meant&nbsp;to&nbsp;be&nbsp;instantiated&nbsp;directly.<br>
+&nbsp;<br>
+Please&nbsp;see&nbsp;the&nbsp;documentation&nbsp;of&nbsp;its&nbsp;childrens&nbsp;constructors&nbsp;for&nbsp;help.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="AbstractLeakageDetector-__init__"><strong>__init__</strong></a>(self, nodes_with_sensors, train_days, k, thresholds, decision_strategy, ensemble_weights, detector_type)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="AbstractLeakageDetector-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="AbstractLeakageDetector-alarm_times"><strong>alarm_times</strong></a>(self, residuals, method=None)</dt><dd><tt>Generate&nbsp;an&nbsp;alarm&nbsp;based&nbsp;on&nbsp;residuals.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+residuals:&nbsp;pd.DataFrame,&nbsp;rows=timesteps,&nbsp;columns=nodes<br>
+differences&nbsp;between&nbsp;the&nbsp;detectors&nbsp;prediction&nbsp;and&nbsp;the&nbsp;actual&nbsp;pressure<br>
+values&nbsp;at&nbsp;self.<strong>nodes_with_sensors</strong><br>
+&nbsp;<br>
+method:&nbsp;str,&nbsp;method&nbsp;to&nbsp;raise&nbsp;the&nbsp;alarm,<br>
+default=self.<strong>decision_strategy</strong><br>
+current&nbsp;options&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;compliant_with_each:&nbsp;the&nbsp;residuals&nbsp;at&nbsp;a&nbsp;given&nbsp;timestep&nbsp;must&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compliant&nbsp;with&nbsp;(i.e.&nbsp;smaller&nbsp;than)&nbsp;EVERY&nbsp;sensor&nbsp;threshold.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;residuals&nbsp;exceed&nbsp;the&nbsp;threshold&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor,&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alarm&nbsp;is&nbsp;raised<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;ensemble:&nbsp;the&nbsp;residuals&nbsp;for&nbsp;each&nbsp;node&nbsp;are&nbsp;weighted&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>ensemble_weights</strong>[node].&nbsp;These&nbsp;weighted&nbsp;residuals&nbsp;are&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summed&nbsp;up&nbsp;and&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;is&nbsp;greater&nbsp;than&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hyperparameter&nbsp;validation&nbsp;should&nbsp;be&nbsp;performed&nbsp;for&nbsp;the&nbsp;ensemble<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights.&nbsp;Note:&nbsp;self.<strong>thresholds</strong>&nbsp;are&nbsp;not&nbsp;taken&nbsp;into&nbsp;account&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;method.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="AbstractLeakageDetector-set_overlap_pressures"><strong>set_overlap_pressures</strong></a>(self, pressures, overlap_steps)</dt><dd><tt>Store&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;uses&nbsp;previous&nbsp;timesteps&nbsp;and&nbsp;wants&nbsp;to&nbsp;predict<br>
+some&nbsp;values&nbsp;immediately&nbsp;after&nbsp;the&nbsp;training&nbsp;period.&nbsp;The&nbsp;last&nbsp;few<br>
+pressure&nbsp;values&nbsp;from&nbsp;the&nbsp;training&nbsp;set&nbsp;can&nbsp;then&nbsp;later&nbsp;be&nbsp;re-used&nbsp;for<br>
+the&nbsp;prediction&nbsp;of&nbsp;the&nbsp;first&nbsp;few&nbsp;test&nbsp;values.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+training&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+overlap_steps:&nbsp;int<br>
+how&nbsp;many&nbsp;of&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;should&nbsp;be&nbsp;saved<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;self.<strong>overlap_pressures</strong></tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>ensemble_weights</strong></dt>
+</dl>
+<dl><dt><strong>thresholds</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BetweenSensorForecaster">class <strong>BetweenSensorForecaster</strong></a>(<a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BetweenSensorForecaster">BetweenSensorForecaster</a>(nodes_with_sensors,&nbsp;train_days,&nbsp;k,&nbsp;thresholds,&nbsp;decision_strategy='compliant_with_each',&nbsp;ensemble_weights=None)<br>
+&nbsp;<br>
+Like&nbsp;the&nbsp;<a href="#BetweenSensorInterpolator">BetweenSensorInterpolator</a>,&nbsp;but&nbsp;using&nbsp;the&nbsp;previous&nbsp;timestep(s)<br>
+for&nbsp;the&nbsp;prediction.&nbsp;How&nbsp;many&nbsp;timeteps&nbsp;are&nbsp;used&nbsp;is&nbsp;given&nbsp;by&nbsp;the<br>
+hyperparameter&nbsp;k.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="LeakageDetectors.html#BetweenSensorForecaster">BetweenSensorForecaster</a></dd>
+<dd><a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="BetweenSensorForecaster-__init__"><strong>__init__</strong></a>(self, nodes_with_sensors, train_days, k, thresholds, decision_strategy='compliant_with_each', ensemble_weights=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-compute_residuals"><strong>compute_residuals</strong></a>(self, pressures)</dt><dd><tt>Compare&nbsp;pressure&nbsp;predictions&nbsp;to&nbsp;observed&nbsp;values.<br>
+&nbsp;<br>
+Note:&nbsp;self.<strong>scalers</strong>&nbsp;and&nbsp;self.<strong>models</strong>&nbsp;must&nbsp;be&nbsp;filled&nbsp;by&nbsp;self.<strong>train</strong>&nbsp;before<br>
+this&nbsp;method&nbsp;can&nbsp;be&nbsp;used.<br>
+&nbsp;<br>
+For&nbsp;each&nbsp;node&nbsp;name&nbsp;in&nbsp;self.<strong>nodes_with_sensors</strong>&nbsp;self.<strong>models</strong>[node_name]<br>
+is&nbsp;used&nbsp;to&nbsp;predict&nbsp;its&nbsp;pressure&nbsp;values&nbsp;after&nbsp;the&nbsp;predictors<br>
+(pressure&nbsp;values&nbsp;from&nbsp;other&nbsp;nodes&nbsp;and&nbsp;previous&nbsp;timestep(s))&nbsp;have<br>
+been&nbsp;scaled&nbsp;with&nbsp;self.<strong>scalers</strong>[node_name].&nbsp;The&nbsp;positive&nbsp;difference<br>
+between&nbsp;these&nbsp;predicted&nbsp;pressure&nbsp;values&nbsp;and&nbsp;observed&nbsp;pressures&nbsp;is<br>
+returned.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+a&nbsp;pandas.DataFrame&nbsp;with&nbsp;residuals<br>
+index:&nbsp;seconds&nbsp;since&nbsp;simulation&nbsp;start<br>
+columns:&nbsp;self.<strong>nodes_with_sensors</strong></tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-detect"><strong>detect</strong></a>(self, pressures)</dt><dd><tt>Detect&nbsp;leaks&nbsp;by&nbsp;applying&nbsp;self.<strong>alarm_times</strong>&nbsp;to&nbsp;pressure&nbsp;residuals.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-k_step_averages"><strong>k_step_averages</strong></a>(self, X)</dt><dd><tt>Average&nbsp;self.<strong>k</strong>&nbsp;successive&nbsp;rows&nbsp;of&nbsp;a&nbsp;matrix&nbsp;together.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-train"><strong>train</strong></a>(self, pressures)</dt><dd><tt>Learn&nbsp;a&nbsp;linear&nbsp;forecasting&nbsp;between&nbsp;self.<strong>nodes_with_sensors</strong>.<br>
+&nbsp;<br>
+For&nbsp;M&nbsp;different&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;create&nbsp;M&nbsp;linear&nbsp;models,&nbsp;each&nbsp;of&nbsp;which<br>
+tries&nbsp;to&nbsp;predict&nbsp;the&nbsp;pressure&nbsp;value&nbsp;of&nbsp;one&nbsp;node&nbsp;based&nbsp;on&nbsp;the&nbsp;pressure<br>
+values&nbsp;of&nbsp;the&nbsp;other&nbsp;nodes&nbsp;and&nbsp;from&nbsp;the&nbsp;previous&nbsp;timestep&nbsp;and<br>
+potentially&nbsp;further&nbsp;timesteps.&nbsp;The&nbsp;hyperparameter&nbsp;self.<strong>k</strong>&nbsp;determines<br>
+how&nbsp;many&nbsp;timesteps&nbsp;are&nbsp;used.&nbsp;If&nbsp;k&gt;1,&nbsp;pressure&nbsp;values&nbsp;from&nbsp;earlier<br>
+timesteps&nbsp;are&nbsp;averaged&nbsp;with&nbsp;pressure&nbsp;values&nbsp;from&nbsp;the&nbsp;previous<br>
+timestep.&nbsp;After&nbsp;the&nbsp;averaging&nbsp;(if&nbsp;any)&nbsp;the&nbsp;predictors&nbsp;are&nbsp;normalized<br>
+with&nbsp;a&nbsp;separate&nbsp;StandardScaler&nbsp;for&nbsp;each&nbsp;model.&nbsp;The&nbsp;scalers&nbsp;are<br>
+stored&nbsp;in&nbsp;self.<strong>scalers</strong>&nbsp;and&nbsp;the&nbsp;models&nbsp;are&nbsp;stored&nbsp;in&nbsp;self.<strong>models</strong>.<br>
+Note&nbsp;that&nbsp;self.<strong>scaler</strong>[my_node_name]&nbsp;yields&nbsp;a&nbsp;scaler&nbsp;that&nbsp;was&nbsp;used&nbsp;to<br>
+scale&nbsp;pressure&nbsp;values&nbsp;of&nbsp;all&nbsp;nodes&nbsp;EXCEPT&nbsp;my_node.&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;self.<strong>models</strong>&nbsp;and&nbsp;self.<strong>scalers</strong>,&nbsp;but&nbsp;it&nbsp;has&nbsp;no&nbsp;return<br>
+value.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><a name="BetweenSensorForecaster-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-alarm_times"><strong>alarm_times</strong></a>(self, residuals, method=None)</dt><dd><tt>Generate&nbsp;an&nbsp;alarm&nbsp;based&nbsp;on&nbsp;residuals.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+residuals:&nbsp;pd.DataFrame,&nbsp;rows=timesteps,&nbsp;columns=nodes<br>
+differences&nbsp;between&nbsp;the&nbsp;detectors&nbsp;prediction&nbsp;and&nbsp;the&nbsp;actual&nbsp;pressure<br>
+values&nbsp;at&nbsp;self.<strong>nodes_with_sensors</strong><br>
+&nbsp;<br>
+method:&nbsp;str,&nbsp;method&nbsp;to&nbsp;raise&nbsp;the&nbsp;alarm,<br>
+default=self.<strong>decision_strategy</strong><br>
+current&nbsp;options&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;compliant_with_each:&nbsp;the&nbsp;residuals&nbsp;at&nbsp;a&nbsp;given&nbsp;timestep&nbsp;must&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compliant&nbsp;with&nbsp;(i.e.&nbsp;smaller&nbsp;than)&nbsp;EVERY&nbsp;sensor&nbsp;threshold.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;residuals&nbsp;exceed&nbsp;the&nbsp;threshold&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor,&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alarm&nbsp;is&nbsp;raised<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;ensemble:&nbsp;the&nbsp;residuals&nbsp;for&nbsp;each&nbsp;node&nbsp;are&nbsp;weighted&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>ensemble_weights</strong>[node].&nbsp;These&nbsp;weighted&nbsp;residuals&nbsp;are&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summed&nbsp;up&nbsp;and&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;is&nbsp;greater&nbsp;than&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hyperparameter&nbsp;validation&nbsp;should&nbsp;be&nbsp;performed&nbsp;for&nbsp;the&nbsp;ensemble<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights.&nbsp;Note:&nbsp;self.<strong>thresholds</strong>&nbsp;are&nbsp;not&nbsp;taken&nbsp;into&nbsp;account&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;method.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorForecaster-set_overlap_pressures"><strong>set_overlap_pressures</strong></a>(self, pressures, overlap_steps)</dt><dd><tt>Store&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;uses&nbsp;previous&nbsp;timesteps&nbsp;and&nbsp;wants&nbsp;to&nbsp;predict<br>
+some&nbsp;values&nbsp;immediately&nbsp;after&nbsp;the&nbsp;training&nbsp;period.&nbsp;The&nbsp;last&nbsp;few<br>
+pressure&nbsp;values&nbsp;from&nbsp;the&nbsp;training&nbsp;set&nbsp;can&nbsp;then&nbsp;later&nbsp;be&nbsp;re-used&nbsp;for<br>
+the&nbsp;prediction&nbsp;of&nbsp;the&nbsp;first&nbsp;few&nbsp;test&nbsp;values.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+training&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+overlap_steps:&nbsp;int<br>
+how&nbsp;many&nbsp;of&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;should&nbsp;be&nbsp;saved<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;self.<strong>overlap_pressures</strong></tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>ensemble_weights</strong></dt>
+</dl>
+<dl><dt><strong>thresholds</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BetweenSensorInterpolator">class <strong>BetweenSensorInterpolator</strong></a>(<a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BetweenSensorInterpolator">BetweenSensorInterpolator</a>(nodes_with_sensors,&nbsp;train_days,&nbsp;k,&nbsp;thresholds,&nbsp;decision_strategy='compliant_with_each',&nbsp;ensemble_weights=None)<br>
+&nbsp;<br>
+Linear&nbsp;interpolator&nbsp;of&nbsp;pressure&nbsp;values&nbsp;between&nbsp;observed&nbsp;nodes<br>
+&nbsp;<br>
+For&nbsp;each&nbsp;of&nbsp;the&nbsp;given&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;build&nbsp;a&nbsp;model&nbsp;to&nbsp;predict&nbsp;the<br>
+pressure&nbsp;values&nbsp;at&nbsp;that&nbsp;node&nbsp;based&nbsp;on&nbsp;the&nbsp;pressure&nbsp;values&nbsp;of&nbsp;all&nbsp;the&nbsp;other<br>
+nodes.&nbsp;Hence,&nbsp;for&nbsp;M&nbsp;nodes,&nbsp;M&nbsp;different&nbsp;models&nbsp;will&nbsp;be&nbsp;trained.&nbsp;Each&nbsp;of&nbsp;the<br>
+models&nbsp;receives&nbsp;an&nbsp;M-1&nbsp;dimensional&nbsp;input&nbsp;vector&nbsp;and&nbsp;outputs&nbsp;a&nbsp;single<br>
+scalar&nbsp;value&nbsp;at&nbsp;each&nbsp;timestep.<br>
+&nbsp;<br>
+Important:&nbsp;As&nbsp;opposed&nbsp;to&nbsp;the&nbsp;<a href="#SingleSensorForecaster">SingleSensorForecaster</a>,&nbsp;this&nbsp;detector&nbsp;does<br>
+not&nbsp;predict&nbsp;values&nbsp;that&nbsp;may&nbsp;occur&nbsp;in&nbsp;the&nbsp;future.&nbsp;Rather,&nbsp;it&nbsp;tries&nbsp;to<br>
+interpolate&nbsp;values&nbsp;that&nbsp;occured&nbsp;at&nbsp;other&nbsp;nodes,&nbsp;but&nbsp;within&nbsp;the&nbsp;same<br>
+timestep.<br>
+&nbsp;<br>
+One&nbsp;may&nbsp;specify&nbsp;a&nbsp;window&nbsp;size&nbsp;k&nbsp;to&nbsp;average&nbsp;the&nbsp;input&nbsp;pressure&nbsp;values&nbsp;to<br>
+the&nbsp;model&nbsp;with&nbsp;the&nbsp;pressure&nbsp;values&nbsp;of&nbsp;the&nbsp;k-1&nbsp;previous&nbsp;timesteps.&nbsp;See<br>
+"Adversarial&nbsp;Attacks&nbsp;and&nbsp;Robustness&nbsp;in&nbsp;Water&nbsp;Distribution&nbsp;Systems"&nbsp;for&nbsp;a<br>
+formal&nbsp;description.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+nodes_with_sensors:&nbsp;list&nbsp;of&nbsp;str,&nbsp;junction&nbsp;names<br>
+observed&nbsp;nodes&nbsp;used&nbsp;to&nbsp;construct&nbsp;the&nbsp;linear&nbsp;models<br>
+&nbsp;<br>
+train_days:&nbsp;int<br>
+this&nbsp;is&nbsp;used&nbsp;in&nbsp;self.<strong>train_and_detect</strong>&nbsp;to&nbsp;determine&nbsp;how&nbsp;many&nbsp;of&nbsp;the&nbsp;rows&nbsp;of<br>
+a&nbsp;given&nbsp;pressure&nbsp;matrix&nbsp;should&nbsp;be&nbsp;used&nbsp;for&nbsp;training&nbsp;the&nbsp;models.&nbsp;The&nbsp;actual<br>
+leakage&nbsp;detection&nbsp;will&nbsp;be&nbsp;performed&nbsp;on&nbsp;the&nbsp;remaining&nbsp;part.<br>
+For&nbsp;example,&nbsp;for&nbsp;a&nbsp;water&nbsp;network&nbsp;with&nbsp;pressure&nbsp;measurements<br>
+every&nbsp;30&nbsp;minutes,&nbsp;train_days=2&nbsp;would&nbsp;mean&nbsp;that&nbsp;the&nbsp;first&nbsp;48*2=96&nbsp;rows&nbsp;of<br>
+the&nbsp;pressure&nbsp;matrix&nbsp;are&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+k:&nbsp;int,&nbsp;number&nbsp;of&nbsp;timesteps&nbsp;to&nbsp;average&nbsp;for&nbsp;the&nbsp;classificaiton&nbsp;input<br>
+use&nbsp;1&nbsp;to&nbsp;take&nbsp;only&nbsp;the&nbsp;current&nbsp;timestep&nbsp;into&nbsp;account<br>
+&nbsp;<br>
+thresholds:&nbsp;dict,&nbsp;iterable&nbsp;or&nbsp;numeric,&nbsp;must&nbsp;be&nbsp;positive<br>
+the&nbsp;thresholds&nbsp;for&nbsp;the&nbsp;generation&nbsp;of&nbsp;alarms.&nbsp;If&nbsp;a&nbsp;dict&nbsp;is&nbsp;specified,&nbsp;the<br>
+keys&nbsp;must&nbsp;be&nbsp;equal&nbsp;to&nbsp;nodes_with_sensors.&nbsp;Other&nbsp;iterable&nbsp;objects&nbsp;are<br>
+zipped&nbsp;with&nbsp;nodes_with_sensors&nbsp;for&nbsp;a&nbsp;matching.&nbsp;A&nbsp;single&nbsp;atomic&nbsp;threshold<br>
+will&nbsp;be&nbsp;assigned&nbsp;to&nbsp;all&nbsp;sensors.<br>
+The&nbsp;unit&nbsp;of&nbsp;this&nbsp;is&nbsp;meter.&nbsp;(pressure&nbsp;=&nbsp;meter&nbsp;*&nbsp;gravity&nbsp;*&nbsp;waterdensity)<br>
+&nbsp;<br>
+decision_strategy:&nbsp;str,&nbsp;one&nbsp;of&nbsp;'compliant_with_each'&nbsp;or&nbsp;'ensemble'<br>
+default:&nbsp;'compliant_with_each'<br>
+This&nbsp;determines&nbsp;under&nbsp;which&nbsp;conditions&nbsp;an&nbsp;alarm&nbsp;should&nbsp;be&nbsp;raised&nbsp;based&nbsp;on<br>
+the&nbsp;residuals&nbsp;(differences&nbsp;between&nbsp;actual&nbsp;and&nbsp;measured&nbsp;pressure&nbsp;values)<br>
+and&nbsp;the&nbsp;thresholds.&nbsp;See&nbsp;the&nbsp;'method'&nbsp;parameter&nbsp;in&nbsp;the&nbsp;documentation&nbsp;of<br>
+self.<strong>alarm_times</strong>&nbsp;for&nbsp;the&nbsp;effect&nbsp;of&nbsp;the&nbsp;decision&nbsp;strategy.&nbsp;In&nbsp;the&nbsp;default<br>
+case,&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;residual&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor&nbsp;exceeds<br>
+the&nbsp;sensor&nbsp;threshold.<br>
+&nbsp;<br>
+ensemble_weights:&nbsp;dict,&nbsp;default=None,<br>
+required&nbsp;only&nbsp;if&nbsp;decision_strategy='ensemble'<br>
+weights&nbsp;for&nbsp;the&nbsp;residuals&nbsp;of&nbsp;each&nbsp;node&nbsp;to&nbsp;reflect&nbsp;their&nbsp;importance&nbsp;in&nbsp;the<br>
+alarm&nbsp;decision.&nbsp;If&nbsp;decision_strategy=='ensemble',&nbsp;the&nbsp;residual&nbsp;matrix&nbsp;for<br>
+each&nbsp;timestep&nbsp;is&nbsp;weighted&nbsp;with&nbsp;ensemble_weights&nbsp;and&nbsp;summed&nbsp;across&nbsp;the<br>
+nodes.&nbsp;An&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;exceeds&nbsp;1.<br>
+Note:&nbsp;thresholds&nbsp;are&nbsp;ignored&nbsp;in&nbsp;this&nbsp;case.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="LeakageDetectors.html#BetweenSensorInterpolator">BetweenSensorInterpolator</a></dd>
+<dd><a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="BetweenSensorInterpolator-__init__"><strong>__init__</strong></a>(self, nodes_with_sensors, train_days, k, thresholds, decision_strategy='compliant_with_each', ensemble_weights=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-compute_residuals"><strong>compute_residuals</strong></a>(self, pressures, use_overlap=False)</dt><dd><tt>Compare&nbsp;pressure&nbsp;predictions&nbsp;to&nbsp;observed&nbsp;values.<br>
+&nbsp;<br>
+Note:&nbsp;self.<strong>scalers</strong>&nbsp;and&nbsp;self.<strong>models</strong>&nbsp;must&nbsp;be&nbsp;filled&nbsp;by&nbsp;self.<strong>train</strong>&nbsp;before<br>
+this&nbsp;method&nbsp;can&nbsp;be&nbsp;used.<br>
+&nbsp;<br>
+For&nbsp;each&nbsp;node&nbsp;name&nbsp;in&nbsp;self.<strong>nodes_with_sensors</strong>&nbsp;self.<strong>models</strong>[node_name]<br>
+is&nbsp;used&nbsp;to&nbsp;predict&nbsp;its&nbsp;pressure&nbsp;values&nbsp;after&nbsp;the&nbsp;predictors&nbsp;(pressure<br>
+values&nbsp;from&nbsp;other&nbsp;nodes)&nbsp;have&nbsp;been&nbsp;scaled&nbsp;with<br>
+self.<strong>scalers</strong>[node_name].&nbsp;The&nbsp;positive&nbsp;difference&nbsp;between&nbsp;these<br>
+predicted&nbsp;pressure&nbsp;values&nbsp;and&nbsp;observed&nbsp;pressures&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+use_overlap:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+if&nbsp;True&nbsp;and&nbsp;if&nbsp;set_overlap&nbsp;has&nbsp;been&nbsp;set&nbsp;to&nbsp;True&nbsp;in&nbsp;self.<strong>train</strong>,<br>
+self.<strong>overlap</strong>&nbsp;pressures&nbsp;are&nbsp;prepended&nbsp;to&nbsp;pressures&nbsp;before&nbsp;starting&nbsp;the<br>
+leakage&nbsp;detection.&nbsp;The&nbsp;index&nbsp;values&nbsp;of&nbsp;pressures&nbsp;remain&nbsp;in&nbsp;tact.<br>
+self.<strong>overlap</strong>&nbsp;pressures&nbsp;will&nbsp;get&nbsp;matching&nbsp;negative&nbsp;timesteps&nbsp;as<br>
+indices.&nbsp;use_overlap=True&nbsp;has&nbsp;the&nbsp;advantage&nbsp;that&nbsp;the&nbsp;last&nbsp;elements&nbsp;of<br>
+the&nbsp;training&nbsp;set&nbsp;can&nbsp;already&nbsp;be&nbsp;used&nbsp;for&nbsp;averaging&nbsp;during&nbsp;the&nbsp;first<br>
+couple&nbsp;of&nbsp;timesteps.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+a&nbsp;pandas.DataFrame&nbsp;with&nbsp;residuals<br>
+index:&nbsp;seconds&nbsp;since&nbsp;simulation&nbsp;start<br>
+columns:&nbsp;self.<strong>nodes_with_sensors</strong></tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-detect"><strong>detect</strong></a>(self, pressures, **kwargs)</dt><dd><tt>Detect&nbsp;leaks&nbsp;by&nbsp;applying&nbsp;self.<strong>alarm_times</strong>&nbsp;to&nbsp;pressure&nbsp;residuals.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-k_step_averages"><strong>k_step_averages</strong></a>(self, X)</dt><dd><tt>Average&nbsp;self.<strong>k</strong>&nbsp;successive&nbsp;rows&nbsp;of&nbsp;a&nbsp;matrix&nbsp;together.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-train"><strong>train</strong></a>(self, pressures, set_overlap=False)</dt><dd><tt>Learn&nbsp;a&nbsp;linear&nbsp;interpolation&nbsp;between&nbsp;self.<strong>nodes_with_sensors</strong>.<br>
+&nbsp;<br>
+For&nbsp;M&nbsp;different&nbsp;nodes,&nbsp;this&nbsp;will&nbsp;create&nbsp;M&nbsp;linear&nbsp;models,&nbsp;each&nbsp;of&nbsp;which<br>
+tries&nbsp;to&nbsp;predict&nbsp;the&nbsp;pressure&nbsp;value&nbsp;of&nbsp;one&nbsp;node&nbsp;based&nbsp;on&nbsp;the&nbsp;pressure<br>
+values&nbsp;of&nbsp;the&nbsp;other&nbsp;nodes.&nbsp;Predictor&nbsp;and&nbsp;prediction&nbsp;generally&nbsp;belong<br>
+to&nbsp;the&nbsp;same&nbsp;timestep,&nbsp;unless&nbsp;the&nbsp;predictors&nbsp;were&nbsp;averaged&nbsp;with<br>
+previous&nbsp;timesteps&nbsp;(see&nbsp;self.<strong>k</strong>).&nbsp;After&nbsp;the&nbsp;averaging&nbsp;(if&nbsp;any)&nbsp;the<br>
+predictors&nbsp;are&nbsp;normalized&nbsp;with&nbsp;a&nbsp;separate&nbsp;StandardScaler&nbsp;for&nbsp;each<br>
+model.&nbsp;The&nbsp;scalers&nbsp;are&nbsp;stored&nbsp;in&nbsp;self.<strong>scalers</strong>&nbsp;and&nbsp;the&nbsp;models&nbsp;are<br>
+stored&nbsp;in&nbsp;self.<strong>models</strong>.&nbsp;Note&nbsp;that&nbsp;self.<strong>scaler</strong>[my_node_name]&nbsp;yields&nbsp;a<br>
+scaler&nbsp;that&nbsp;was&nbsp;used&nbsp;to&nbsp;scale&nbsp;pressure&nbsp;values&nbsp;of&nbsp;all&nbsp;nodes&nbsp;except<br>
+my_node.&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+set_overlap:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+if&nbsp;True&nbsp;and&nbsp;if&nbsp;self.<strong>k</strong>&nbsp;&gt;&nbsp;1,&nbsp;this&nbsp;will&nbsp;cause&nbsp;the&nbsp;last&nbsp;self.<strong>k</strong>-1&nbsp;rows&nbsp;of<br>
+pressures&nbsp;to&nbsp;be&nbsp;stored&nbsp;in&nbsp;self.<strong>overlap_pressures</strong>.&nbsp;These&nbsp;can&nbsp;later&nbsp;be<br>
+utilized&nbsp;by&nbsp;setting&nbsp;use_overlap=True&nbsp;in&nbsp;self.<strong>detect</strong>.&nbsp;This&nbsp;has&nbsp;the<br>
+advantage&nbsp;that&nbsp;a&nbsp;leak&nbsp;starting&nbsp;at&nbsp;the&nbsp;very&nbsp;first&nbsp;timestep&nbsp;after<br>
+training&nbsp;can&nbsp;already&nbsp;be&nbsp;found,&nbsp;even&nbsp;when&nbsp;avering&nbsp;over&nbsp;previous<br>
+timesteps.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;self.<strong>models</strong>&nbsp;and&nbsp;self.<strong>scalers</strong>,&nbsp;but&nbsp;it&nbsp;has&nbsp;no&nbsp;return<br>
+value.</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-train_and_detect"><strong>train_and_detect</strong></a>(self, pressures)</dt><dd><tt>Train&nbsp;linear&nbsp;interpolation&nbsp;models&nbsp;and&nbsp;use&nbsp;them&nbsp;for&nbsp;leakage&nbsp;detection.<br>
+&nbsp;<br>
+self.<strong>train_days</strong>&nbsp;determines&nbsp;how&nbsp;many&nbsp;rows&nbsp;of&nbsp;the&nbsp;pressure<br>
+matrix&nbsp;are&nbsp;used&nbsp;to&nbsp;train&nbsp;the&nbsp;models.&nbsp;Leakage&nbsp;detection&nbsp;is&nbsp;performed&nbsp;on<br>
+the&nbsp;remaining&nbsp;part.<br>
+&nbsp;<br>
+Note:&nbsp;If&nbsp;self.<strong>k</strong>&nbsp;&gt;&nbsp;1,&nbsp;there&nbsp;is&nbsp;an&nbsp;overlap&nbsp;between&nbsp;training&nbsp;and&nbsp;test&nbsp;set<br>
+because&nbsp;the&nbsp;models&nbsp;always&nbsp;require&nbsp;the&nbsp;k-1&nbsp;previous&nbsp;timesteps&nbsp;for<br>
+averaging.&nbsp;Hence,&nbsp;the&nbsp;last&nbsp;k-1&nbsp;rows&nbsp;of&nbsp;the&nbsp;training&nbsp;set&nbsp;will&nbsp;also&nbsp;be<br>
+included&nbsp;in&nbsp;the&nbsp;test&nbsp;set&nbsp;to&nbsp;detect&nbsp;leaks&nbsp;starting&nbsp;at&nbsp;the&nbsp;very<br>
+beginning&nbsp;of&nbsp;the&nbsp;test&nbsp;set.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="BetweenSensorInterpolator-ensemble_example"><strong>ensemble_example</strong></a>()<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;an&nbsp;example&nbsp;Between&nbsp;Sensor&nbsp;Interpolator&nbsp;with&nbsp;ensemble<br>
+decision&nbsp;strategy&nbsp;(Hanoi).</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-example"><strong>example</strong></a>()<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;an&nbsp;example&nbsp;Between&nbsp;Sensor&nbsp;Interpolator&nbsp;(Hanoi)</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><a name="BetweenSensorInterpolator-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-alarm_times"><strong>alarm_times</strong></a>(self, residuals, method=None)</dt><dd><tt>Generate&nbsp;an&nbsp;alarm&nbsp;based&nbsp;on&nbsp;residuals.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+residuals:&nbsp;pd.DataFrame,&nbsp;rows=timesteps,&nbsp;columns=nodes<br>
+differences&nbsp;between&nbsp;the&nbsp;detectors&nbsp;prediction&nbsp;and&nbsp;the&nbsp;actual&nbsp;pressure<br>
+values&nbsp;at&nbsp;self.<strong>nodes_with_sensors</strong><br>
+&nbsp;<br>
+method:&nbsp;str,&nbsp;method&nbsp;to&nbsp;raise&nbsp;the&nbsp;alarm,<br>
+default=self.<strong>decision_strategy</strong><br>
+current&nbsp;options&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;compliant_with_each:&nbsp;the&nbsp;residuals&nbsp;at&nbsp;a&nbsp;given&nbsp;timestep&nbsp;must&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compliant&nbsp;with&nbsp;(i.e.&nbsp;smaller&nbsp;than)&nbsp;EVERY&nbsp;sensor&nbsp;threshold.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;residuals&nbsp;exceed&nbsp;the&nbsp;threshold&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor,&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alarm&nbsp;is&nbsp;raised<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;ensemble:&nbsp;the&nbsp;residuals&nbsp;for&nbsp;each&nbsp;node&nbsp;are&nbsp;weighted&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>ensemble_weights</strong>[node].&nbsp;These&nbsp;weighted&nbsp;residuals&nbsp;are&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summed&nbsp;up&nbsp;and&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;is&nbsp;greater&nbsp;than&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hyperparameter&nbsp;validation&nbsp;should&nbsp;be&nbsp;performed&nbsp;for&nbsp;the&nbsp;ensemble<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights.&nbsp;Note:&nbsp;self.<strong>thresholds</strong>&nbsp;are&nbsp;not&nbsp;taken&nbsp;into&nbsp;account&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;method.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="BetweenSensorInterpolator-set_overlap_pressures"><strong>set_overlap_pressures</strong></a>(self, pressures, overlap_steps)</dt><dd><tt>Store&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;uses&nbsp;previous&nbsp;timesteps&nbsp;and&nbsp;wants&nbsp;to&nbsp;predict<br>
+some&nbsp;values&nbsp;immediately&nbsp;after&nbsp;the&nbsp;training&nbsp;period.&nbsp;The&nbsp;last&nbsp;few<br>
+pressure&nbsp;values&nbsp;from&nbsp;the&nbsp;training&nbsp;set&nbsp;can&nbsp;then&nbsp;later&nbsp;be&nbsp;re-used&nbsp;for<br>
+the&nbsp;prediction&nbsp;of&nbsp;the&nbsp;first&nbsp;few&nbsp;test&nbsp;values.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+training&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+overlap_steps:&nbsp;int<br>
+how&nbsp;many&nbsp;of&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;should&nbsp;be&nbsp;saved<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;self.<strong>overlap_pressures</strong></tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>ensemble_weights</strong></dt>
+</dl>
+<dl><dt><strong>thresholds</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SingleSensorForecaster">class <strong>SingleSensorForecaster</strong></a>(<a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#SingleSensorForecaster">SingleSensorForecaster</a>(nodes_with_sensors,&nbsp;train_days,&nbsp;k,&nbsp;thresholds,&nbsp;decision_strategy='compliant_with_each',&nbsp;ensemble_weights=None)<br>
+&nbsp;<br>
+Linear&nbsp;Forecaster&nbsp;for&nbsp;pressure&nbsp;values&nbsp;based&nbsp;on&nbsp;a&nbsp;fixed&nbsp;number&nbsp;of&nbsp;timesteps<br>
+&nbsp;<br>
+For&nbsp;M&nbsp;different&nbsp;nodes&nbsp;and&nbsp;a&nbsp;fixed&nbsp;number&nbsp;of&nbsp;timesteps&nbsp;k,&nbsp;this&nbsp;detecter<br>
+uses&nbsp;M&nbsp;linear&nbsp;models&nbsp;which&nbsp;each&nbsp;use&nbsp;the&nbsp;last&nbsp;k&nbsp;timesteps&nbsp;for&nbsp;their<br>
+corresponding&nbsp;node&nbsp;in&nbsp;order&nbsp;to&nbsp;predict&nbsp;the&nbsp;next&nbsp;timestep.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+nodes_with_sensors:&nbsp;list&nbsp;of&nbsp;str<br>
+the&nbsp;names&nbsp;of&nbsp;junctions&nbsp;in&nbsp;a&nbsp;wntr.network.WaterNetworkModel&nbsp;that&nbsp;should&nbsp;be<br>
+equipped&nbsp;with&nbsp;virtual&nbsp;pressure&nbsp;sensors.<br>
+&nbsp;<br>
+train_days:&nbsp;int<br>
+this&nbsp;is&nbsp;used&nbsp;in&nbsp;self.<strong>train_and_detect</strong>&nbsp;to&nbsp;determine&nbsp;how&nbsp;many&nbsp;of&nbsp;the&nbsp;rows&nbsp;of<br>
+a&nbsp;given&nbsp;pressure&nbsp;matrix&nbsp;should&nbsp;be&nbsp;used&nbsp;for&nbsp;training&nbsp;the&nbsp;models.&nbsp;The&nbsp;actual<br>
+leakage&nbsp;detection&nbsp;will&nbsp;be&nbsp;performed&nbsp;on&nbsp;the&nbsp;remaining&nbsp;part.<br>
+For&nbsp;example,&nbsp;for&nbsp;a&nbsp;water&nbsp;network&nbsp;with&nbsp;pressure&nbsp;measurements<br>
+every&nbsp;30&nbsp;minutes,&nbsp;train_days=2&nbsp;would&nbsp;mean&nbsp;that&nbsp;the&nbsp;first&nbsp;48*2=96&nbsp;rows&nbsp;of<br>
+the&nbsp;pressure&nbsp;matrix&nbsp;are&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+k:&nbsp;int<br>
+number&nbsp;of&nbsp;timesteps&nbsp;to&nbsp;use&nbsp;for&nbsp;pressure&nbsp;detecting<br>
+&nbsp;<br>
+thresholds:&nbsp;dict,&nbsp;iterable&nbsp;or&nbsp;numeric,&nbsp;must&nbsp;be&nbsp;positive<br>
+the&nbsp;thresholds&nbsp;for&nbsp;the&nbsp;generation&nbsp;of&nbsp;alarms.&nbsp;If&nbsp;a&nbsp;dict&nbsp;is&nbsp;specified,&nbsp;the<br>
+keys&nbsp;must&nbsp;be&nbsp;equal&nbsp;to&nbsp;nodes_with_sensors.&nbsp;Other&nbsp;iterable&nbsp;objects&nbsp;are<br>
+zipped&nbsp;with&nbsp;nodes_with_sensors&nbsp;for&nbsp;a&nbsp;matching.&nbsp;A&nbsp;single&nbsp;atomic&nbsp;threshold<br>
+will&nbsp;be&nbsp;assigned&nbsp;to&nbsp;all&nbsp;sensors.<br>
+The&nbsp;unit&nbsp;of&nbsp;this&nbsp;is&nbsp;meter.&nbsp;(pressure&nbsp;=&nbsp;meter&nbsp;*&nbsp;gravity&nbsp;*&nbsp;waterdensity)<br>
+&nbsp;<br>
+decision_strategy:&nbsp;str,&nbsp;one&nbsp;of&nbsp;'compliant_with_each'&nbsp;or&nbsp;'ensemble'<br>
+default:&nbsp;'compliant_with_each'<br>
+This&nbsp;determines&nbsp;under&nbsp;which&nbsp;conditions&nbsp;an&nbsp;alarm&nbsp;should&nbsp;be&nbsp;raised&nbsp;based&nbsp;on<br>
+the&nbsp;residuals&nbsp;(differences&nbsp;between&nbsp;actual&nbsp;and&nbsp;measured&nbsp;pressure&nbsp;values)<br>
+and&nbsp;the&nbsp;thresholds.&nbsp;See&nbsp;the&nbsp;'method'&nbsp;parameter&nbsp;in&nbsp;the&nbsp;documentation&nbsp;of<br>
+self.<strong>alarm_times</strong>&nbsp;for&nbsp;the&nbsp;effect&nbsp;of&nbsp;the&nbsp;decision&nbsp;strategy.&nbsp;In&nbsp;the&nbsp;default<br>
+case,&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;residual&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor&nbsp;exceeds<br>
+the&nbsp;sensor&nbsp;threshold.<br>
+&nbsp;<br>
+ensemble_weights:&nbsp;dict,&nbsp;default=None,<br>
+required&nbsp;only&nbsp;if&nbsp;decision_strategy='ensemble'<br>
+weights&nbsp;for&nbsp;the&nbsp;residuals&nbsp;of&nbsp;each&nbsp;node&nbsp;to&nbsp;reflect&nbsp;their&nbsp;importance&nbsp;in&nbsp;the<br>
+alarm&nbsp;decision.&nbsp;If&nbsp;decision_strategy=='ensemble',&nbsp;the&nbsp;residual&nbsp;matrix&nbsp;for<br>
+each&nbsp;timestep&nbsp;is&nbsp;weighted&nbsp;with&nbsp;ensemble_weights&nbsp;and&nbsp;summed&nbsp;across&nbsp;the<br>
+nodes.&nbsp;An&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;exceeds&nbsp;1.<br>
+Note:&nbsp;thresholds&nbsp;are&nbsp;ignored&nbsp;in&nbsp;this&nbsp;case.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="LeakageDetectors.html#SingleSensorForecaster">SingleSensorForecaster</a></dd>
+<dd><a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="SingleSensorForecaster-__init__"><strong>__init__</strong></a>(self, nodes_with_sensors, train_days, k, thresholds, decision_strategy='compliant_with_each', ensemble_weights=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-compute_residuals"><strong>compute_residuals</strong></a>(self, pressures, use_overlap=False)</dt><dd><tt>Compare&nbsp;pressure&nbsp;predictions&nbsp;to&nbsp;observed&nbsp;values.<br>
+&nbsp;<br>
+Note:&nbsp;self.<strong>scalers</strong>&nbsp;and&nbsp;self.<strong>models</strong>&nbsp;must&nbsp;be&nbsp;filled&nbsp;by&nbsp;self.<strong>train</strong>&nbsp;before<br>
+this&nbsp;method&nbsp;can&nbsp;be&nbsp;used.<br>
+&nbsp;<br>
+For&nbsp;each&nbsp;node&nbsp;name&nbsp;in&nbsp;self.<strong>nodes_with_sensors</strong>&nbsp;self.<strong>models</strong>[node_name]<br>
+is&nbsp;used&nbsp;to&nbsp;predict&nbsp;its&nbsp;pressure&nbsp;values&nbsp;after&nbsp;the&nbsp;predictors<br>
+(pressure&nbsp;values&nbsp;from&nbsp;previous&nbsp;timesteps)&nbsp;have&nbsp;been&nbsp;scaled&nbsp;with<br>
+self.<strong>scalers</strong>[node_name].&nbsp;The&nbsp;positive&nbsp;difference&nbsp;between&nbsp;predicted<br>
+and&nbsp;observed&nbsp;pressure&nbsp;values&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+use_overlap:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+if&nbsp;True&nbsp;and&nbsp;if&nbsp;set_overlap&nbsp;has&nbsp;been&nbsp;set&nbsp;to&nbsp;true&nbsp;in&nbsp;self.<strong>train</strong>,<br>
+self.<strong>overlap</strong>&nbsp;pressures&nbsp;are&nbsp;prepended&nbsp;to&nbsp;pressures&nbsp;before&nbsp;starting&nbsp;the<br>
+leakage&nbsp;detection.&nbsp;The&nbsp;index&nbsp;values&nbsp;of&nbsp;pressures&nbsp;remain&nbsp;in&nbsp;tact.<br>
+self.<strong>overlap</strong>&nbsp;pressures&nbsp;will&nbsp;get&nbsp;matching&nbsp;negative&nbsp;timesteps&nbsp;as<br>
+indices.&nbsp;use_overlap=True&nbsp;has&nbsp;the&nbsp;advantage&nbsp;that&nbsp;the&nbsp;last&nbsp;elements&nbsp;of<br>
+the&nbsp;training&nbsp;set&nbsp;can&nbsp;already&nbsp;be&nbsp;used&nbsp;for&nbsp;forecasting&nbsp;during&nbsp;the&nbsp;first<br>
+couple&nbsp;of&nbsp;timesteps.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+a&nbsp;pandas.DataFrame&nbsp;with&nbsp;residuals<br>
+index:&nbsp;seconds&nbsp;since&nbsp;simulation&nbsp;start<br>
+columns:&nbsp;self.<strong>nodes_with_sensors</strong></tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-detect"><strong>detect</strong></a>(self, pressures, **kwargs)</dt><dd><tt>Detect&nbsp;leaks&nbsp;by&nbsp;applying&nbsp;self.<strong>alarm_times</strong>&nbsp;to&nbsp;pressure&nbsp;residuals.</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-k_step_predictors"><strong>k_step_predictors</strong></a>(self, X)</dt><dd><tt>Split&nbsp;columns&nbsp;of&nbsp;X&nbsp;into&nbsp;k-shingles.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;used&nbsp;to&nbsp;construct&nbsp;predictors<br>
+for&nbsp;self.<strong>detect</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+X:&nbsp;np.ndarray<br>
+matrix&nbsp;of&nbsp;shape&nbsp;N&nbsp;X&nbsp;M<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;List&nbsp;with&nbsp;M&nbsp;elements.&nbsp;Each&nbsp;element&nbsp;is&nbsp;an&nbsp;np.ndarray<br>
+with&nbsp;shape&nbsp;N-self.<strong>k</strong>&nbsp;x&nbsp;self.<strong>k</strong><br>
+&nbsp;<br>
+Note:<br>
+The&nbsp;last&nbsp;elements&nbsp;of&nbsp;each&nbsp;column&nbsp;are&nbsp;not&nbsp;returned,&nbsp;as&nbsp;they&nbsp;are<br>
+only&nbsp;targets&nbsp;and&nbsp;no&nbsp;predictors.</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-k_step_targets"><strong>k_step_targets</strong></a>(self, X)</dt><dd><tt>Give&nbsp;shortened&nbsp;columns&nbsp;of&nbsp;X&nbsp;as&nbsp;a&nbsp;list,&nbsp;dropping&nbsp;the&nbsp;k&nbsp;first&nbsp;elements.</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-train"><strong>train</strong></a>(self, pressures, set_overlap=False)</dt><dd><tt>Learn&nbsp;linear&nbsp;predictions&nbsp;for&nbsp;self.<strong>nodes_with_sensors</strong>.<br>
+&nbsp;<br>
+For&nbsp;M&nbsp;different&nbsp;nodes,&nbsp;this&nbsp;method&nbsp;trains&nbsp;M&nbsp;linear&nbsp;models&nbsp;which&nbsp;use<br>
+the&nbsp;last&nbsp;self.<strong>k</strong>&nbsp;timesteps&nbsp;for&nbsp;their&nbsp;corresponding&nbsp;node&nbsp;in&nbsp;order&nbsp;to<br>
+predict&nbsp;the&nbsp;next&nbsp;timestep.&nbsp;The&nbsp;predictors&nbsp;are&nbsp;normalized&nbsp;with&nbsp;a<br>
+separate&nbsp;StandardScaler&nbsp;for&nbsp;each&nbsp;model.&nbsp;The&nbsp;scalers&nbsp;are&nbsp;stored&nbsp;in<br>
+self.<strong>scalers</strong>&nbsp;and&nbsp;the&nbsp;models&nbsp;are&nbsp;stored&nbsp;in&nbsp;self.<strong>models</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+set_overlap:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+if&nbsp;True,&nbsp;this&nbsp;will&nbsp;cause&nbsp;the&nbsp;last&nbsp;self.<strong>k</strong>&nbsp;rows&nbsp;of&nbsp;pressures&nbsp;to&nbsp;be<br>
+stored&nbsp;in&nbsp;self.<strong>overlap_pressures</strong>.&nbsp;These&nbsp;can&nbsp;later&nbsp;be&nbsp;utilized&nbsp;by<br>
+setting&nbsp;use_overlap=True&nbsp;in&nbsp;self.<strong>detect</strong>.&nbsp;This&nbsp;has&nbsp;the&nbsp;advantage&nbsp;that&nbsp;a<br>
+leak&nbsp;starting&nbsp;at&nbsp;the&nbsp;very&nbsp;first&nbsp;timestep&nbsp;after&nbsp;training&nbsp;can&nbsp;already&nbsp;be<br>
+found.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;sets&nbsp;self.<strong>models</strong>&nbsp;and&nbsp;self.<strong>scalers</strong>,&nbsp;but&nbsp;it&nbsp;has&nbsp;no&nbsp;return<br>
+value.</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-train_and_detect"><strong>train_and_detect</strong></a>(self, pressures)</dt><dd><tt>Train&nbsp;pressure&nbsp;forecasting&nbsp;models&nbsp;and&nbsp;use&nbsp;them&nbsp;for&nbsp;leakage&nbsp;detection.<br>
+&nbsp;<br>
+self.<strong>train_days</strong>&nbsp;determines&nbsp;how&nbsp;many&nbsp;rows&nbsp;of&nbsp;the&nbsp;pressure<br>
+matrix&nbsp;are&nbsp;used&nbsp;to&nbsp;train&nbsp;the&nbsp;models.&nbsp;Leakage&nbsp;detection&nbsp;is&nbsp;performed&nbsp;on<br>
+the&nbsp;remaining&nbsp;part.<br>
+&nbsp;<br>
+Note:&nbsp;There&nbsp;is&nbsp;an&nbsp;overlap&nbsp;between&nbsp;training&nbsp;and&nbsp;test&nbsp;set&nbsp;because&nbsp;the<br>
+models&nbsp;always&nbsp;require&nbsp;the&nbsp;k&nbsp;previous&nbsp;timesteps&nbsp;for&nbsp;the&nbsp;prediction.<br>
+Hence,&nbsp;the&nbsp;last&nbsp;k&nbsp;rows&nbsp;of&nbsp;the&nbsp;training&nbsp;set&nbsp;will&nbsp;also&nbsp;be&nbsp;included&nbsp;in<br>
+the&nbsp;test&nbsp;set&nbsp;to&nbsp;detect&nbsp;leaks&nbsp;starting&nbsp;at&nbsp;the&nbsp;very&nbsp;beginning&nbsp;of&nbsp;the<br>
+test&nbsp;set.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+network&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="SingleSensorForecaster-example"><strong>example</strong></a>()<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;an&nbsp;example&nbsp;Single&nbsp;Sensor&nbsp;Forecaster</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><a name="SingleSensorForecaster-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-alarm_times"><strong>alarm_times</strong></a>(self, residuals, method=None)</dt><dd><tt>Generate&nbsp;an&nbsp;alarm&nbsp;based&nbsp;on&nbsp;residuals.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+residuals:&nbsp;pd.DataFrame,&nbsp;rows=timesteps,&nbsp;columns=nodes<br>
+differences&nbsp;between&nbsp;the&nbsp;detectors&nbsp;prediction&nbsp;and&nbsp;the&nbsp;actual&nbsp;pressure<br>
+values&nbsp;at&nbsp;self.<strong>nodes_with_sensors</strong><br>
+&nbsp;<br>
+method:&nbsp;str,&nbsp;method&nbsp;to&nbsp;raise&nbsp;the&nbsp;alarm,<br>
+default=self.<strong>decision_strategy</strong><br>
+current&nbsp;options&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;compliant_with_each:&nbsp;the&nbsp;residuals&nbsp;at&nbsp;a&nbsp;given&nbsp;timestep&nbsp;must&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compliant&nbsp;with&nbsp;(i.e.&nbsp;smaller&nbsp;than)&nbsp;EVERY&nbsp;sensor&nbsp;threshold.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;residuals&nbsp;exceed&nbsp;the&nbsp;threshold&nbsp;for&nbsp;at&nbsp;least&nbsp;one&nbsp;sensor,&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alarm&nbsp;is&nbsp;raised<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;ensemble:&nbsp;the&nbsp;residuals&nbsp;for&nbsp;each&nbsp;node&nbsp;are&nbsp;weighted&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>ensemble_weights</strong>[node].&nbsp;These&nbsp;weighted&nbsp;residuals&nbsp;are&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summed&nbsp;up&nbsp;and&nbsp;an&nbsp;alarm&nbsp;is&nbsp;raised&nbsp;if&nbsp;the&nbsp;sum&nbsp;is&nbsp;greater&nbsp;than&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hyperparameter&nbsp;validation&nbsp;should&nbsp;be&nbsp;performed&nbsp;for&nbsp;the&nbsp;ensemble<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weights.&nbsp;Note:&nbsp;self.<strong>thresholds</strong>&nbsp;are&nbsp;not&nbsp;taken&nbsp;into&nbsp;account&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;method.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="SingleSensorForecaster-set_overlap_pressures"><strong>set_overlap_pressures</strong></a>(self, pressures, overlap_steps)</dt><dd><tt>Store&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;used&nbsp;for&nbsp;training.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;uses&nbsp;previous&nbsp;timesteps&nbsp;and&nbsp;wants&nbsp;to&nbsp;predict<br>
+some&nbsp;values&nbsp;immediately&nbsp;after&nbsp;the&nbsp;training&nbsp;period.&nbsp;The&nbsp;last&nbsp;few<br>
+pressure&nbsp;values&nbsp;from&nbsp;the&nbsp;training&nbsp;set&nbsp;can&nbsp;then&nbsp;later&nbsp;be&nbsp;re-used&nbsp;for<br>
+the&nbsp;prediction&nbsp;of&nbsp;the&nbsp;first&nbsp;few&nbsp;test&nbsp;values.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+pressures:&nbsp;pd.DataFrame<br>
+training&nbsp;pressure&nbsp;values<br>
+&nbsp;<br>
+overlap_steps:&nbsp;int<br>
+how&nbsp;many&nbsp;of&nbsp;the&nbsp;last&nbsp;pressure&nbsp;values&nbsp;should&nbsp;be&nbsp;saved<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;self.<strong>overlap_pressures</strong></tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="LeakageDetectors.html#AbstractLeakageDetector">AbstractLeakageDetector</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>ensemble_weights</strong></dt>
+</dl>
+<dl><dt><strong>thresholds</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-train_test_split"><strong>train_test_split</strong></a>(X, y, split_index)</dt><dd><tt>Split&nbsp;predictors&nbsp;and&nbsp;targets&nbsp;at&nbsp;some&nbsp;index.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+X,&nbsp;y:&nbsp;np.ndarray<br>
+classification&nbsp;predictor&nbsp;variables&nbsp;and&nbsp;target&nbsp;variables,&nbsp;respectively<br>
+&nbsp;<br>
+split_index:&nbsp;The&nbsp;index&nbsp;at&nbsp;which&nbsp;X&nbsp;and&nbsp;y&nbsp;should&nbsp;be&nbsp;split<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+X_train,&nbsp;X_test,&nbsp;y_train,&nbsp;y_test:&nbsp;np.ndarray<br>
+the&nbsp;training&nbsp;predictors,&nbsp;test&nbsp;predictors,&nbsp;training&nbsp;targets&nbsp;and<br>
+test&nbsp;targets,&nbsp;respectively</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>HOURS_PER_DAY</strong> = 24<br>
+<strong>SECONDS_PER_DAY</strong> = 86400</td></tr></table>
+</body></html>

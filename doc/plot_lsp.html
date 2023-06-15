@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module plot_lsp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>plot_lsp</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/adversarials_vs_detectors/src/plot_lsp.py">/Users/paulstahlhofen/Documents/Water_Futures/adversarials_vs_detectors/src/plot_lsp.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="networkx.html">networkx</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="wntr.html">wntr</a><br>
+</td><td width="25%" valign=top><a href="wn_util.html">wn_util</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-plot_lsp_candidates"><strong>plot_lsp_candidates</strong></a>(wn, nodes_with_sensors, lsp_candidates, output_file=None, figsize=None, extra_lsp_candidates=None, extra_lsp_candidate_style='label', draw_other_nodes=False)</dt><dd><tt>Visualize&nbsp;the&nbsp;least&nbsp;sensitve&nbsp;point&nbsp;in&nbsp;a&nbsp;WDN.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;show&nbsp;the&nbsp;created&nbsp;figure,&nbsp;unless&nbsp;output_path&nbsp;is&nbsp;set.&nbsp;In&nbsp;that<br>
+case,&nbsp;the&nbsp;figure&nbsp;is&nbsp;saved&nbsp;to&nbsp;the&nbsp;given&nbsp;file<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+wn:&nbsp;wntr.network.WaterNetworkModel<br>
+the&nbsp;network&nbsp;in&nbsp;which&nbsp;the&nbsp;LSP&nbsp;should&nbsp;be&nbsp;visualized<br>
+&nbsp;<br>
+nodes_with_sensors:&nbsp;list&nbsp;of&nbsp;junction&nbsp;names&nbsp;(str)<br>
+pressure&nbsp;sensor&nbsp;locations<br>
+&nbsp;<br>
+lsp_candidates:&nbsp;list&nbsp;of&nbsp;junction&nbsp;names&nbsp;(str)<br>
+candidates&nbsp;for&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point.&nbsp;These&nbsp;are&nbsp;labeled&nbsp;'initial&nbsp;LSP<br>
+candidates'.<br>
+&nbsp;<br>
+output_file:&nbsp;str,&nbsp;optional,&nbsp;default=None<br>
+file&nbsp;to&nbsp;save&nbsp;the&nbsp;figure.&nbsp;If&nbsp;none&nbsp;is&nbsp;given,&nbsp;the&nbsp;figure&nbsp;is&nbsp;shown&nbsp;directly<br>
+&nbsp;<br>
+figsize:&nbsp;(float,&nbsp;float),&nbsp;optional<br>
+width&nbsp;and&nbsp;height&nbsp;of&nbsp;the&nbsp;figure&nbsp;in&nbsp;inches<br>
+&nbsp;<br>
+extra_lsp_candidates:&nbsp;list&nbsp;of&nbsp;junction&nbsp;names&nbsp;(str),&nbsp;optional,&nbsp;default=None<br>
+LSP&nbsp;candidates&nbsp;found&nbsp;after&nbsp;excluding&nbsp;the&nbsp;initial&nbsp;LSP&nbsp;candidates&nbsp;from&nbsp;the<br>
+search&nbsp;space<br>
+&nbsp;<br>
+extra_lsp_candidate_style:&nbsp;one&nbsp;of&nbsp;'label'&nbsp;or&nbsp;'triangle',&nbsp;default='label'<br>
+The&nbsp;way&nbsp;how&nbsp;the&nbsp;extra&nbsp;lsp&nbsp;candidates&nbsp;are&nbsp;shown.&nbsp;'label'&nbsp;means&nbsp;they&nbsp;are<br>
+labeled&nbsp;with&nbsp;the&nbsp;junction&nbsp;name<br>
+&nbsp;<br>
+draw_other_nodes:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+If&nbsp;true,&nbsp;other&nbsp;network&nbsp;nodes&nbsp;are&nbsp;also&nbsp;drawn<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;has&nbsp;no&nbsp;return&nbsp;value.</tt></dd></dl>
+ <dl><dt><a name="-plot_lsp_hanoi"><strong>plot_lsp_hanoi</strong></a>()</dt><dd><tt>Plot&nbsp;the&nbsp;LSP&nbsp;in&nbsp;Hanoi&nbsp;based&nbsp;on&nbsp;experimental&nbsp;results.</tt></dd></dl>
+ <dl><dt><a name="-plot_lsp_ltown"><strong>plot_lsp_ltown</strong></a>()</dt><dd><tt>Plot&nbsp;the&nbsp;LSP&nbsp;in&nbsp;L-Town&nbsp;based&nbsp;on&nbsp;experimental&nbsp;results.</tt></dd></dl>
+</td></tr></table>
+</body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module wn_util</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>wn_util</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/wn_util.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/wn_util.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="networkx.html">networkx</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+<a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="wntr.html">wntr</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-compute_pressures"><strong>compute_pressures</strong></a>(wn, leak_properties=None, flow_links=[])</dt><dd><tt>Run&nbsp;a&nbsp;hydraulic&nbsp;simulation&nbsp;and&nbsp;return&nbsp;only&nbsp;the&nbsp;pressure&nbsp;values.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+wn:&nbsp;wntr.network.WaterNetworkModel<br>
+the&nbsp;network&nbsp;for&nbsp;which&nbsp;to&nbsp;run&nbsp;the&nbsp;simulation<br>
+&nbsp;<br>
+leak_properties:&nbsp;LeakProperties.LeakProperties&nbsp;object,&nbsp;default=None<br>
+if&nbsp;this&nbsp;is&nbsp;given,&nbsp;a&nbsp;leak&nbsp;with&nbsp;these&nbsp;properties&nbsp;is&nbsp;placed&nbsp;in&nbsp;the&nbsp;network<br>
+before&nbsp;running&nbsp;the&nbsp;simulation.&nbsp;See&nbsp;the&nbsp;documentation&nbsp;of&nbsp;the&nbsp;LeakProperties<br>
+class&nbsp;for&nbsp;details<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+pressures:&nbsp;pd.DataFrame<br>
+the&nbsp;pressures&nbsp;at&nbsp;all&nbsp;nodes&nbsp;in&nbsp;the&nbsp;network&nbsp;over&nbsp;the&nbsp;whole&nbsp;simulation&nbsp;time<br>
+&nbsp;<br>
+Note:&nbsp;<br>
+The&nbsp;WNTRSimulator&nbsp;is&nbsp;used&nbsp;for&nbsp;simulation&nbsp;rather&nbsp;than&nbsp;the<br>
+EpanetSimulator,&nbsp;because&nbsp;the&nbsp;latter&nbsp;turned&nbsp;out&nbsp;to&nbsp;ignore<br>
+the&nbsp;created&nbsp;leak.</tt></dd></dl>
+ <dl><dt><a name="-construct_node_embedding"><strong>construct_node_embedding</strong></a>(wn_like, junction_name_list=None)</dt><dd><tt>Map&nbsp;junctions&nbsp;of&nbsp;a&nbsp;WDN&nbsp;to&nbsp;vectors&nbsp;based&nbsp;on&nbsp;spectral&nbsp;analysis.<br>
+&nbsp;<br>
+This&nbsp;uses&nbsp;the&nbsp;2nd&nbsp;to&nbsp;5th&nbsp;eigenvector&nbsp;of&nbsp;the&nbsp;network's&nbsp;Laplacian&nbsp;for&nbsp;the<br>
+embedding.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+wn_like:&nbsp;either&nbsp;a&nbsp;WaterNetworkModel&nbsp;or&nbsp;a&nbsp;path&nbsp;(str)&nbsp;to&nbsp;a&nbsp;.inp-file<br>
+network&nbsp;to&nbsp;use<br>
+&nbsp;<br>
+junction_name_list:&nbsp;list&nbsp;of&nbsp;str<br>
+names&nbsp;of&nbsp;junctions&nbsp;for&nbsp;which&nbsp;the&nbsp;embedding&nbsp;should&nbsp;be&nbsp;computed.<br>
+default:&nbsp;All&nbsp;junctions&nbsp;in&nbsp;the&nbsp;network<br>
+This&nbsp;can&nbsp;be&nbsp;useful&nbsp;to&nbsp;specify&nbsp;a&nbsp;subset&nbsp;of&nbsp;junctions&nbsp;if&nbsp;some&nbsp;junctions&nbsp;are<br>
+excluded.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+evec_list:&nbsp;A&nbsp;list&nbsp;of&nbsp;4&nbsp;eigenvectors&nbsp;aligned&nbsp;to&nbsp;junction_name_list</tt></dd></dl>
+ <dl><dt><a name="-describe_and_plot"><strong>describe_and_plot</strong></a>(wn, title)</dt><dd><tt>Print&nbsp;node&nbsp;and&nbsp;link&nbsp;types&nbsp;and&nbsp;plot&nbsp;the&nbsp;network&nbsp;graph.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+wn:&nbsp;wntr.network.WaterNetworkModel<br>
+the&nbsp;network&nbsp;to&nbsp;be&nbsp;printed<br>
+&nbsp;<br>
+title:&nbsp;str<br>
+title&nbsp;of&nbsp;the&nbsp;network,&nbsp;also&nbsp;used&nbsp;for&nbsp;the&nbsp;filename<br>
+&nbsp;<br>
+Note:<br>
+Currently&nbsp;the&nbsp;network&nbsp;graph&nbsp;is&nbsp;saved&nbsp;as&nbsp;"Net1.png".<br>
+This&nbsp;is&nbsp;hard-coded&nbsp;for&nbsp;now.</tt></dd></dl>
+ <dl><dt><a name="-describe_performance"><strong>describe_performance</strong></a>(ga, best_solution, performance_path)</dt><dd><tt>Save&nbsp;the&nbsp;performance&nbsp;of&nbsp;a&nbsp;Genetic&nbsp;Algorithm&nbsp;to&nbsp;a&nbsp;path.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+ga:&nbsp;pygad.GA<br>
+genetic&nbsp;algorithm&nbsp;instance&nbsp;after&nbsp;the&nbsp;algorithm&nbsp;was&nbsp;run<br>
+&nbsp;<br>
+best_solution:&nbsp;LeakProperties<br>
+best&nbsp;solution&nbsp;found&nbsp;by&nbsp;the&nbsp;algoritm<br>
+&nbsp;<br>
+performance_path:&nbsp;str<br>
+path&nbsp;to&nbsp;which&nbsp;the&nbsp;result&nbsp;should&nbsp;be&nbsp;safed<br>
+&nbsp;<br>
+The&nbsp;result&nbsp;includes<br>
+-&nbsp;a&nbsp;json-file&nbsp;containing&nbsp;information&nbsp;about&nbsp;the&nbsp;best&nbsp;solution<br>
+-&nbsp;a&nbsp;json-file&nbsp;containing&nbsp;parameters&nbsp;of&nbsp;the&nbsp;algorithm<br>
+-&nbsp;a&nbsp;plot&nbsp;showing&nbsp;the&nbsp;evolution&nbsp;of&nbsp;the&nbsp;best&nbsp;achieved&nbsp;fitness&nbsp;so&nbsp;far<br>
+&nbsp;&nbsp;throughout&nbsp;the&nbsp;generations.</tt></dd></dl>
+ <dl><dt><a name="-get_days_and_hours"><strong>get_days_and_hours</strong></a>(time_in_seconds)</dt><dd><tt>Convert&nbsp;time&nbsp;in&nbsp;seconds&nbsp;to&nbsp;tuple&nbsp;(day,&nbsp;hour).</tt></dd></dl>
+ <dl><dt><a name="-hanoi"><strong>hanoi</strong></a>()</dt><dd><tt>Load&nbsp;Hanoi_CMH&nbsp;from&nbsp;a&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-ltown_real"><strong>ltown_real</strong></a>()</dt><dd><tt>Load&nbsp;the&nbsp;realistic&nbsp;L-Town&nbsp;model&nbsp;from&nbsp;a&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-ltown_toy"><strong>ltown_toy</strong></a>()</dt><dd><tt>Load&nbsp;the&nbsp;L-Town&nbsp;model&nbsp;with&nbsp;toy&nbsp;demands&nbsp;from&nbsp;a&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-measure_simulation_time"><strong>measure_simulation_time</strong></a>(wn, n_simulations=100)</dt><dd><tt>Print&nbsp;the&nbsp;time&nbsp;of&nbsp;a&nbsp;given&nbsp;number&nbsp;of&nbsp;1-week&nbsp;simulations&nbsp;(default:&nbsp;100).</tt></dd></dl>
+ <dl><dt><a name="-net1"><strong>net1</strong></a>()</dt><dd><tt>Load&nbsp;Net1&nbsp;from&nbsp;a&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-place_leak"><strong>place_leak</strong></a>(wn, leak_properties)</dt><dd><tt>Add&nbsp;the&nbsp;leak&nbsp;defined&nbsp;in&nbsp;leak_properties&nbsp;to&nbsp;the&nbsp;water&nbsp;network.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+wn:&nbsp;wntr.network.WaterNetworkModel<br>
+the&nbsp;model&nbsp;to&nbsp;which&nbsp;the&nbsp;leak&nbsp;should&nbsp;be&nbsp;added<br>
+&nbsp;<br>
+leak_properties:&nbsp;LeakProperties.LeakProperties&nbsp;object<br>
+junction&nbsp;name,&nbsp;start&nbsp;time,&nbsp;area&nbsp;and&nbsp;duration&nbsp;of&nbsp;the&nbsp;leak&nbsp;(see<br>
+documentation&nbsp;of&nbsp;LeakProperties)<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+a&nbsp;WaterNetworkModel&nbsp;containing&nbsp;the&nbsp;leak</tt></dd></dl>
+ <dl><dt><a name="-plot_spectral"><strong>plot_spectral</strong></a>(network, evec_index=2)</dt><dd><tt>Plot&nbsp;a&nbsp;spectral&nbsp;clustering&nbsp;of&nbsp;a&nbsp;WDN.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+network:&nbsp;either&nbsp;'hanoi'&nbsp;or&nbsp;'ltown'<br>
+The&nbsp;network&nbsp;for&nbsp;which&nbsp;the&nbsp;spectrum&nbsp;should&nbsp;be&nbsp;plotted.<br>
+&nbsp;<br>
+evec_index:&nbsp;int<br>
+ordinal&nbsp;number&nbsp;of&nbsp;the&nbsp;eigenvector&nbsp;of&nbsp;the&nbsp;graph&nbsp;Laplacian&nbsp;to&nbsp;use<br>
+default:&nbsp;2<br>
+eigenvectors&nbsp;are&nbsp;sorted&nbsp;ascending&nbsp;according&nbsp;to&nbsp;their&nbsp;eigenvalues.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;show&nbsp;an&nbsp;image&nbsp;(no&nbsp;return&nbsp;value).</tt></dd></dl>
+ <dl><dt><a name="-print_types"><strong>print_types</strong></a>(wn, nodes=True, links=True)</dt><dd><tt>Print&nbsp;node&nbsp;and&nbsp;link&nbsp;types&nbsp;of&nbsp;a&nbsp;WaterNetworkModel.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+nodes:&nbsp;bool,&nbsp;default=True<br>
+whether&nbsp;or&nbsp;not&nbsp;network&nbsp;nodes&nbsp;should&nbsp;be&nbsp;included&nbsp;in&nbsp;the&nbsp;description<br>
+&nbsp;<br>
+links:&nbsp;bool,&nbsp;default=True<br>
+whether&nbsp;or&nbsp;not&nbsp;network&nbsp;links&nbsp;should&nbsp;be&nbsp;included&nbsp;in&nbsp;the&nbsp;description</tt></dd></dl>
+ <dl><dt><a name="-start_time_range"><strong>start_time_range</strong></a>(start, end, leak_duration, timestep)</dt><dd><tt>Time&nbsp;range&nbsp;for&nbsp;allowed&nbsp;leak&nbsp;start&nbsp;times.</tt></dd></dl>
+ <dl><dt><a name="-test_wn"><strong>test_wn</strong></a>(leak_properties=None)</dt><dd><tt>An&nbsp;example&nbsp;network&nbsp;for&nbsp;testing&nbsp;a&nbsp;LeakageDetector<br>
+&nbsp;<br>
+The&nbsp;network&nbsp;consists&nbsp;of&nbsp;2&nbsp;days&nbsp;of&nbsp;demands.&nbsp;A&nbsp;custom&nbsp;leak&nbsp;can&nbsp;be&nbsp;added<br>
+(see&nbsp;documentation&nbsp;of&nbsp;LeakProperties).</tt></dd></dl>
+ <dl><dt><a name="-train_wn"><strong>train_wn</strong></a>()</dt><dd><tt>An&nbsp;example&nbsp;network&nbsp;for&nbsp;training&nbsp;a&nbsp;LeakageDetector<br>
+&nbsp;<br>
+The&nbsp;network&nbsp;consists&nbsp;of&nbsp;5&nbsp;days&nbsp;of&nbsp;demands.</tt></dd></dl>
+</td></tr></table>
+</body></html>

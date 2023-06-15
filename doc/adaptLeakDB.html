@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module adaptLeakDB</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>adaptLeakDB</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/adaptLeakDB.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/adaptLeakDB.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="demandGenerator.html">demandGenerator</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+<a href="wn_util.html">wn_util</a><br>
+</td><td width="25%" valign=top><a href="wntr.html">wntr</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="adaptLeakDB.html#LeakDBAdaptor">LeakDBAdaptor</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LeakDBAdaptor">class <strong>LeakDBAdaptor</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#LeakDBAdaptor">LeakDBAdaptor</a>(settings,&nbsp;network_file)<br>
+&nbsp;<br>
+Class&nbsp;to&nbsp;adapt&nbsp;demand&nbsp;patterns&nbsp;from&nbsp;LeakDB<br>
+&nbsp;<br>
+To&nbsp;generate&nbsp;an&nbsp;adapted&nbsp;inp-file,&nbsp;use&nbsp;either&nbsp;'pattern_parsing_workflow'<br>
+to&nbsp;re-construct&nbsp;demand&nbsp;patterns&nbsp;from&nbsp;demand&nbsp;values&nbsp;of&nbsp;a&nbsp;LeakDB&nbsp;scenario<br>
+or&nbsp;'pattern_generation_workflow'&nbsp;to&nbsp;generate&nbsp;new&nbsp;patterns&nbsp;with&nbsp;the<br>
+demandGenerator&nbsp;script&nbsp;of&nbsp;LeakDB.<br>
+&nbsp;<br>
+Note:&nbsp;The&nbsp;hydraulic&nbsp;timestep,&nbsp;pattern&nbsp;timestep&nbsp;and&nbsp;report&nbsp;timestep&nbsp;of&nbsp;the<br>
+constructed&nbsp;network&nbsp;will&nbsp;always&nbsp;equal&nbsp;1800&nbsp;seconds&nbsp;(half&nbsp;an&nbsp;hour).<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+settings:&nbsp;dict,&nbsp;properties&nbsp;of&nbsp;the&nbsp;adapted&nbsp;water&nbsp;network<br>
+This&nbsp;must&nbsp;contain:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sim_time:&nbsp;int,&nbsp;simulation&nbsp;time&nbsp;in&nbsp;seconds<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sim_start:&nbsp;pd.Timestamp&nbsp;<a href="builtins.html#object">object</a>,&nbsp;start&nbsp;of&nbsp;the&nbsp;simulation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;'year'&nbsp;field&nbsp;of&nbsp;'sim_start'&nbsp;must&nbsp;be&nbsp;'2017'&nbsp;as&nbsp;the&nbsp;whole&nbsp;LeakDB<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;lies&nbsp;within&nbsp;this&nbsp;year&nbsp;and&nbsp;the&nbsp;start&nbsp;time&nbsp;must&nbsp;match&nbsp;a&nbsp;half&nbsp;hour<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval,&nbsp;i.e.&nbsp;the&nbsp;'minutes'&nbsp;field&nbsp;must&nbsp;be&nbsp;'30'&nbsp;or&nbsp;'0'&nbsp;all&nbsp;fields<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containing&nbsp;smaller&nbsp;time&nbsp;units&nbsp;must&nbsp;be&nbsp;'0'.<br>
+&nbsp;<br>
+network_file:&nbsp;str<br>
+path&nbsp;to&nbsp;the&nbsp;file&nbsp;containing&nbsp;the&nbsp;original&nbsp;Hanoi&nbsp;network<br>
+&nbsp;<br>
+Properties<br>
+-----------<br>
+sim_time,&nbsp;sim_start,&nbsp;network_file:<br>
+same&nbsp;values&nbsp;as&nbsp;were&nbsp;passed&nbsp;to&nbsp;the&nbsp;constructor<br>
+&nbsp;<br>
+sim_end:&nbsp;pd.Timedelta&nbsp;<a href="builtins.html#object">object</a>,&nbsp;time&nbsp;to&nbsp;end&nbsp;the&nbsp;simulation<br>
+This&nbsp;is&nbsp;computed&nbsp;from&nbsp;'sim_start'&nbsp;and&nbsp;'sim_time'<br>
+&nbsp;<br>
+sampling_step:&nbsp;int,&nbsp;1800&nbsp;seconds&nbsp;(fixed&nbsp;constant)<br>
+&nbsp;<br>
+junction_name_list:&nbsp;list&nbsp;of&nbsp;str<br>
+copy&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network's&nbsp;junction&nbsp;name&nbsp;list<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LeakDBAdaptor-__init__"><strong>__init__</strong></a>(self, settings, network_file)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-demands_to_patterns"><strong>demands_to_patterns</strong></a>(self, demands)</dt><dd><tt>Convert&nbsp;demand&nbsp;values&nbsp;(m^3/s)&nbsp;to&nbsp;multipliers&nbsp;of&nbsp;base&nbsp;demands.<br>
+&nbsp;<br>
+Note:&nbsp;I&nbsp;use&nbsp;the&nbsp;term&nbsp;'demand'&nbsp;to&nbsp;refer&nbsp;to&nbsp;volumetric&nbsp;flow&nbsp;rates&nbsp;while<br>
+I&nbsp;use&nbsp;'pattern'&nbsp;to&nbsp;refer&nbsp;to&nbsp;(dimensionless)&nbsp;multipliers&nbsp;of&nbsp;demands.<br>
+&nbsp;<br>
+The&nbsp;base&nbsp;demands&nbsp;for&nbsp;each&nbsp;node&nbsp;are&nbsp;retrieved&nbsp;from&nbsp;self.<strong>network_file</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+demands:&nbsp;pandas.DataFrame<br>
+demand&nbsp;values&nbsp;in&nbsp;m^3/s<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;pandas.DataFrame&nbsp;containing&nbsp;multipliers&nbsp;for&nbsp;each&nbsp;node's&nbsp;base&nbsp;demand.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-generate_patterns"><strong>generate_patterns</strong></a>(self)</dt><dd><tt>Generate&nbsp;patterns&nbsp;and&nbsp;return&nbsp;them&nbsp;in&nbsp;a&nbsp;DataFrame.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;wrapper&nbsp;for&nbsp;demandGenerator.genDem&nbsp;from&nbsp;LeakDB.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;pandas.DataFrame&nbsp;containing&nbsp;patterns&nbsp;for&nbsp;each&nbsp;node&nbsp;in&nbsp;the<br>
+Hanoi&nbsp;network.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-parse_demands"><strong>parse_demands</strong></a>(self, demand_path)</dt><dd><tt>Parse&nbsp;demand&nbsp;values&nbsp;from&nbsp;multiple&nbsp;csv-files&nbsp;into&nbsp;a&nbsp;single&nbsp;DataFrame.<br>
+&nbsp;<br>
+Note:&nbsp;The&nbsp;original&nbsp;demand&nbsp;values&nbsp;are&nbsp;converted&nbsp;from&nbsp;m^3/h&nbsp;to&nbsp;m^3/s&nbsp;and<br>
+returned&nbsp;in&nbsp;that&nbsp;form&nbsp;in&nbsp;order&nbsp;to&nbsp;comply&nbsp;with&nbsp;the&nbsp;wntr&nbsp;unit&nbsp;system.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+demand_path:&nbsp;str,&nbsp;path&nbsp;to&nbsp;a&nbsp;folder<br>
+the&nbsp;folder&nbsp;must&nbsp;contain&nbsp;csv-files&nbsp;with&nbsp;the&nbsp;following&nbsp;structure:<br>
+name:&nbsp;'Node_&lt;i&gt;.csv'&nbsp;where&nbsp;'&lt;i&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;a&nbsp;junction&nbsp;name&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;each&nbsp;junction&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network<br>
+header&nbsp;line:&nbsp;Timestamp,Value<br>
+entries:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Timestamp":&nbsp;objects&nbsp;that&nbsp;can&nbsp;be&nbsp;converted&nbsp;to&nbsp;pandas.DateTimeIndex<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Value":&nbsp;demand&nbsp;values&nbsp;in&nbsp;m^3/h&nbsp;(cubic&nbsp;meter&nbsp;per&nbsp;hour)<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+A&nbsp;pandas.DataFrame&nbsp;containing&nbsp;demand&nbsp;values&nbsp;for&nbsp;each&nbsp;node&nbsp;in&nbsp;the&nbsp;Hanoi<br>
+network&nbsp;in&nbsp;m^3/s.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-pattern_generation_workflow"><strong>pattern_generation_workflow</strong></a>(self)</dt><dd><tt>Create&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;Hanoi-network&nbsp;with&nbsp;freshly&nbsp;generated&nbsp;patterns.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;uses&nbsp;the&nbsp;time&nbsp;options&nbsp;stored&nbsp;in&nbsp;'self'&nbsp;for&nbsp;the&nbsp;wn&nbsp;and<br>
+applies&nbsp;the&nbsp;demandGenerator&nbsp;from&nbsp;LeakDB&nbsp;to&nbsp;create&nbsp;the&nbsp;patterns.&nbsp;The<br>
+resulting&nbsp;network&nbsp;is&nbsp;saved&nbsp;to&nbsp;the&nbsp;file&nbsp;'Hanoi_&lt;month&gt;_generated.inp'<br>
+where&nbsp;'&lt;month&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the&nbsp;month&nbsp;of&nbsp;self.<strong>sim_start</strong>.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-pattern_parsing_workflow"><strong>pattern_parsing_workflow</strong></a>(self)</dt><dd><tt>Create&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network&nbsp;with&nbsp;re-constructed&nbsp;patterns.<br>
+&nbsp;<br>
+The&nbsp;patterns&nbsp;are&nbsp;created&nbsp;from&nbsp;demand&nbsp;values&nbsp;stored&nbsp;in&nbsp;LeakDB&nbsp;scenario<br>
+1.&nbsp;These&nbsp;demands&nbsp;are&nbsp;compared&nbsp;to&nbsp;the&nbsp;base-demands&nbsp;of&nbsp;each&nbsp;node&nbsp;to<br>
+reconstruct&nbsp;the&nbsp;multipliers.&nbsp;This&nbsp;method&nbsp;uses&nbsp;time&nbsp;options&nbsp;stored&nbsp;in<br>
+'self'&nbsp;for&nbsp;the&nbsp;wn.&nbsp;&nbsp;The&nbsp;resulting&nbsp;network&nbsp;is&nbsp;stored&nbsp;in&nbsp;a&nbsp;file&nbsp;called<br>
+'Hanoi_&lt;month&gt;_fixed.inp'&nbsp;where&nbsp;'&lt;month&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the&nbsp;month&nbsp;of<br>
+self.<strong>sim_start</strong>.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-set_time_options"><strong>set_time_options</strong></a>(self, wn, sim_time=None)</dt><dd><tt>Set&nbsp;the&nbsp;time&nbsp;options&nbsp;stored&nbsp;in&nbsp;'self'&nbsp;for&nbsp;a&nbsp;water&nbsp;network&nbsp;model.<br>
+&nbsp;<br>
+wn.options.time.duration:&nbsp;see&nbsp;below<br>
+wn.options.time.hydraulic_timestep:&nbsp;self.<strong>sampling_step</strong>&nbsp;(1800&nbsp;seconds)<br>
+wn.options.time.pattern_timestep:&nbsp;self.<strong>sampling_step</strong>&nbsp;(1800&nbsp;seconds)<br>
+wn.options.time.report_timestep:&nbsp;self.<strong>sampling_step</strong>&nbsp;(1800&nbsp;seconds)<br>
+wn.options.quality_timestep:&nbsp;0<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+sim_time:&nbsp;int,&nbsp;time&nbsp;in&nbsp;seconds,&nbsp;default=None<br>
+parameter&nbsp;for&nbsp;wn.options.time.duraiton.&nbsp;If&nbsp;none&nbsp;is&nbsp;given,<br>
+self.<strong>sim_time</strong>&nbsp;is&nbsp;used</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-train_test_wns"><strong>train_test_wns</strong></a>(self, full_year_patterns, train_days, kind)</dt><dd><tt>Create&nbsp;a&nbsp;train&nbsp;and&nbsp;test&nbsp;network&nbsp;from&nbsp;successive&nbsp;patterns.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;create&nbsp;2&nbsp;.inp-files&nbsp;and&nbsp;a&nbsp;folder&nbsp;for&nbsp;them&nbsp;(if&nbsp;it&nbsp;does&nbsp;not<br>
+already&nbsp;exist).&nbsp;Both&nbsp;networks&nbsp;will&nbsp;be&nbsp;copies&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network,<br>
+differing&nbsp;only&nbsp;in&nbsp;patterns&nbsp;and&nbsp;total&nbsp;simulation&nbsp;time.&nbsp;The&nbsp;folder&nbsp;will<br>
+be&nbsp;named&nbsp;"Hanoi_&lt;month&gt;_&lt;kind&gt;.inp"&nbsp;where&nbsp;'&lt;month&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the<br>
+month&nbsp;of&nbsp;self.<strong>sim_start</strong>&nbsp;and&nbsp;'&lt;kind&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the<br>
+'kind'-parameter.&nbsp;The&nbsp;networks&nbsp;inside&nbsp;the&nbsp;folder&nbsp;will&nbsp;be&nbsp;named<br>
+'train.inp'&nbsp;and&nbsp;'test.inp'.&nbsp;The&nbsp;simulation&nbsp;of&nbsp;the&nbsp;test&nbsp;network&nbsp;will<br>
+start&nbsp;immediately&nbsp;one&nbsp;timestep&nbsp;after&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;simulation&nbsp;of&nbsp;the<br>
+train&nbsp;network.&nbsp;This&nbsp;is&nbsp;achieved&nbsp;by&nbsp;cutting&nbsp;out&nbsp;successive&nbsp;chunks&nbsp;from<br>
+the&nbsp;'full_year_patterns'&nbsp;matrix.&nbsp;The&nbsp;sum&nbsp;of&nbsp;simulation&nbsp;times&nbsp;of&nbsp;train<br>
+and&nbsp;test&nbsp;network&nbsp;is&nbsp;given&nbsp;by&nbsp;self.<strong>sim_time</strong>.&nbsp;See&nbsp;self.<strong>set_time_options</strong><br>
+for&nbsp;further&nbsp;time&nbsp;options.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+full_year_patterns:&nbsp;pandas.DataFrame<br>
+This&nbsp;must&nbsp;contain&nbsp;dimensionless&nbsp;multipliers&nbsp;for<br>
+each&nbsp;node's&nbsp;base&nbsp;demand,&nbsp;as&nbsp;returned&nbsp;by&nbsp;'generate_patterns'.<br>
+The&nbsp;index&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;a&nbsp;pandas.DateTimeIndex<br>
+spanning&nbsp;the&nbsp;whole&nbsp;year&nbsp;2017&nbsp;in&nbsp;half-hour&nbsp;intervals&nbsp;and&nbsp;the&nbsp;column<br>
+names&nbsp;must&nbsp;have&nbsp;the&nbsp;form&nbsp;'Node_&lt;i&gt;'&nbsp;where&nbsp;'&lt;i&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;a<br>
+junction&nbsp;name&nbsp;for&nbsp;each&nbsp;junction&nbsp;in&nbsp;the&nbsp;Hanoi&nbsp;network.<br>
+&nbsp;<br>
+train_days:&nbsp;int<br>
+starting&nbsp;at&nbsp;self.<strong>sim_start</strong>,&nbsp;this&nbsp;amount&nbsp;of&nbsp;days&nbsp;of&nbsp;full_year_pressures<br>
+is&nbsp;used&nbsp;for&nbsp;the&nbsp;training&nbsp;network,&nbsp;while&nbsp;the&nbsp;reamining&nbsp;part&nbsp;until<br>
+self.<strong>sim_end</strong>&nbsp;is&nbsp;used&nbsp;for&nbsp;the&nbsp;test&nbsp;netowrk.<br>
+Note&nbsp;that&nbsp;(like&nbsp;in&nbsp;numpy&nbsp;slicing)&nbsp;the&nbsp;simulation&nbsp;step&nbsp;at<br>
+self.<strong>sim_time</strong>&nbsp;+&nbsp;train_days&nbsp;*&nbsp;SECONDS_PER_DAY<br>
+is&nbsp;included&nbsp;only&nbsp;in&nbsp;the&nbsp;test&nbsp;network.<br>
+&nbsp;<br>
+kind:&nbsp;str,&nbsp;'fixed'&nbsp;or&nbsp;'generated'<br>
+This&nbsp;is&nbsp;used&nbsp;only&nbsp;for&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;generated&nbsp;inp-file&nbsp;to&nbsp;indicate<br>
+how&nbsp;the&nbsp;demands&nbsp;were&nbsp;constructed.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-wn_from_patterns"><strong>wn_from_patterns</strong></a>(self, full_year_patterns, kind)</dt><dd><tt>Create&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network&nbsp;with&nbsp;given&nbsp;patterns.<br>
+&nbsp;<br>
+For&nbsp;the&nbsp;simulation&nbsp;parameters&nbsp;concerning&nbsp;time,&nbsp;see<br>
+'self.<strong>set_time_options</strong>'.<br>
+&nbsp;<br>
+Note:&nbsp;This&nbsp;method&nbsp;has&nbsp;no&nbsp;Return-value.&nbsp;Instead,&nbsp;it&nbsp;will&nbsp;save&nbsp;the<br>
+created&nbsp;network&nbsp;to&nbsp;a&nbsp;file&nbsp;called&nbsp;"Hanoi_&lt;month&gt;_&lt;kind&gt;.inp"&nbsp;where<br>
+'&lt;month&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the&nbsp;month&nbsp;of&nbsp;self.<strong>sim_start</strong>&nbsp;and<br>
+'&lt;kind&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;the&nbsp;'kind'-parameter.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+full_year_patterns:&nbsp;pandas.DataFrame<br>
+This&nbsp;must&nbsp;contain&nbsp;dimensionless&nbsp;multipliers&nbsp;for<br>
+each&nbsp;node's&nbsp;base&nbsp;demand,&nbsp;as&nbsp;returned&nbsp;by&nbsp;'generate_patterns'.<br>
+The&nbsp;index&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;a&nbsp;pandas.DateTimeIndex<br>
+spanning&nbsp;the&nbsp;whole&nbsp;year&nbsp;2017&nbsp;in&nbsp;half-hour&nbsp;intervals&nbsp;and&nbsp;the&nbsp;column<br>
+names&nbsp;must&nbsp;have&nbsp;the&nbsp;form&nbsp;'Node_&lt;i&gt;'&nbsp;where&nbsp;'&lt;i&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;a<br>
+junction&nbsp;name&nbsp;for&nbsp;each&nbsp;junction&nbsp;in&nbsp;the&nbsp;Hanoi&nbsp;network.<br>
+&nbsp;<br>
+kind:&nbsp;str,&nbsp;'fixed'&nbsp;or&nbsp;'generated'<br>
+This&nbsp;is&nbsp;used&nbsp;only&nbsp;for&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;generated&nbsp;inp-file&nbsp;to&nbsp;indicate<br>
+how&nbsp;the&nbsp;demands&nbsp;were&nbsp;constructed.</tt></dd></dl>
+
+<dl><dt><a name="LeakDBAdaptor-wn_from_prepared_patterns"><strong>wn_from_prepared_patterns</strong></a>(self, patterns, sim_time=None)</dt><dd><tt>Create&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network&nbsp;from&nbsp;prepared&nbsp;patterns.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;used&nbsp;inside&nbsp;self.<strong>wn_from_patterns</strong>&nbsp;and<br>
+self.<strong>train_test_wns</strong>.&nbsp;In&nbsp;contrast&nbsp;to&nbsp;these&nbsp;methods,&nbsp;it&nbsp;requires&nbsp;the<br>
+pattern&nbsp;matrix&nbsp;to&nbsp;span&nbsp;only&nbsp;over&nbsp;the&nbsp;actual&nbsp;simulation&nbsp;time&nbsp;of&nbsp;a<br>
+network&nbsp;and&nbsp;it&nbsp;returns&nbsp;a&nbsp;network&nbsp;rather&nbsp;than&nbsp;writing&nbsp;.inp-files.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+patterns:&nbsp;pandas.DataFrame<br>
+This&nbsp;must&nbsp;contain&nbsp;dimensionless&nbsp;multipliers&nbsp;for<br>
+each&nbsp;node's&nbsp;base&nbsp;demand,&nbsp;as&nbsp;returned&nbsp;by&nbsp;'generate_patterns'.<br>
+The&nbsp;index&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;a&nbsp;pandas.DateTimeIndex<br>
+spanning&nbsp;the&nbsp;whole&nbsp;simulation&nbsp;time&nbsp;of&nbsp;the&nbsp;network&nbsp;to&nbsp;be&nbsp;created&nbsp;in<br>
+half-hour&nbsp;intervals&nbsp;and&nbsp;the&nbsp;column&nbsp;names&nbsp;must&nbsp;have&nbsp;the&nbsp;form&nbsp;'Node_&lt;i&gt;'<br>
+where&nbsp;'&lt;i&gt;'&nbsp;is&nbsp;replaced&nbsp;by&nbsp;a&nbsp;junction&nbsp;name&nbsp;for&nbsp;each&nbsp;junction&nbsp;in&nbsp;the<br>
+Hanoi&nbsp;network.<br>
+&nbsp;<br>
+sim_time:&nbsp;int,&nbsp;time&nbsp;in&nbsp;seconds,&nbsp;optional<br>
+the&nbsp;simulation&nbsp;time&nbsp;of&nbsp;the&nbsp;netowrk&nbsp;which&nbsp;is&nbsp;passed&nbsp;to<br>
+self.<strong>set_time_options</strong>.&nbsp;If&nbsp;none&nbsp;is&nbsp;given,&nbsp;self.<strong>sim_time</strong>&nbsp;is&nbsp;used.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+wn:&nbsp;wntr.network.WaterNetworkModel<br>
+a&nbsp;copy&nbsp;of&nbsp;the&nbsp;Hanoi&nbsp;network&nbsp;equipped&nbsp;with&nbsp;the&nbsp;given&nbsp;patterns&nbsp;and<br>
+specific&nbsp;time&nbsp;options&nbsp;(see&nbsp;self.<strong>set_time_options</strong>).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>SECONDS_PER_DAY</strong> = 86400<br>
+<strong>SECONDS_PER_HOUR</strong> = 3600</td></tr></table>
+</body></html>

@@ -1,0 +1,20 @@
+If an adversary does not have access to sensors or other parts of the leakage detection system but still tries to create a leak that should not be detected, they have to find the location in the network where the largest undetected leak could occur. In other words, the adversary is looking for the location/point where the detector is least sensitive, which we formalize as follows:
+\begin{definition}[Least Sensitive Point]\label{def:lsp}
+Given a water distribution network $W = (V,E)$ with
+a set of $N$ nodes $V = \{ v_n | n \in \{ 1, \hdots, N \} \}$ and
+a number of $S \leq N$ pressure sensors installed in it,
+a measurement function $\fmeasure$ and a leakage detector $\fdetect$,
+the least sensitive point (LSP) $\lsp(W)$ in this network $W$ is defined as follows:
+\begin{equation}
+\begin{split}
+& \lsp (W) = \argmax_{v_n \in V } \max_{\substack{t \in \{ 1, \hdots, T - K \} \\ \alpha \in \mathbb{R}^+}} \alpha\\
+& \text{s.t.} \quad f_{detect} \left( f_{measure}(\alpha \V{e}_n, t+k )\right) = 0 \quad \forall k \in \{ 0, \hdots, K \}
+\end{split}
+\label{lsp}
+\end{equation}
+where $K$ is a fixed time window length and $\V{e}_n$ is the $n$-th canonical basis vector.
+\end{definition}
+In our experiments, we set the value of $K$ equal to the leak duration which
+we fixed at 3 hours for all experiments.\\
+We approach the least sensitive point problem (Definition~\ref{def:lsp}) with three algorithmic methods for two different network topologies.
+

@@ -1,0 +1,4 @@
+junction_name: 10
+duration: 10800
+start_time: 93600
+area: 0.00999

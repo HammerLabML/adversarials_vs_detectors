@@ -1,0 +1,28 @@
+search_steps:
+  '100.00':
+  - n111
+  - n300
+  - n303
+  - n336
+  - n343
+  '200.00':
+  - n300
+  - n303
+  '400.00': []
+  '300.00': []
+  '250.00': []
+  '225.00':
+  - n300
+  - n303
+  '237.50': []
+  '231.25': []
+  '228.12':
+  - n300
+  - n303
+  '229.69':
+  - n300
+decision_strategy: compliant-with-each
+threshold_file: src/Resources/thresholds.csv
+sensor_config: ../Data/L-Town/old_pressure_sensors.txt
+start_time: 446400
+excluded_nodes: []

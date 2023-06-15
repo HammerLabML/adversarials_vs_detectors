@@ -1,0 +1,32 @@
+According to the EU guidelines on Trustworthy AI, robustness is a key
+requirement of Machine Learning (ML) based systems deployed in security-critical domains~\cite{trustworthy_ai}.  Judging and improving a models' robustness requires to understand its weakness so that appropiate countermeasure can be taken (see e.g. \cite{adversarial_training1}, \cite{adversarial_training2}). 
+A structural weakness of many models is the existence of specifically designed inputs, so called adversarial inputs, that can cause the model to make wrong predictions with a high confidence. These adversarial inputs, first
+described in~\cite{basic_adversarials}, have been used
+to expose a lack of robustness for many state of the art ML models~\cite{printed_adversarials_and_bim,adversarial_tortoise,adversarial_tshirt}.
+
+In this paper we focus on an application domain where robustness is of utmost importance: Water Distribution Networks
+(WDNs).  A high amount of annual water loss in water networks across the
+world~\cite{global_nrw} and an increased likelihood of droughts due to climate
+change~\cite{droughts} call for an improvement and robustification of water
+management. In the context of WDNs, ML based systems are used for various tasks~\cite{valerie}
+e.g. detection and localization of events such as leakages~\cite{batadal,battledim} and contaminations~\cite{zhu2022review}.
+\paragraph*{Related work}
+In order to gain insight into vulnerabilities of a water
+distribution network, the authors of~\cite{vulnerabilities_fsp} propose a methodology for building finite
+state processes to find a-priori week spots independent of any monitoring system. 
+The authors of~\cite{conaml} construct physics-constrained adversarial attacks for ML models operating on
+cyber-physical systems. However, in their case study they only analyze the
+manipulation of sensor readings for flow sensors and do not consider pressure sensors which constitute the most common type of sensor in real world WDNs.
+
+\paragraph*{Our contributions} In this work we make the following contributions:
+\begin{itemize}
+\item We propose a taxonomy for adversarial attacks against leakage detectors in WDNs.
+\item We investigate one particular type of attack in more detail: The search for the \textit{least sensitive point} in a WDN, which is the location in the water network where the largest possible undetected leak could occur.
+We formalize this attack and propose three algorithmic approaches, which we empirically evaluate in a case study on two benchmark WDNs.
+\end{itemize}
+The remainder of this work is structured as follows:
+In Section ~\ref{sec:foundations}, we introduce adversarial attacks in
+general, as well as some important concepts of leakage detection in WDNs. Following up on this, we give a taxonomy of adversarial attacks on leakage detectors and formalize the \textit{least sensitive
+point problem} in Section ~\ref{sec:adversarials_in_wdns}. Next, in
+Section~\ref{sec:case_study} we empirically evaluate our proposed methods for finding the least sensitive point in a WDN. Finally, Section~\ref{sec:results} discusses the results before we conclude
+with a brief summary in Section~\ref{sec:conclusion}.

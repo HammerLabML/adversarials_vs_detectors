@@ -1,0 +1,34 @@
+Leakage detectors typically rely on measurements of hydraulic variables such
+as pressure and flow at certain points in a network. Measurements are taken at
+discrete timesteps and depend on various factors, including network topology,
+water consumption at network nodes and potential leakages. When creating an
+adversarial input to the detector, we are mainly interested in how the
+pressure values are influenced by leaks. Hence, we consider measurements based
+on leakage events characterized by the area of the leak. All other factors
+like water consumption and network topology are assumed to be fixed.
+
+\begin{definition}[Measurement Function]
+A measurement function maps a vector of leak areas $\V{a}_t \in \mathbb{R}^N$ for all $N$ nodes of a water distribution network at some timestep $t$ to pressure measurements at some nodes equipped with sensors. It is parametrized also by the timestep itself.
+\begin{equation}
+\begin{split}
+\fmeasure: \mathbb{R}^N \times \{ 1, \hdots, T \} &\to \mathbb{R}^S\\
+(\V{a}_t, t) &\mapsto \V{y}_t
+\end{split}
+\end{equation}
+\end{definition}
+
+Given the pressure measurements, we can now define the leakage detector as a
+binary predictor
+
+\begin{definition}[Leakage Detector]
+A leakage detector is a function mapping pressure measurements to a binary output, indicating whether a leak was detected or not.
+\begin{equation}
+\begin{split}
+\fdetect: \mathbb{R}^S &\to \{ 0, 1 \}\\
+\V{y}_t &\mapsto \begin{cases*}
+1 & \text{if a leak was detected}\\
+0 & \text{otherwise}
+\end{cases*}
+\end{split}
+\end{equation}
+\end{definition}

@@ -1,0 +1,4 @@
+sensor_config: 'Data/L-Town/old_pressure_sensors.txt'
+decision_strategy: 'compliant_with_each'
+threshold_file: 'src/Resources/thresholds.csv'
+excluded_nodes: []

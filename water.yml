@@ -1,0 +1,18 @@
+name: water
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - numpy
+  - matplotlib
+  - scipy
+  - pandas
+  - wntr
+  - scikit-learn
+  - networkx=3.0
+  - pyyaml
+  - colorspacious
+  - pip=22.3.1
+  - pip:
+	pygad==2.18.1
+prefix: /opt/anaconda3/envs/water

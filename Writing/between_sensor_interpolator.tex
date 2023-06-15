@@ -1,0 +1,14 @@
+We implement a classic residual-based leakage detector~\cite{eliades2012leakage,santos2019estimation} by means of a sensor specific linear model that predicts pressure  based on the pressure measurements of all other nodes~\cite{paper_andre}:
+\begin{equation}
+\hat{y}_{s,t} = \V{w}_s^T \V{y}_{-s,t} + b_s \label{eq:bsi_simple}
+\end{equation}
+where $\V{y}_{-s,t}$ is a vector containing measurements from all sensors
+except $s$ at time $t$ and $(\V{w}_s, b_s)$ are sensor specific weights
+learned using data.  The residuals $r_{s,t} :=\abs{\hat{y}_{s,t}-y_{s,t}}$
+determine the detector output. For the Hanoi network, we use a validation set
+to learn residual weights $q_s$ for each sensor. An alram is then raised if
+$\sum_s q_s r_s > 1$. In case of the L-Town network, lack of data makes the
+learning of residual weights impractical. Instead, we construct thresholds for
+each sensor by multiplying the maximum training error at the sensor location
+with a small constant. An alarm is raised if at least one sensor residual
+exceeds the corresponding threshold.

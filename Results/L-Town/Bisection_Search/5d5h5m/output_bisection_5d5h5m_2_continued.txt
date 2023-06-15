@@ -1,0 +1,61 @@
+First simulation to train detector...
+Leak area: 400.00 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 200.00 cm^2
+Placing leak at node n300
+Leak with size 200.00 cm^2 at node n300 triggered no alarm.
+Placing leak at node n303
+Leak with size 200.00 cm^2 at node n303 triggered no alarm.
+******************************
+
+Leak area: 300.00 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 250.00 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 225.00 cm^2
+Placing leak at node n300
+Leak with size 225.00 cm^2 at node n300 triggered no alarm.
+Placing leak at node n303
+Leak with size 225.00 cm^2 at node n303 triggered no alarm.
+******************************
+
+Leak area: 237.50 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 231.25 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 228.12 cm^2
+Placing leak at node n300
+Leak with size 228.12 cm^2 at node n300 triggered no alarm.
+Placing leak at node n303
+Leak with size 228.12 cm^2 at node n303 triggered no alarm.
+******************************
+
+Leak area: 229.69 cm^2
+Placing leak at node n300
+Placing leak at node n303
+******************************
+
+Leak area: 228.91 cm^2
+Placing leak at node n300
+Leak with size 228.91 cm^2 at node n300 triggered no alarm.
+Placing leak at node n303
+******************************
+
+leak area: 0.022890624999999998
+lsp candidates: ['n300']
+

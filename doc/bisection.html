@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module bisection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>bisection</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/bisection.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/bisection.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-bisection_search"><strong>bisection_search</strong></a>(func, sought_result, start_value, n_trials, lower_bound=None, upper_bound=None, step_parameters={'downward_scale': 2, 'upward_scale': 2}, meta_info=False, **kwargs)</dt><dd><tt>Use&nbsp;binary&nbsp;search&nbsp;to&nbsp;find&nbsp;a&nbsp;function's&nbsp;inverse.<br>
+&nbsp;<br>
+Important:&nbsp;This&nbsp;works&nbsp;only&nbsp;for&nbsp;monotoniously&nbsp;increasing&nbsp;functions<br>
+which&nbsp;map&nbsp;positive&nbsp;inputs&nbsp;to&nbsp;positive&nbsp;outputs.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+func:&nbsp;function<br>
+&nbsp;<br>
+sought_result:&nbsp;numeric<br>
+function&nbsp;value,&nbsp;for&nbsp;which&nbsp;an&nbsp;inverse&nbsp;is&nbsp;sought.<br>
+&nbsp;<br>
+start_value:&nbsp;numeric<br>
+initial&nbsp;guess&nbsp;for&nbsp;the&nbsp;inverse<br>
+&nbsp;<br>
+n_trials:&nbsp;int<br>
+trials&nbsp;to&nbsp;approximate&nbsp;the&nbsp;inverse.&nbsp;If&nbsp;it&nbsp;cannot&nbsp;be&nbsp;determined&nbsp;exactly,<br>
+the&nbsp;best&nbsp;approximation&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+lower_bound,&nbsp;upper_bound:&nbsp;numeric,&nbsp;optional,&nbsp;default=None<br>
+initial&nbsp;lower&nbsp;and&nbsp;upper&nbsp;bound&nbsp;for&nbsp;the&nbsp;search&nbsp;space<br>
+&nbsp;<br>
+step_parameters:&nbsp;dict,&nbsp;optional,<br>
+default={'downward_scale':&nbsp;2,&nbsp;'upward_scale':&nbsp;2}<br>
+determines&nbsp;the&nbsp;behaviour&nbsp;of&nbsp;the&nbsp;function&nbsp;as&nbsp;long&nbsp;as&nbsp;bounds&nbsp;are&nbsp;not<br>
+determined&nbsp;yet:&nbsp;By&nbsp;default,&nbsp;if&nbsp;a&nbsp;step&nbsp;upwards&nbsp;is&nbsp;taken&nbsp;and&nbsp;no&nbsp;upper&nbsp;bound<br>
+is&nbsp;present,&nbsp;the&nbsp;previous&nbsp;result&nbsp;is&nbsp;multiplied&nbsp;by&nbsp;2.&nbsp;This&nbsp;can&nbsp;be&nbsp;changed<br>
+with&nbsp;the&nbsp;upward&nbsp;scale&nbsp;parameter.&nbsp;Likewise,&nbsp;if&nbsp;a&nbsp;step&nbsp;downwards&nbsp;is&nbsp;taken<br>
+and&nbsp;no&nbsp;lower&nbsp;bound&nbsp;is&nbsp;present&nbsp;yet,&nbsp;the&nbsp;result&nbsp;is&nbsp;divided&nbsp;by&nbsp;2.&nbsp;This&nbsp;can&nbsp;be<br>
+changed&nbsp;by&nbsp;the&nbsp;downward_scale&nbsp;parameter.<br>
+&nbsp;<br>
+meta_info:&nbsp;bool,&nbsp;optional,&nbsp;default:&nbsp;False<br>
+Does&nbsp;the&nbsp;function&nbsp;return&nbsp;a&nbsp;tuple?&nbsp;If&nbsp;true,&nbsp;the&nbsp;second&nbsp;tuple&nbsp;element<br>
+for&nbsp;the&nbsp;inverse&nbsp;is&nbsp;returned&nbsp;as&nbsp;well.<br>
+&nbsp;<br>
+**kwargs:&nbsp;optional<br>
+key-word&nbsp;arguments&nbsp;passed&nbsp;to&nbsp;func&nbsp;in&nbsp;every&nbsp;run<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+x:&nbsp;numeric<br>
+s.t.&nbsp;func(x)&nbsp;=&nbsp;sought_result&nbsp;(at&nbsp;least&nbsp;approximately)<br>
+&nbsp;<br>
+bounds:&nbsp;tuple&nbsp;of&nbsp;numbers<br>
+upper&nbsp;and&nbsp;lower&nbsp;bound&nbsp;for&nbsp;x<br>
+&nbsp;<br>
+info:<br>
+If&nbsp;meta_info=True&nbsp;and<br>
+func(x)&nbsp;=&nbsp;sought_result,&nbsp;info<br>
+then&nbsp;info&nbsp;is&nbsp;also&nbsp;returned</tt></dd></dl>
+ <dl><dt><a name="-bisection_step"><strong>bisection_step</strong></a>(var, upwards, lower_bound, upper_bound, downward_scale=2, upward_scale=2)</dt><dd><tt>Helper&nbsp;for&nbsp;bisection_search</tt></dd></dl>
+ <dl><dt><a name="-mock_alarms_for_area"><strong>mock_alarms_for_area</strong></a>(x)</dt><dd><tt>Toy&nbsp;function</tt></dd></dl>
+</td></tr></table>
+</body></html>

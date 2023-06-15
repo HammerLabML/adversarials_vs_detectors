@@ -1,0 +1,125 @@
+The following junctions were selected:
+['n727' 'n715' 'n551' 'n732' 'n203' 'n373' 'n165' 'n363' 'n703' 'n216']
+First simulation to train detector...
+Maximize the leak area for junction n727
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> alarm
+Leak area: 1.56 cm^2 -> no alarm
+Leak area: 2.34 cm^2 -> alarm
+Leak area: 1.95 cm^2 -> no alarm
+Leak area: 2.15 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n715
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> no alarm
+Leak area: 9.38 cm^2 -> alarm
+Leak area: 7.81 cm^2 -> no alarm
+Leak area: 8.59 cm^2 -> alarm
+Leak area: 8.20 cm^2 -> alarm
+Leak area: 8.01 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n551
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> no alarm
+Leak area: 9.38 cm^2 -> alarm
+Leak area: 7.81 cm^2 -> no alarm
+Leak area: 8.59 cm^2 -> no alarm
+Leak area: 8.98 cm^2 -> alarm
+Leak area: 8.79 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n732
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> no alarm
+Leak area: 9.38 cm^2 -> no alarm
+Leak area: 10.94 cm^2 -> no alarm
+Leak area: 11.72 cm^2 -> alarm
+Leak area: 11.33 cm^2 -> alarm
+Leak area: 11.13 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n203
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> no alarm
+Leak area: 4.69 cm^2 -> alarm
+Leak area: 3.91 cm^2 -> alarm
+Leak area: 3.52 cm^2 -> alarm
+Leak area: 3.32 cm^2 -> no alarm
+First simulation to train detector...
+Maximize the leak area for junction n373
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> no alarm
+Leak area: 9.38 cm^2 -> no alarm
+Leak area: 10.94 cm^2 -> alarm
+Leak area: 10.16 cm^2 -> alarm
+Leak area: 9.77 cm^2 -> alarm
+Leak area: 9.57 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n165
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> no alarm
+Leak area: 4.69 cm^2 -> no alarm
+Leak area: 5.47 cm^2 -> no alarm
+Leak area: 5.86 cm^2 -> alarm
+Leak area: 5.66 cm^2 -> no alarm
+First simulation to train detector...
+Maximize the leak area for junction n363
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> alarm
+Leak area: 1.56 cm^2 -> no alarm
+Leak area: 2.34 cm^2 -> no alarm
+Leak area: 2.73 cm^2 -> alarm
+Leak area: 2.54 cm^2 -> alarm
+First simulation to train detector...
+Maximize the leak area for junction n703
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> no alarm
+Leak area: 9.38 cm^2 -> alarm
+Leak area: 7.81 cm^2 -> alarm
+Leak area: 7.03 cm^2 -> alarm
+Leak area: 6.64 cm^2 -> alarm
+Leak area: 6.45 cm^2 -> no alarm
+First simulation to train detector...
+Maximize the leak area for junction n216
+Leak area: 100.00 cm^2 -> alarm
+Leak area: 50.00 cm^2 -> alarm
+Leak area: 25.00 cm^2 -> alarm
+Leak area: 12.50 cm^2 -> alarm
+Leak area: 6.25 cm^2 -> alarm
+Leak area: 3.12 cm^2 -> alarm
+Leak area: 1.56 cm^2 -> alarm
+Leak area: 0.78 cm^2 -> no alarm
+Leak area: 1.17 cm^2 -> no alarm
+Leak area: 1.37 cm^2 -> no alarm
+The maximal areas were as follows:
+[0.0001953125, 0.00078125, 0.000859375, 0.00109375, 0.00033203124999999997, 0.0009375, 0.0005664062500000001, 0.000234375, 0.0006445312499999999, 0.00013671875]
+

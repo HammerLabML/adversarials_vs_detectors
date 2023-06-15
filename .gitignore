@@ -1,0 +1,17 @@
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.toc
+*.nav
+*.snm
+__pycache__
+.DS_Store
+First_Example
+Net1_CMH.tar
+Net1_CMH
+WNTR
+Data/Old_L-Town
+Data/LeakDB_Example_Demands
+last_generation.npy

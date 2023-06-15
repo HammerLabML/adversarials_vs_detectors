@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module validate_threshold</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>validate_threshold</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/validate_threshold.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/validate_threshold.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="validate_threshold.html#ThresholdValidator">ThresholdValidator</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ThresholdValidator">class <strong>ThresholdValidator</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ThresholdValidator">ThresholdValidator</a>(leakage_detector,&nbsp;scenario_paths)<br>
+&nbsp;<br>
+Tool&nbsp;to&nbsp;test&nbsp;alarm&nbsp;thresholds&nbsp;of&nbsp;a&nbsp;given&nbsp;LeakageDetector<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+leakage_detector:&nbsp;an&nbsp;instance&nbsp;of&nbsp;a&nbsp;subclass&nbsp;of&nbsp;AbstractLeakageDetector<br>
+A&nbsp;threshold&nbsp;can&nbsp;be&nbsp;tested&nbsp;for&nbsp;this&nbsp;leakage_detector.&nbsp;For&nbsp;this&nbsp;purpose,&nbsp;the<br>
+threshold&nbsp;of&nbsp;the&nbsp;given&nbsp;instance&nbsp;will&nbsp;be&nbsp;overwritten.<br>
+&nbsp;<br>
+scenario_paths:&nbsp;list&nbsp;of&nbsp;str<br>
+paths&nbsp;to&nbsp;folders&nbsp;each&nbsp;of&nbsp;which&nbsp;must&nbsp;contain&nbsp;the&nbsp;following&nbsp;files:<br>
+leak_info.json:&nbsp;information&nbsp;about&nbsp;a&nbsp;leak&nbsp;that&nbsp;was&nbsp;placed&nbsp;in&nbsp;a<br>
+WaterNetworkModel<br>
+pressures.csv:&nbsp;pressure&nbsp;values&nbsp;from&nbsp;a&nbsp;simulation&nbsp;of&nbsp;the&nbsp;same&nbsp;model<br>
+These&nbsp;files&nbsp;can&nbsp;be&nbsp;constructed&nbsp;using&nbsp;create_validation_set.py.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ThresholdValidator-__init__"><strong>__init__</strong></a>(self, leakage_detector, scenario_paths)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-negative_average_score"><strong>negative_average_score</strong></a>(self, thresholds)</dt><dd><tt>Computes&nbsp;the&nbsp;negative&nbsp;average&nbsp;of&nbsp;all&nbsp;scores&nbsp;of&nbsp;given&nbsp;thresholds&nbsp;(see<br>
+self.<strong>validate</strong>).&nbsp;This&nbsp;is&nbsp;useful&nbsp;as&nbsp;input&nbsp;to&nbsp;optimizers.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-negative_average_score_ensemble"><strong>negative_average_score_ensemble</strong></a>(self, ensemble_weights)</dt><dd><tt>Computes&nbsp;the&nbsp;negative&nbsp;average&nbsp;of&nbsp;all&nbsp;scores&nbsp;of&nbsp;given&nbsp;ensemble&nbsp;weights<br>
+(see&nbsp;self.<strong>validate_ensemble</strong>).&nbsp;This&nbsp;is&nbsp;useful&nbsp;as&nbsp;input&nbsp;to&nbsp;optimizers.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-negative_average_score_single_node"><strong>negative_average_score_single_node</strong></a>(self, threshold, observed_node_name)</dt><dd><tt>Computes&nbsp;the&nbsp;negative&nbsp;average&nbsp;of&nbsp;all&nbsp;scores&nbsp;of&nbsp;a&nbsp;threshold&nbsp;for&nbsp;one<br>
+observed&nbsp;node&nbsp;(see&nbsp;self.<strong>validate_single_node</strong>).&nbsp;This&nbsp;is&nbsp;useful&nbsp;as&nbsp;input<br>
+to&nbsp;optimizers.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-score_for_scenario"><strong>score_for_scenario</strong></a>(self, scenario_path, verbose=False)</dt><dd><tt>Uses&nbsp;self.<strong>leakage_detector</strong>&nbsp;to&nbsp;compute&nbsp;a&nbsp;score&nbsp;for&nbsp;scenario_path.<br>
+&nbsp;<br>
+The&nbsp;score&nbsp;is&nbsp;determined&nbsp;by&nbsp;the&nbsp;harmonic&nbsp;mean&nbsp;of&nbsp;the<br>
+time&nbsp;to&nbsp;detection&nbsp;score&nbsp;and&nbsp;the&nbsp;precision:<br>
+2&nbsp;*&nbsp;ttd_score&nbsp;*&nbsp;precision&nbsp;/&nbsp;(ttd_score&nbsp;+&nbsp;precision)<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+scenario_path:&nbsp;str<br>
+a&nbsp;directory&nbsp;containing&nbsp;a&nbsp;file&nbsp;with&nbsp;simulated&nbsp;pressure&nbsp;values<br>
+(pressures.csv)&nbsp;and&nbsp;a&nbsp;file&nbsp;with&nbsp;leak&nbsp;properties&nbsp;used&nbsp;for&nbsp;the<br>
+simulation&nbsp;(leak_info.json).<br>
+&nbsp;<br>
+verbose:&nbsp;bool,&nbsp;default=False<br>
+if&nbsp;true,&nbsp;the&nbsp;scenario&nbsp;path&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;single&nbsp;scores&nbsp;(time&nbsp;to<br>
+detection&nbsp;and&nbsp;precision)&nbsp;will&nbsp;be&nbsp;printed.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-validate"><strong>validate</strong></a>(self, thresholds, **kwargs)</dt><dd><tt>Evaluates&nbsp;the&nbsp;quality&nbsp;of&nbsp;a&nbsp;set&nbsp;of&nbsp;thresholds.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;computes&nbsp;self.<strong>score_for_scenario</strong>&nbsp;for&nbsp;all&nbsp;scenarios&nbsp;in<br>
+self.<strong>scenario_path</strong>&nbsp;after&nbsp;setting&nbsp;the&nbsp;thresholds&nbsp;for<br>
+self.<strong>leakage_detector</strong>.&nbsp;For&nbsp;the&nbsp;method&nbsp;to&nbsp;compute&nbsp;the&nbsp;score,&nbsp;see&nbsp;the<br>
+documentation&nbsp;of&nbsp;self.<strong>score_for_scenario</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+thresholds:&nbsp;array-like<br>
+the&nbsp;thresholds&nbsp;to&nbsp;be&nbsp;validated<br>
+&nbsp;<br>
+**kwargs:&nbsp;Keyword&nbsp;arguments&nbsp;passed&nbsp;to&nbsp;self.<strong>score_for_scenario</strong><br>
+&nbsp;<br>
+Returns<br>
+---------<br>
+scores:&nbsp;dict,&nbsp;keys=sceanrio&nbsp;paths,&nbsp;values=scores<br>
+The&nbsp;resulting&nbsp;scores&nbsp;for&nbsp;each&nbsp;scenario</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-validate_ensemble"><strong>validate_ensemble</strong></a>(self, ensemble_weights, **kwargs)</dt><dd><tt>Evaluates&nbsp;the&nbsp;quality&nbsp;of&nbsp;a&nbsp;set&nbsp;of&nbsp;ensemble&nbsp;weights.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;computes&nbsp;self.<strong>score_for_scenario</strong>&nbsp;for&nbsp;all&nbsp;scenarios&nbsp;in<br>
+self.<strong>scenario_path</strong>&nbsp;after&nbsp;setting&nbsp;the&nbsp;ensemble&nbsp;weights&nbsp;for<br>
+self.<strong>leakage_detector</strong>.&nbsp;For&nbsp;the&nbsp;method&nbsp;to&nbsp;compute&nbsp;the&nbsp;score,&nbsp;see&nbsp;the<br>
+documentation&nbsp;of&nbsp;self.<strong>score_for_scenario</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+ensemble_weights:&nbsp;array-like<br>
+the&nbsp;ensemble&nbsp;weights&nbsp;to&nbsp;be&nbsp;validated<br>
+&nbsp;<br>
+**kwargs:&nbsp;Keyword&nbsp;arguments&nbsp;passed&nbsp;to&nbsp;self.<strong>score_for_scenario</strong><br>
+&nbsp;<br>
+Returns<br>
+---------<br>
+scores:&nbsp;dict,&nbsp;keys=sceanrio&nbsp;paths,&nbsp;values=scores<br>
+The&nbsp;resulting&nbsp;scores&nbsp;for&nbsp;each&nbsp;scenario</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-validate_single_node"><strong>validate_single_node</strong></a>(self, threshold, observed_node_name, **kwargs)</dt><dd><tt>Validate&nbsp;the&nbsp;threshold&nbsp;for&nbsp;a&nbsp;single&nbsp;node.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;helps&nbsp;to&nbsp;observe&nbsp;the&nbsp;performance&nbsp;gained&nbsp;by&nbsp;a&nbsp;single<br>
+threshold&nbsp;sepeartely.&nbsp;In&nbsp;order&nbsp;to&nbsp;do&nbsp;this,&nbsp;thresholds&nbsp;for&nbsp;all&nbsp;other<br>
+nodes&nbsp;are&nbsp;set&nbsp;to&nbsp;a&nbsp;too&nbsp;high&nbsp;value&nbsp;(100&nbsp;in&nbsp;this&nbsp;case)&nbsp;so&nbsp;they&nbsp;won't<br>
+trigger&nbsp;an&nbsp;alarm.&nbsp;The&nbsp;paths&nbsp;in&nbsp;self.<strong>scenario_paths</strong>&nbsp;are&nbsp;used&nbsp;for&nbsp;the<br>
+validation<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+threshold:&nbsp;float<br>
+threshold&nbsp;to&nbsp;be&nbsp;set&nbsp;for&nbsp;the&nbsp;observed&nbsp;node<br>
+&nbsp;<br>
+observed_node_name:&nbsp;str<br>
+&nbsp;<br>
+**kwargs:&nbsp;keyword-arguments&nbsp;passed&nbsp;to&nbsp;self.<strong>score_for_scenario</strong><br>
+&nbsp;<br>
+Returns<br>
+---------<br>
+scores:&nbsp;dict,&nbsp;keys=sceanrio&nbsp;paths,&nbsp;values=scores<br>
+The&nbsp;resulting&nbsp;scores&nbsp;for&nbsp;each&nbsp;scenario</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="ThresholdValidator-ensemble_example"><strong>ensemble_example</strong></a>()<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Example&nbsp;threshold&nbsp;validator&nbsp;for&nbsp;ensemble&nbsp;weight&nbsp;optimization.<br>
+&nbsp;<br>
+This&nbsp;validator&nbsp;uses&nbsp;a&nbsp;BetweenSensorInterpolator&nbsp;with<br>
+decision_strategy='ensemble'&nbsp;to&nbsp;predict&nbsp;leakages.&nbsp;&nbsp;The&nbsp;ensemble<br>
+weights&nbsp;of&nbsp;this&nbsp;leakage&nbsp;detector&nbsp;are&nbsp;initially&nbsp;set&nbsp;to&nbsp;zero&nbsp;and<br>
+expected&nbsp;to&nbsp;be&nbsp;changed&nbsp;by&nbsp;the&nbsp;user&nbsp;later&nbsp;on&nbsp;(e.g.&nbsp;by&nbsp;the<br>
+validate_ensemble-method).&nbsp;Thresholds&nbsp;are&nbsp;not&nbsp;used&nbsp;and&nbsp;also&nbsp;set&nbsp;to<br>
+zero.&nbsp;See&nbsp;the&nbsp;source&nbsp;code&nbsp;for&nbsp;detailed&nbsp;configuration.</tt></dd></dl>
+
+<dl><dt><a name="ThresholdValidator-example"><strong>example</strong></a>()<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Example&nbsp;threshold&nbsp;validator<br>
+&nbsp;<br>
+This&nbsp;validator&nbsp;uses&nbsp;a&nbsp;BetweenSensorInterpolator&nbsp;to&nbsp;predict&nbsp;leakages.<br>
+The&nbsp;thresholds&nbsp;of&nbsp;this&nbsp;leakage&nbsp;detector&nbsp;are&nbsp;initially&nbsp;set&nbsp;to&nbsp;zero&nbsp;and<br>
+expected&nbsp;to&nbsp;be&nbsp;changed&nbsp;by&nbsp;the&nbsp;user&nbsp;later&nbsp;on&nbsp;(e.g.&nbsp;by&nbsp;the<br>
+validate-method).&nbsp;&nbsp;See&nbsp;the&nbsp;source&nbsp;code&nbsp;for&nbsp;detailed&nbsp;configuration.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-optimize_ensemble_weights"><strong>optimize_ensemble_weights</strong></a>()</dt><dd><tt>Optimize&nbsp;the&nbsp;ensemble&nbsp;weights&nbsp;of&nbsp;the&nbsp;example&nbsp;ensemble&nbsp;validator.<br>
+&nbsp;<br>
+Optimization&nbsp;is&nbsp;achieved&nbsp;by&nbsp;the&nbsp;scipy&nbsp;implementation&nbsp;of&nbsp;the&nbsp;Powell<br>
+optimization&nbsp;method.&nbsp;This&nbsp;method&nbsp;will&nbsp;print&nbsp;the&nbsp;optimal&nbsp;ensemble&nbsp;weights<br>
+and&nbsp;the&nbsp;score&nbsp;they&nbsp;achieved&nbsp;(including&nbsp;the&nbsp;single&nbsp;scores&nbsp;for&nbsp;every<br>
+scenario&nbsp;of&nbsp;the&nbsp;validator).<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;save&nbsp;results&nbsp;to&nbsp;a&nbsp;file&nbsp;'best_ensemble_weights.npy'&nbsp;which<br>
+can&nbsp;be&nbsp;read&nbsp;by&nbsp;calling&nbsp;numpy.load('best_ensemble_weights.npy')</tt></dd></dl>
+ <dl><dt><a name="-optimize_single_threshold"><strong>optimize_single_threshold</strong></a>(observed_node_name, upper_bound)</dt><dd><tt>Optimize&nbsp;the&nbsp;threshold&nbsp;for&nbsp;a&nbsp;single&nbsp;node.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;uses&nbsp;the&nbsp;scipy&nbsp;implementation&nbsp;of&nbsp;a&nbsp;bounded-search<br>
+optimization.&nbsp;It&nbsp;will&nbsp;print&nbsp;the&nbsp;best&nbsp;threshold&nbsp;achieved,&nbsp;scores&nbsp;for&nbsp;each<br>
+scenario&nbsp;of&nbsp;the&nbsp;example&nbsp;validator&nbsp;and&nbsp;an&nbsp;average&nbsp;of&nbsp;the&nbsp;single&nbsp;scores.<br>
+&nbsp;<br>
+Parameters:<br>
+------------<br>
+&nbsp;<br>
+observed_node_name:&nbsp;str<br>
+&nbsp;<br>
+upper_bound:&nbsp;float<br>
+upper&nbsp;bound&nbsp;for&nbsp;the&nbsp;threshold&nbsp;(lower&nbsp;bound&nbsp;is&nbsp;0)<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+the&nbsp;best&nbsp;average&nbsp;score&nbsp;achieved&nbsp;by&nbsp;the&nbsp;optimization</tt></dd></dl>
+ <dl><dt><a name="-optimize_single_threshold_iteratively"><strong>optimize_single_threshold_iteratively</strong></a>(observed_node_name, initial_upper_bound)</dt><dd><tt>Run&nbsp;optimize_single_node&nbsp;until&nbsp;the&nbsp;final&nbsp;score&nbsp;is&nbsp;satisfactory.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;run&nbsp;optimize_single_node&nbsp;with&nbsp;the&nbsp;given&nbsp;node&nbsp;and&nbsp;half&nbsp;the&nbsp;upper<br>
+bound&nbsp;if&nbsp;the&nbsp;search&nbsp;resulted&nbsp;in&nbsp;an&nbsp;average&nbsp;score&nbsp;&lt;&nbsp;0.25.&nbsp;This&nbsp;procedure&nbsp;is<br>
+repeated&nbsp;until&nbsp;the&nbsp;score&nbsp;exceeds&nbsp;0.25<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+node:&nbsp;str<br>
+the&nbsp;observed&nbsp;node&nbsp;for&nbsp;which&nbsp;the&nbsp;threshold&nbsp;should&nbsp;be&nbsp;optimized<br>
+&nbsp;<br>
+initial_upper_bound:<br>
+the&nbsp;upper&nbsp;bound&nbsp;used&nbsp;in&nbsp;the&nbsp;first&nbsp;run&nbsp;of&nbsp;optimize_single_node&nbsp;(e.g.&nbsp;20)</tt></dd></dl>
+ <dl><dt><a name="-optimize_thresholds_jointly"><strong>optimize_thresholds_jointly</strong></a>()</dt><dd><tt>Optimize&nbsp;all&nbsp;thresholds&nbsp;of&nbsp;the&nbsp;example&nbsp;validator&nbsp;jointly.<br>
+&nbsp;<br>
+Joint&nbsp;optimization&nbsp;is&nbsp;achieved&nbsp;by&nbsp;the&nbsp;scipy&nbsp;implementation&nbsp;of&nbsp;the&nbsp;Powell<br>
+optimization&nbsp;method.&nbsp;This&nbsp;method&nbsp;will&nbsp;print&nbsp;the&nbsp;optimal&nbsp;thresholds,&nbsp;the<br>
+score&nbsp;they&nbsp;achieved&nbsp;(including&nbsp;the&nbsp;single&nbsp;scores&nbsp;for&nbsp;every&nbsp;scenario&nbsp;of&nbsp;the<br>
+example&nbsp;validator)&nbsp;and&nbsp;the&nbsp;optimization&nbsp;steps&nbsp;taken&nbsp;to&nbsp;reach&nbsp;these<br>
+thresholds&nbsp;in&nbsp;order&nbsp;to&nbsp;diagnose&nbsp;problems&nbsp;with&nbsp;the&nbsp;optimizer.</tt></dd></dl>
+ <dl><dt><a name="-time_to_detection_score"><strong>time_to_detection_score</strong></a>(alarm_times, leak_properties)</dt><dd><tt>Compute&nbsp;a&nbsp;score&nbsp;for&nbsp;the&nbsp;time&nbsp;it&nbsp;takes&nbsp;to&nbsp;detect&nbsp;a&nbsp;leak.<br>
+&nbsp;<br>
+The&nbsp;score&nbsp;is&nbsp;returned&nbsp;on&nbsp;a&nbsp;0-1&nbsp;scale,&nbsp;where&nbsp;1&nbsp;means&nbsp;that&nbsp;the&nbsp;leak&nbsp;was<br>
+detected&nbsp;immediately&nbsp;and&nbsp;0&nbsp;means&nbsp;that&nbsp;it&nbsp;was&nbsp;not&nbsp;detected,&nbsp;which&nbsp;could<br>
+also&nbsp;mean&nbsp;that&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised&nbsp;only&nbsp;after&nbsp;the&nbsp;leak&nbsp;had&nbsp;already&nbsp;been<br>
+fixed.&nbsp;All&nbsp;intermediate&nbsp;values&nbsp;are&nbsp;computed&nbsp;as&nbsp;1&nbsp;-&nbsp;relative_ttd,&nbsp;where<br>
+relative_ttd&nbsp;is&nbsp;a&nbsp;quotient&nbsp;of&nbsp;the&nbsp;actual&nbsp;time&nbsp;before&nbsp;the&nbsp;leak&nbsp;was&nbsp;detected<br>
+and&nbsp;the&nbsp;leak's&nbsp;duration.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+alarm_times:&nbsp;array-like<br>
+times&nbsp;of&nbsp;alarms&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+leak_properties:&nbsp;LeakProperties.LeakProperties&nbsp;<a href="builtins.html#object">object</a><br>
+this&nbsp;is&nbsp;used&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;leak&nbsp;start&nbsp;and&nbsp;duration<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+score&nbsp;between&nbsp;0&nbsp;(bad)&nbsp;and&nbsp;1&nbsp;(perfect)</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>SECONDS_PER_DAY</strong> = 86400</td></tr></table>
+</body></html>

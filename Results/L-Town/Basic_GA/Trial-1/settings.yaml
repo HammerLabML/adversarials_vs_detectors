@@ -1,0 +1,11 @@
+search_steps: {}
+threshold_file: src/Resources/thresholds.csv
+sensor_config: ../Data/L-Town/old_pressure_sensors.txt
+id: 3866395
+excluded_nodes:
+- n44
+- n111
+- n300
+- n303
+- n336
+- n343

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module create_validation_set</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>create_validation_set</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/create_validation_set.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/create_validation_set.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.random.html">numpy.random</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="wn_util.html">wn_util</a><br>
+</td><td width="25%" valign=top><a href="wntr.html">wntr</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-create_validation_set"><strong>create_validation_set</strong></a>(network_file, start_time_range, area, duration, output_path, ignore_nodes=[])</dt><dd><tt>Create&nbsp;a&nbsp;dataset&nbsp;for&nbsp;threshold&nbsp;validation&nbsp;from&nbsp;an&nbsp;adapted&nbsp;network.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;read&nbsp;in&nbsp;a&nbsp;WaterNetworkModel,&nbsp;place&nbsp;a&nbsp;leak&nbsp;in&nbsp;one&nbsp;of&nbsp;its<br>
+junctions&nbsp;and&nbsp;save&nbsp;information&nbsp;about&nbsp;the&nbsp;leak&nbsp;and&nbsp;pressure&nbsp;values&nbsp;of&nbsp;the<br>
+models&nbsp;simulation&nbsp;to&nbsp;two&nbsp;different&nbsp;files.&nbsp;The&nbsp;leak&nbsp;will&nbsp;be&nbsp;placed&nbsp;at&nbsp;a<br>
+random&nbsp;junction&nbsp;and&nbsp;with&nbsp;a&nbsp;random&nbsp;starting&nbsp;time,&nbsp;but&nbsp;with&nbsp;the&nbsp;given&nbsp;area<br>
+and&nbsp;duration.<br>
+&nbsp;<br>
+Note:&nbsp;No&nbsp;other&nbsp;parameters&nbsp;of&nbsp;the&nbsp;network&nbsp;are&nbsp;changed&nbsp;here,&nbsp;only&nbsp;the&nbsp;leak<br>
+is&nbsp;added.&nbsp;Hence,&nbsp;the&nbsp;network&nbsp;and&nbsp;in&nbsp;particular&nbsp;its&nbsp;time&nbsp;options&nbsp;must<br>
+already&nbsp;be&nbsp;prepared.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+network_file:&nbsp;str<br>
+path&nbsp;to&nbsp;an&nbsp;EPANET&nbsp;inp-file<br>
+&nbsp;<br>
+start_time_range:&nbsp;list-like<br>
+this&nbsp;should&nbsp;contain&nbsp;all&nbsp;allowed&nbsp;leak&nbsp;starting&nbsp;times&nbsp;and&nbsp;take&nbsp;into&nbsp;account<br>
+that&nbsp;some&nbsp;of&nbsp;the&nbsp;network's&nbsp;pressure&nbsp;values&nbsp;are&nbsp;used&nbsp;in&nbsp;the&nbsp;training&nbsp;phase<br>
+of&nbsp;the&nbsp;leakage&nbsp;detector.&nbsp;During&nbsp;this&nbsp;training&nbsp;time,&nbsp;no&nbsp;leak&nbsp;should&nbsp;be<br>
+added.<br>
+&nbsp;<br>
+area:&nbsp;float<br>
+area&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;m^2<br>
+&nbsp;<br>
+duration:&nbsp;int<br>
+duration&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+output_path:&nbsp;str<br>
+path&nbsp;to&nbsp;the&nbsp;folder&nbsp;the&nbsp;output&nbsp;files&nbsp;should&nbsp;be&nbsp;written&nbsp;to<br>
+&nbsp;<br>
+ignore_nodes:&nbsp;list&nbsp;of&nbsp;str<br>
+leaks&nbsp;will&nbsp;not&nbsp;be&nbsp;placed&nbsp;at&nbsp;these&nbsp;nodes<br>
+&nbsp;<br>
+The&nbsp;method&nbsp;will&nbsp;create&nbsp;the&nbsp;following&nbsp;files&nbsp;in&nbsp;the&nbsp;folder&nbsp;given&nbsp;by<br>
+output_path:<br>
+&nbsp;<br>
+leak_info.json:&nbsp;properties&nbsp;of&nbsp;the&nbsp;leak.&nbsp;This&nbsp;can&nbsp;be&nbsp;read&nbsp;into&nbsp;a<br>
+LeakProperties&nbsp;object&nbsp;by&nbsp;calling<br>
+LeakProperties.from_json(output_path&nbsp;+&nbsp;"leak_info.json")<br>
+&nbsp;<br>
+pressures.csv:&nbsp;pressure&nbsp;values&nbsp;of&nbsp;a&nbsp;network&nbsp;simulation&nbsp;after&nbsp;the&nbsp;leak&nbsp;was<br>
+added</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>SECONDS_PER_DAY</strong> = 86400<br>
+<strong>SECONDS_PER_HOUR</strong> = 3600</td></tr></table>
+</body></html>

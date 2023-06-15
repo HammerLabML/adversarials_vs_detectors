@@ -1,0 +1,147 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.21 of 2022/01/12
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+% Figures should be included in EPS format
+\usepackage{float}
+
+\usepackage{amsmath}
+%\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{bm} %bold italic maths with \bm
+\usepackage{mleftright}
+
+\newcommand{\equ}{\mathrel{\Leftrightarrow}}
+\newcommand{\lnb}[1]{\ln\mleft( #1 \mright)}
+\newcommand{\logb}[1]{\log\mleft( #1 \mright)}
+\newcommand{\expb}[1]{\exp\mleft( #1 \mright)}
+\newcommand{\fct}[1]{#1!\,}
+\newcommand{\TP}{\mathit{TP}}
+\newcommand{\FP}{\mathit{FP}}
+\newcommand{\TN}{\mathit{TN}}
+\newcommand{\FN}{\mathit{FN}}
+\newcommand{\TPR}{\mathit{TPR}}
+\newcommand{\TNR}{\mathit{TNR}}
+\newcommand{\TTD}{\mathit{TTD}}
+\newcommand{\Fitness}{\mathit{Fitness}}
+\newcommand{\fmeasure}{f_{\mathit{measure}}}
+\newcommand{\fdetect}{f_{\mathit{detect}}}
+
+\newcommand{\R}[1]{\mathcal{#1}} % random variable
+\newcommand{\M}[1]{\mathbf{#1}} % matrix
+\newcommand{\V}[1]{\bm{#1}} % vector
+
+%\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+%\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\sign}{sign}
+\DeclareMathOperator*{\clip}{clip}
+\DeclareMathOperator{\lsp}{lsp}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\makeatletter
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\makeatother
+
+%\newtheorem{definition}{Definition}
+
+\usepackage{hyperref}
+\usepackage{color}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+
+\title{Adversarial Attacks on Leakage Detectors in Water Distribution Networks}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Paul Stahlhofen \and
+Andr\'e Artelt\orcidID{0000-0002-2426-3126} \and
+Luca Hermes\orcidID{0000-0002-7568-7981} \and
+Barbara Hammer\orcidID{0000-0002-0935-5591}}
+%
+\authorrunning{P. Stahlhofen, A. Artelt, L. Hermes, B. Hammer}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Bielefeld University, Inspiration 1, 33615 Bielefeld, Germany
+\email{\{pstahlhofen,aartelt,lhermes,bhammer\}@techfak.uni-bielefeld.de}}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+Many Machine Learning models are vulnerable to adversarial attacks: There
+exist methodologies that add a small (imperceptible) perturbation to an input such that the model comes up with a wrong prediction. Better understanding of such attacks is crucial in
+particular for models used in security-critical domains, such as monitoring of water distribution networks, in order to devise
+counter-measures enhancing model robustness and trustworthiness.
+
+We propose a taxonomy for adversarial attacks against machine learning based leakage detectors in water distribution networks. Following up on this, we focus on a particular type of attack: an adversary searching the
+\textit{least sensitive point}, that is, the location in the water network where the
+largest possible undetected leak could occur. Based on a mathematical
+formalization of the least sensitive point problem, we use three different
+algorithmic approaches to find a solution. Results are evaluated on two
+benchmark water distribution networks.
+\keywords{Adversarial Attacks  \and Water Distribution Networks \and Leakage
+Detectors.}
+\end{abstract}
+%
+%
+%
+\section{Introduction} % including related work
+\input{introduction.tex}
+\section{Foundations}
+\label{sec:foundations}
+\subsection{Adversarial Attacks}
+\input{basic_adversarials.tex}
+\subsection{Leakage Detection in Water Distribution Networks}
+\input{leakage_detection.tex}
+\section{Adversarials in Water Distribution Networks}
+\label{sec:adversarials_in_wdns}
+\subsection{Taxonomy of Adversarials in WDNs}
+\input{taxonomies.tex}
+\subsection{The Least Sensitive Point Problem}
+\input{problem_definition.tex}
+\subsection{Algorithmic Approaches}
+\input{algorithmic_approaches.tex}
+\section{Case Study: LSP Search in Two Benchmark Networks}
+\label{sec:case_study}
+\subsection{Leakage Detector}
+\input{between_sensor_interpolator.tex}
+\subsection{Water Networks}
+\input{networks_and_data.tex}
+\section{Results and Discussion}
+\label{sec:results}
+\subsection{Hanoi Network}
+\input{hanoi.tex}
+\subsection{L-Town Network}
+\input{ltown.tex}
+\section{Conclusion}
+\label{sec:conclusion}
+\input{conclusion.tex}
+
+\paragraph{Acknowledgements}
+We gratefully acknowledge funding from the European Research Council (ERC)
+under the ERC Synergy Grant Water-Futures (Grant agreement No. 951424).
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\bibliographystyle{splncs04}
+\bibliography{adversarials_vs_detectors.bib}
+%
+\end{document}

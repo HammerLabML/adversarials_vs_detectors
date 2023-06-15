@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module find_lsp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>find_lsp</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/find_lsp.py">/Users/paulstahlhofen/Documents/Water_Futures/lsp-extended/src/find_lsp.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ga_func.html">ga_func</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="pygad.html">pygad</a><br>
+<a href="warnings.html">warnings</a><br>
+</td><td width="25%" valign=top><a href="wn_util.html">wn_util</a><br>
+<a href="wntr.html">wntr</a><br>
+<a href="yaml.html">yaml</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="find_lsp.html#LspFinder">LspFinder</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LspFinder">class <strong>LspFinder</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#LspFinder">LspFinder</a>(network_file,&nbsp;leak_duration,&nbsp;leakage_detector,&nbsp;start_time_range,&nbsp;sim_start=Timestamp('1970-01-01&nbsp;00:00:00'),&nbsp;network_preparation_method=None,&nbsp;ignore_nodes=[],&nbsp;search_info={'search_steps':&nbsp;{}})<br>
+&nbsp;<br>
+Tool&nbsp;to&nbsp;find&nbsp;the&nbsp;least&nbsp;sensitve&nbsp;point&nbsp;in&nbsp;a&nbsp;water&nbsp;network.<br>
+&nbsp;<br>
+The&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;is&nbsp;the&nbsp;junction&nbsp;at&nbsp;which&nbsp;one&nbsp;could&nbsp;place&nbsp;the<br>
+largest&nbsp;possible&nbsp;leak&nbsp;that&nbsp;still&nbsp;remains&nbsp;undetected.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+network_file:&nbsp;str,&nbsp;name&nbsp;of&nbsp;an&nbsp;EPANET&nbsp;inp-file<br>
+file&nbsp;containing&nbsp;the&nbsp;network&nbsp;to&nbsp;be&nbsp;analyzed<br>
+&nbsp;<br>
+leak_duration:&nbsp;int<br>
+duration&nbsp;of&nbsp;each&nbsp;tested&nbsp;leak&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+leakage_detector:&nbsp;an&nbsp;instance&nbsp;of&nbsp;a&nbsp;subclass&nbsp;of&nbsp;AbstractLeakageDetector<br>
+the&nbsp;leakage&nbsp;detector&nbsp;must&nbsp;have&nbsp;already&nbsp;been&nbsp;trained&nbsp;(see&nbsp;documentation&nbsp;of<br>
+leakage_detactor.train)&nbsp;with&nbsp;suitable&nbsp;pressure&nbsp;values.&nbsp;These&nbsp;should&nbsp;be<br>
+produced&nbsp;by&nbsp;a&nbsp;leak-free&nbsp;simulation&nbsp;of&nbsp;the&nbsp;same&nbsp;network.<br>
+&nbsp;<br>
+start_time_range:&nbsp;list&nbsp;or&nbsp;range&nbsp;<a href="builtins.html#object">object</a><br>
+potential&nbsp;starting&nbsp;times&nbsp;for&nbsp;a&nbsp;leak.&nbsp;Note&nbsp;that&nbsp;a&nbsp;leak&nbsp;starting&nbsp;at&nbsp;the<br>
+very&nbsp;beginning&nbsp;of&nbsp;the&nbsp;simulation&nbsp;might&nbsp;not&nbsp;be&nbsp;detected&nbsp;by&nbsp;a&nbsp;leakage<br>
+detector&nbsp;using&nbsp;previous&nbsp;timesteps.&nbsp;&nbsp;Also,&nbsp;the&nbsp;leak&nbsp;should&nbsp;be&nbsp;fixed<br>
+before&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;time&nbsp;series.&nbsp;&nbsp;Otherwise&nbsp;one&nbsp;could&nbsp;compare&nbsp;leaks<br>
+with&nbsp;different&nbsp;duration.<br>
+&nbsp;<br>
+sim_start:&nbsp;pd.Timestamp,&nbsp;optional,&nbsp;default:&nbsp;pd.Timestamp(0)<br>
+timestamp&nbsp;for&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;simulation&nbsp;(e.g.&nbsp;1997-04-06&nbsp;19:04:00)<br>
+This&nbsp;is&nbsp;useful&nbsp;to&nbsp;convert&nbsp;all&nbsp;time&nbsp;offsets&nbsp;in&nbsp;seconds&nbsp;given&nbsp;by&nbsp;wntr&nbsp;into<br>
+timestamps&nbsp;which&nbsp;reflect&nbsp;useful&nbsp;information&nbsp;like&nbsp;the&nbsp;hour&nbsp;of&nbsp;a&nbsp;day&nbsp;or<br>
+summer/winter&nbsp;periods.<br>
+Note:&nbsp;In&nbsp;the&nbsp;pandas&nbsp;implementation,&nbsp;Timestamp(0)&nbsp;evaluates&nbsp;to<br>
+'1970-01-01&nbsp;00:00'<br>
+&nbsp;<br>
+network_preparation_method:&nbsp;callable,&nbsp;default=None<br>
+If&nbsp;given,&nbsp;this&nbsp;function&nbsp;will&nbsp;be&nbsp;called&nbsp;on&nbsp;the&nbsp;network&nbsp;after&nbsp;loading&nbsp;it<br>
+from&nbsp;the&nbsp;file&nbsp;and&nbsp;before&nbsp;running&nbsp;a&nbsp;simulation.&nbsp;This&nbsp;can&nbsp;e.g.&nbsp;be&nbsp;used&nbsp;for<br>
+setting&nbsp;options&nbsp;that&nbsp;would&nbsp;require&nbsp;complicated&nbsp;changes&nbsp;in&nbsp;the&nbsp;inp-file.<br>
+&nbsp;<br>
+ignore_nodes:&nbsp;list&nbsp;of&nbsp;str,&nbsp;optional,&nbsp;default:&nbsp;empty&nbsp;list<br>
+list&nbsp;of&nbsp;junction&nbsp;names&nbsp;that&nbsp;should&nbsp;be&nbsp;ignored&nbsp;in&nbsp;the&nbsp;search&nbsp;for&nbsp;the&nbsp;least<br>
+sensitive&nbsp;point.&nbsp;This&nbsp;can&nbsp;be&nbsp;useful&nbsp;to&nbsp;exclude&nbsp;"boring"&nbsp;junctions.<br>
+&nbsp;<br>
+search_info:&nbsp;dict,&nbsp;default:&nbsp;{'search_steps':&nbsp;{}}<br>
+this&nbsp;stores&nbsp;information&nbsp;about&nbsp;search&nbsp;parameters&nbsp;and&nbsp;results&nbsp;and&nbsp;can&nbsp;be<br>
+written&nbsp;to&nbsp;a&nbsp;YAML&nbsp;file&nbsp;using&nbsp;self.<strong>write_search_info</strong>.&nbsp;The&nbsp;user&nbsp;is&nbsp;free&nbsp;to<br>
+add&nbsp;and&nbsp;fill&nbsp;fields&nbsp;for&nbsp;logging&nbsp;purposes<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LspFinder-__init__"><strong>__init__</strong></a>(self, network_file, leak_duration, leakage_detector, start_time_range, sim_start=Timestamp('1970-01-01 00:00:00'), network_preparation_method=None, ignore_nodes=[], search_info={'search_steps': {}})</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-absolute_time"><strong>absolute_time</strong></a>(self, offset)</dt><dd><tt>Convert&nbsp;an&nbsp;offset&nbsp;in&nbsp;seconds&nbsp;to&nbsp;a&nbsp;pd.Timestamp.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-alarms_for_area"><strong>alarms_for_area</strong></a>(self, leak_area, *, start_time, use_cache=False, store_history=True)</dt><dd><tt>Place&nbsp;a&nbsp;leak&nbsp;of&nbsp;equal&nbsp;area&nbsp;at&nbsp;each&nbsp;junction&nbsp;in&nbsp;the&nbsp;network.<br>
+&nbsp;<br>
+This&nbsp;re-constructs&nbsp;the&nbsp;network&nbsp;and&nbsp;runs&nbsp;a&nbsp;seperate&nbsp;simulation<br>
+for&nbsp;each&nbsp;junction.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+leak_area:&nbsp;float<br>
+area&nbsp;in&nbsp;m^2,&nbsp;passed&nbsp;to&nbsp;self.<strong>place_leak_and_detect</strong><br>
+&nbsp;<br>
+start_time:&nbsp;int,&nbsp;required&nbsp;key-word&nbsp;argument<br>
+start&nbsp;time&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+use_cache:&nbsp;bool,&nbsp;default=False<br>
+If&nbsp;true,&nbsp;self.<strong>bisection_search_cache</strong>['junctions']&nbsp;will&nbsp;be&nbsp;used&nbsp;to<br>
+store&nbsp;the&nbsp;junctions&nbsp;where&nbsp;a&nbsp;leak&nbsp;has&nbsp;not&nbsp;been&nbsp;detected&nbsp;after&nbsp;every<br>
+run.&nbsp;In&nbsp;the&nbsp;next&nbsp;run,&nbsp;only&nbsp;these&nbsp;junctions&nbsp;will&nbsp;be&nbsp;analyzed.<br>
+&nbsp;<br>
+Note:&nbsp;The&nbsp;calling&nbsp;function&nbsp;is&nbsp;resoponsible&nbsp;for&nbsp;restoring&nbsp;the&nbsp;cache<br>
+afterwards.<br>
+&nbsp;<br>
+store_history:&nbsp;bool,&nbsp;default=True<br>
+If&nbsp;true,&nbsp;the&nbsp;history&nbsp;of&nbsp;function&nbsp;results&nbsp;will&nbsp;be&nbsp;stored&nbsp;in<br>
+self.<strong>search_info</strong>['search_steps']&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;dictionary<br>
+Keys:&nbsp;leak_area&nbsp;value<br>
+Values:&nbsp;list&nbsp;of&nbsp;names&nbsp;of&nbsp;junctions&nbsp;where&nbsp;the&nbsp;given&nbsp;area&nbsp;did&nbsp;NOT&nbsp;lead<br>
+to&nbsp;an&nbsp;alarm<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+num_alarms:&nbsp;int<br>
+The&nbsp;numer&nbsp;of&nbsp;junctions&nbsp;for&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;triggered&nbsp;during&nbsp;leak<br>
+time.&nbsp;If&nbsp;use_cache=True,&nbsp;all&nbsp;junctions&nbsp;outside&nbsp;the&nbsp;cache&nbsp;are&nbsp;assumed<br>
+to&nbsp;produce&nbsp;an&nbsp;alarm&nbsp;as&nbsp;well.<br>
+&nbsp;<br>
+lsp_candidates:&nbsp;list&nbsp;of&nbsp;str<br>
+The&nbsp;names&nbsp;of&nbsp;all&nbsp;the&nbsp;junctions&nbsp;for&nbsp;which&nbsp;no&nbsp;alarm&nbsp;was&nbsp;triggered.<br>
+These&nbsp;remain&nbsp;candidates&nbsp;for&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-find_lsp"><strong>find_lsp</strong></a>(self, algorithm, **params)</dt><dd><tt>Find&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;using&nbsp;the&nbsp;given&nbsp;algorithm.<br>
+&nbsp;<br>
+Currently,&nbsp;the&nbsp;following&nbsp;approaches&nbsp;are&nbsp;implemented:<br>
+'bisection':&nbsp;See&nbsp;find_lsp_bisection<br>
+'genetic':&nbsp;See&nbsp;find_lsp_genetic<br>
+'spectral':&nbsp;See&nbsp;find_lsp_spectral<br>
+&nbsp;<br>
+Please&nbsp;note&nbsp;that&nbsp;the&nbsp;parameters&nbsp;(**params)&nbsp;are&nbsp;different&nbsp;for<br>
+the&nbsp;algorithms<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+algorithm:&nbsp;str,&nbsp;one&nbsp;of&nbsp;'bisection',&nbsp;'genetic'&nbsp;or&nbsp;'spectral'<br>
+search&nbsp;algorithm&nbsp;to&nbsp;use<br>
+&nbsp;<br>
+**params:<br>
+parameters&nbsp;passed&nbsp;to&nbsp;the&nbsp;algorithms&nbsp;as&nbsp;key-word&nbsp;arguments.&nbsp;These<br>
+differ&nbsp;between&nbsp;algorithms&nbsp;(see&nbsp;documentation&nbsp;of&nbsp;the&nbsp;different<br>
+find_lsp&nbsp;functions)<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+The&nbsp;junction&nbsp;name&nbsp;of&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-find_lsp_bisection"><strong>find_lsp_bisection</strong></a>(self, *, start_time_trials, maximization_trials, trials_per_timestep, global_trials, initial_area=0.01)</dt><dd><tt>Use&nbsp;bisection_search&nbsp;to&nbsp;determine&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point.<br>
+&nbsp;<br>
+The&nbsp;procedure&nbsp;of&nbsp;this&nbsp;function&nbsp;consists&nbsp;of&nbsp;two&nbsp;main&nbsp;steps:<br>
+1.&nbsp;for&nbsp;a&nbsp;fixed&nbsp;number&nbsp;of&nbsp;time&nbsp;trials...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1&nbsp;find&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;at&nbsp;that&nbsp;time<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2&nbsp;maximize&nbsp;the&nbsp;leak&nbsp;area&nbsp;for&nbsp;that&nbsp;time&nbsp;at&nbsp;the&nbsp;least&nbsp;sensitive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point&nbsp;such&nbsp;that&nbsp;the&nbsp;leakage&nbsp;detection&nbsp;algorithm&nbsp;causes&nbsp;no&nbsp;alarm.<br>
+Subsequently,&nbsp;use&nbsp;the&nbsp;highest&nbsp;of&nbsp;the&nbsp;maxima&nbsp;determined&nbsp;above<br>
+as&nbsp;a&nbsp;starting&nbsp;point&nbsp;for&nbsp;step&nbsp;2<br>
+2.&nbsp;find&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;globally&nbsp;(over&nbsp;all&nbsp;starting&nbsp;times)<br>
+&nbsp;<br>
+In&nbsp;each&nbsp;of&nbsp;the&nbsp;substeps,&nbsp;binary&nbsp;search&nbsp;is&nbsp;applied&nbsp;to&nbsp;find&nbsp;a&nbsp;leakage<br>
+area&nbsp;fulfilling&nbsp;the&nbsp;condition.&nbsp;In&nbsp;case&nbsp;of&nbsp;1.1&nbsp;and&nbsp;2,&nbsp;the&nbsp;area&nbsp;is<br>
+picked&nbsp;such&nbsp;that&nbsp;it&nbsp;does&nbsp;NOT&nbsp;trigger&nbsp;an&nbsp;alarm&nbsp;in&nbsp;one&nbsp;node,&nbsp;while&nbsp;it<br>
+does&nbsp;trigger&nbsp;an&nbsp;alarm&nbsp;in&nbsp;all&nbsp;other&nbsp;nodes.&nbsp;See&nbsp;bisection_search&nbsp;for<br>
+the&nbsp;search&nbsp;procedure.&nbsp;&nbsp;For&nbsp;the&nbsp;global&nbsp;lest-sensitive-point&nbsp;search<br>
+(Step&nbsp;2),&nbsp;see&nbsp;self.<strong>test_leak_over_time</strong>.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+start_time_trials:&nbsp;int,&nbsp;required&nbsp;key-word&nbsp;argument<br>
+number&nbsp;of&nbsp;different&nbsp;leak&nbsp;starting&nbsp;times&nbsp;in&nbsp;phase&nbsp;1<br>
+&nbsp;<br>
+trials_per_timestep:&nbsp;int,&nbsp;required&nbsp;key-word&nbsp;argument<br>
+number&nbsp;of&nbsp;search&nbsp;trials&nbsp;per&nbsp;starting&nbsp;time&nbsp;in&nbsp;phase&nbsp;1<br>
+&nbsp;<br>
+maximization_trials:&nbsp;int,&nbsp;required&nbsp;key-word&nbsp;argument<br>
+number&nbsp;of&nbsp;trials&nbsp;to&nbsp;maximize&nbsp;the&nbsp;leak&nbsp;area&nbsp;in&nbsp;phase&nbsp;1.2&nbsp;(passed&nbsp;to<br>
+maximize_leak_area)<br>
+&nbsp;<br>
+global_trials:&nbsp;int,&nbsp;required&nbsp;key-word&nbsp;argument<br>
+maximum&nbsp;amount&nbsp;of&nbsp;search_leak_over_time&nbsp;calls&nbsp;in&nbsp;phase&nbsp;2<br>
+&nbsp;<br>
+initial_area:&nbsp;float,&nbsp;area&nbsp;in&nbsp;m^2,&nbsp;default=0.01<br>
+the&nbsp;area&nbsp;that&nbsp;is&nbsp;used&nbsp;at&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;search&nbsp;in&nbsp;each&nbsp;time<br>
+trial&nbsp;in&nbsp;step&nbsp;1.1<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+the&nbsp;name&nbsp;of&nbsp;the&nbsp;junction&nbsp;where&nbsp;the&nbsp;largest&nbsp;undetected&nbsp;leak&nbsp;could&nbsp;be<br>
+placed</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-find_lsp_genetic"><strong>find_lsp_genetic</strong></a>(self, maximization_trials=10, initial_area=0.01, performance_path=None, reset_search_cache=True, save_last_generation=True, load_last_generation=False, track_mutations=False, verbose=False)</dt><dd><tt>Find&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;with&nbsp;a&nbsp;genetic&nbsp;algorithm&nbsp;and&nbsp;bisection.<br>
+&nbsp;<br>
+This&nbsp;will&nbsp;start&nbsp;a&nbsp;genetic&nbsp;algorithm&nbsp;with&nbsp;the&nbsp;two&nbsp;different&nbsp;genes<br>
+'start_time'&nbsp;and&nbsp;'network_junction'.&nbsp;To&nbsp;evaluate&nbsp;the&nbsp;fitness<br>
+function,&nbsp;bisection&nbsp;search&nbsp;is&nbsp;used&nbsp;to&nbsp;find&nbsp;the&nbsp;maximal&nbsp;leak&nbsp;area&nbsp;at<br>
+the&nbsp;given&nbsp;junction&nbsp;and&nbsp;point&nbsp;in&nbsp;time,&nbsp;for&nbsp;which&nbsp;no&nbsp;alarm&nbsp;is<br>
+triggered&nbsp;(see&nbsp;self.<strong>maximize_leak_area</strong>).&nbsp;To&nbsp;avoid&nbsp;running&nbsp;the<br>
+maximization&nbsp;simulations&nbsp;for&nbsp;each&nbsp;candidate,&nbsp;the&nbsp;greatest&nbsp;leak&nbsp;area<br>
+found&nbsp;so&nbsp;far&nbsp;is&nbsp;stored&nbsp;in&nbsp;self.<strong>genetic_search_cache</strong>['area'].&nbsp;Before<br>
+the&nbsp;maximization,&nbsp;a&nbsp;leak&nbsp;of&nbsp;that&nbsp;area&nbsp;is&nbsp;placed&nbsp;at&nbsp;the&nbsp;given<br>
+junction-time&nbsp;combination:&nbsp;If&nbsp;it&nbsp;triggeres&nbsp;an&nbsp;alarm,&nbsp;the&nbsp;candidate<br>
+does&nbsp;not&nbsp;yield&nbsp;an&nbsp;improvement&nbsp;to&nbsp;the&nbsp;highest&nbsp;fitness&nbsp;value&nbsp;found&nbsp;so<br>
+far.&nbsp;Hence,&nbsp;the&nbsp;fitness&nbsp;function&nbsp;will&nbsp;return&nbsp;0&nbsp;in&nbsp;these&nbsp;cases.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+maximization_trials:&nbsp;int,&nbsp;optional,&nbsp;default=10<br>
+number&nbsp;of&nbsp;bisection&nbsp;search&nbsp;trials&nbsp;that&nbsp;are&nbsp;used&nbsp;to&nbsp;maximize&nbsp;the&nbsp;leak<br>
+area.&nbsp;A&nbsp;higher&nbsp;number&nbsp;of&nbsp;trials&nbsp;will&nbsp;produce&nbsp;more&nbsp;accurate&nbsp;results&nbsp;at<br>
+the&nbsp;cost&nbsp;of&nbsp;computation&nbsp;time.<br>
+&nbsp;<br>
+initial_area:&nbsp;float,&nbsp;optional,&nbsp;default=0.01<br>
+The&nbsp;leak&nbsp;area&nbsp;that&nbsp;is&nbsp;used&nbsp;as&nbsp;a&nbsp;starting&nbsp;point&nbsp;for&nbsp;the&nbsp;maximization<br>
+of&nbsp;the&nbsp;first&nbsp;solution&nbsp;candidate.&nbsp;For&nbsp;all&nbsp;following&nbsp;evaluations&nbsp;of<br>
+the&nbsp;fitness&nbsp;function,&nbsp;the&nbsp;greatest&nbsp;leak&nbsp;area&nbsp;found&nbsp;so&nbsp;far&nbsp;is&nbsp;used&nbsp;as<br>
+the&nbsp;starting&nbsp;point.<br>
+&nbsp;<br>
+performance_path:&nbsp;str,&nbsp;optional,&nbsp;default=None<br>
+If&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;directory&nbsp;is&nbsp;given&nbsp;here,&nbsp;information&nbsp;about&nbsp;the<br>
+performance&nbsp;of&nbsp;the&nbsp;algorithm&nbsp;will&nbsp;be&nbsp;written&nbsp;to&nbsp;that&nbsp;directory.&nbsp;In<br>
+case&nbsp;the&nbsp;directory&nbsp;does&nbsp;not&nbsp;exist&nbsp;yet,&nbsp;a&nbsp;new&nbsp;one&nbsp;will&nbsp;be&nbsp;created&nbsp;at<br>
+the&nbsp;given&nbsp;path.&nbsp;The&nbsp;performance&nbsp;information&nbsp;include&nbsp;leak&nbsp;properties<br>
+of&nbsp;the&nbsp;best&nbsp;attack&nbsp;found,&nbsp;parameter&nbsp;settings&nbsp;of&nbsp;the&nbsp;genetic<br>
+algorithm&nbsp;and&nbsp;the&nbsp;evolution&nbsp;of&nbsp;the&nbsp;best&nbsp;achieved&nbsp;fitness&nbsp;value&nbsp;over<br>
+the&nbsp;generations.&nbsp;&nbsp;See&nbsp;wn_util.describe_performance&nbsp;for&nbsp;details.<br>
+&nbsp;<br>
+reset_search_cache:&nbsp;bool,&nbsp;default=True<br>
+If&nbsp;True,&nbsp;self.<strong>genetic_search_cache</strong>&nbsp;is&nbsp;reset&nbsp;before&nbsp;the&nbsp;next&nbsp;call&nbsp;of<br>
+this&nbsp;function.&nbsp;This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;wants&nbsp;to&nbsp;run&nbsp;multiple&nbsp;trials<br>
+starting&nbsp;from&nbsp;zero.&nbsp;If&nbsp;this&nbsp;is&nbsp;set&nbsp;to&nbsp;false,&nbsp;a&nbsp;maximum&nbsp;leak&nbsp;area&nbsp;of<br>
+0&nbsp;might&nbsp;be&nbsp;returned.&nbsp;In&nbsp;this&nbsp;case,&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;from<br>
+one&nbsp;of&nbsp;the&nbsp;previous&nbsp;runs&nbsp;could&nbsp;not&nbsp;be&nbsp;improved.<br>
+&nbsp;<br>
+save_last_generation:&nbsp;bool,&nbsp;optional,&nbsp;default=True<br>
+If&nbsp;True,&nbsp;save&nbsp;the&nbsp;last&nbsp;generation&nbsp;created&nbsp;by&nbsp;the&nbsp;genetic&nbsp;algorithm&nbsp;to<br>
+a&nbsp;file&nbsp;called&nbsp;'last_generation.npy'&nbsp;in&nbsp;the&nbsp;Resources&nbsp;folder<br>
+&nbsp;<br>
+load_last_generation:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+If&nbsp;True,&nbsp;load&nbsp;a&nbsp;population&nbsp;from&nbsp;the&nbsp;file&nbsp;'last_generation.npy'&nbsp;in&nbsp;the<br>
+Resources&nbsp;folder&nbsp;which&nbsp;must&nbsp;have&nbsp;been&nbsp;created&nbsp;by&nbsp;previous&nbsp;runs&nbsp;of&nbsp;the<br>
+algorihtm&nbsp;and&nbsp;use&nbsp;it&nbsp;as&nbsp;initial&nbsp;population.<br>
+&nbsp;<br>
+track_mutations:&nbsp;bool,&nbsp;default=False<br>
+if&nbsp;True,&nbsp;the&nbsp;number&nbsp;of&nbsp;junction&nbsp;and&nbsp;start&nbsp;time&nbsp;mutations&nbsp;will&nbsp;be<br>
+printed&nbsp;in&nbsp;the&nbsp;end.&nbsp;This&nbsp;was&nbsp;used&nbsp;for&nbsp;fault&nbsp;diagnosis.<br>
+&nbsp;<br>
+verbose:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+In&nbsp;addition&nbsp;to&nbsp;the&nbsp;usual&nbsp;output,&nbsp;print&nbsp;the&nbsp;ordinal&nbsp;number&nbsp;of&nbsp;the<br>
+generation&nbsp;in&nbsp;which&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;was&nbsp;found.&nbsp;This&nbsp;can&nbsp;be<br>
+used&nbsp;for&nbsp;fault&nbsp;diagnosis.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+the&nbsp;junction&nbsp;name&nbsp;of&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-find_lsp_spectral"><strong>find_lsp_spectral</strong></a>(self, maximization_trials=10, initial_area=0.01, performance_path=None, reset_search_cache=True, save_last_generation=True, load_last_generation=False, track_mutations=False, verbose=False)</dt><dd><tt>Find&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;with&nbsp;a&nbsp;spectral&nbsp;node&nbsp;embedding.<br>
+&nbsp;<br>
+Similar&nbsp;to&nbsp;find_lsp_genetic,&nbsp;but&nbsp;junction&nbsp;names&nbsp;are&nbsp;represented&nbsp;by&nbsp;a<br>
+spectral&nbsp;embedding.&nbsp;The&nbsp;2nd&nbsp;to&nbsp;5th&nbsp;eigenvector&nbsp;of&nbsp;the&nbsp;graph&nbsp;Laplacian<br>
+is&nbsp;used&nbsp;to&nbsp;construct&nbsp;the&nbsp;embedding.&nbsp;The&nbsp;embedding&nbsp;itself&nbsp;consists&nbsp;of<br>
+a&nbsp;4-dimensional&nbsp;vector&nbsp;for&nbsp;each&nbsp;junction,&nbsp;which&nbsp;contains&nbsp;the<br>
+corresponding&nbsp;elements&nbsp;of&nbsp;the&nbsp;eigenvectors&nbsp;for&nbsp;this&nbsp;junction.&nbsp;The<br>
+gene&nbsp;space&nbsp;looks&nbsp;like&nbsp;this:&nbsp;[start_time_idxs,&nbsp;junction_name_idxs,<br>
+evec2,&nbsp;evec3,&nbsp;evec4,&nbsp;evec5]&nbsp;For&nbsp;crossover,&nbsp;the&nbsp;junciton&nbsp;names&nbsp;are<br>
+ignored.&nbsp;The&nbsp;crossover&nbsp;offspring&nbsp;is&nbsp;mapped&nbsp;to&nbsp;its&nbsp;nearest&nbsp;neighbour<br>
+in&nbsp;the&nbsp;embedding&nbsp;space&nbsp;that&nbsp;actually&nbsp;exists&nbsp;in&nbsp;the&nbsp;network.&nbsp;For<br>
+mutation,&nbsp;the&nbsp;embedding&nbsp;space&nbsp;is&nbsp;ignored&nbsp;and&nbsp;only&nbsp;the&nbsp;start_time_idxs<br>
+or&nbsp;junction_name_idxs&nbsp;can&nbsp;be&nbsp;mutated.&nbsp;&nbsp;The&nbsp;embedding&nbsp;representation<br>
+is&nbsp;adjusted&nbsp;to&nbsp;the&nbsp;junction_name_idx&nbsp;afterwards.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+maximization_trials:&nbsp;int,&nbsp;optional,&nbsp;default=10<br>
+number&nbsp;of&nbsp;bisection&nbsp;search&nbsp;trials&nbsp;that&nbsp;are&nbsp;used&nbsp;to&nbsp;maximize&nbsp;the&nbsp;leak<br>
+area.&nbsp;A&nbsp;higher&nbsp;number&nbsp;of&nbsp;trials&nbsp;will&nbsp;produce&nbsp;more&nbsp;accurate&nbsp;results&nbsp;at<br>
+the&nbsp;cost&nbsp;of&nbsp;computation&nbsp;time.<br>
+&nbsp;<br>
+initial_area:&nbsp;float,&nbsp;optional,&nbsp;default=0.01<br>
+The&nbsp;leak&nbsp;area&nbsp;that&nbsp;is&nbsp;used&nbsp;as&nbsp;a&nbsp;starting&nbsp;point&nbsp;for&nbsp;the&nbsp;maximization<br>
+of&nbsp;the&nbsp;first&nbsp;solution&nbsp;candidate.&nbsp;For&nbsp;all&nbsp;following&nbsp;evaluations&nbsp;of<br>
+the&nbsp;fitness&nbsp;function,&nbsp;the&nbsp;greatest&nbsp;leak&nbsp;area&nbsp;found&nbsp;so&nbsp;far&nbsp;is&nbsp;used&nbsp;as<br>
+the&nbsp;starting&nbsp;point.<br>
+&nbsp;<br>
+performance_path:&nbsp;str,&nbsp;optional,&nbsp;default=None<br>
+If&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;directory&nbsp;is&nbsp;given&nbsp;here,&nbsp;information&nbsp;about&nbsp;the<br>
+performance&nbsp;of&nbsp;the&nbsp;algorithm&nbsp;will&nbsp;be&nbsp;written&nbsp;to&nbsp;that&nbsp;directory.&nbsp;In<br>
+case&nbsp;the&nbsp;directory&nbsp;does&nbsp;not&nbsp;exist&nbsp;yet,&nbsp;a&nbsp;new&nbsp;one&nbsp;will&nbsp;be&nbsp;created&nbsp;at<br>
+the&nbsp;given&nbsp;path.&nbsp;The&nbsp;performance&nbsp;information&nbsp;include&nbsp;leak&nbsp;properties<br>
+of&nbsp;the&nbsp;best&nbsp;attack&nbsp;found,&nbsp;parameter&nbsp;settings&nbsp;of&nbsp;the&nbsp;genetic<br>
+algorithm&nbsp;and&nbsp;the&nbsp;evolution&nbsp;of&nbsp;the&nbsp;best&nbsp;achieved&nbsp;fitness&nbsp;value&nbsp;over<br>
+the&nbsp;generations.&nbsp;&nbsp;See&nbsp;wn_util.describe_performance&nbsp;for&nbsp;details.<br>
+&nbsp;<br>
+reset_search_cache:&nbsp;bool,&nbsp;default=True<br>
+If&nbsp;True,&nbsp;self.<strong>genetic_search_cache</strong>&nbsp;is&nbsp;reset&nbsp;before&nbsp;the&nbsp;next&nbsp;call&nbsp;of<br>
+this&nbsp;function.&nbsp;This&nbsp;is&nbsp;useful&nbsp;if&nbsp;one&nbsp;wants&nbsp;to&nbsp;run&nbsp;multiple&nbsp;trials<br>
+starting&nbsp;from&nbsp;zero.&nbsp;If&nbsp;this&nbsp;is&nbsp;set&nbsp;to&nbsp;false,&nbsp;a&nbsp;maximum&nbsp;leak&nbsp;area&nbsp;of<br>
+0&nbsp;might&nbsp;be&nbsp;returned.&nbsp;In&nbsp;this&nbsp;case,&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;from<br>
+one&nbsp;of&nbsp;the&nbsp;previous&nbsp;runs&nbsp;could&nbsp;not&nbsp;be&nbsp;improved.<br>
+&nbsp;<br>
+save_last_generation:&nbsp;bool,&nbsp;optional,&nbsp;default=True<br>
+If&nbsp;True,&nbsp;save&nbsp;the&nbsp;last&nbsp;generation&nbsp;created&nbsp;by&nbsp;the&nbsp;genetic&nbsp;algorithm&nbsp;to<br>
+a&nbsp;file&nbsp;called&nbsp;'last_generation.npy'&nbsp;in&nbsp;the&nbsp;Resources&nbsp;folder<br>
+&nbsp;<br>
+load_last_generation:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+If&nbsp;True,&nbsp;load&nbsp;a&nbsp;population&nbsp;from&nbsp;the&nbsp;file&nbsp;'last_generation.npy'&nbsp;in&nbsp;the<br>
+Resources&nbsp;folder&nbsp;which&nbsp;must&nbsp;have&nbsp;been&nbsp;created&nbsp;by&nbsp;previous&nbsp;runs&nbsp;of&nbsp;the<br>
+algorihtm&nbsp;and&nbsp;use&nbsp;it&nbsp;as&nbsp;initial&nbsp;population.<br>
+&nbsp;<br>
+track_mutations:&nbsp;bool,&nbsp;default=False<br>
+if&nbsp;True,&nbsp;the&nbsp;number&nbsp;of&nbsp;junction&nbsp;and&nbsp;start&nbsp;time&nbsp;mutations&nbsp;will&nbsp;be<br>
+printed&nbsp;in&nbsp;the&nbsp;end.&nbsp;This&nbsp;was&nbsp;used&nbsp;for&nbsp;fault&nbsp;diagnosis.<br>
+&nbsp;<br>
+verbose:&nbsp;bool,&nbsp;optional,&nbsp;default=False<br>
+In&nbsp;addition&nbsp;to&nbsp;the&nbsp;usual&nbsp;output,&nbsp;print&nbsp;the&nbsp;ordinal&nbsp;number&nbsp;of&nbsp;the<br>
+generation&nbsp;in&nbsp;which&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;was&nbsp;found.&nbsp;This&nbsp;can&nbsp;be<br>
+used&nbsp;for&nbsp;fault&nbsp;diagnosis.<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+the&nbsp;junction&nbsp;name&nbsp;of&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-fitness_function_factory"><strong>fitness_function_factory</strong></a>(self, lookup_table, maximization_trials=10, initial_area=0.01)</dt><dd><tt>Produce&nbsp;the&nbsp;fitness&nbsp;function&nbsp;for&nbsp;the&nbsp;'genetic'&nbsp;and&nbsp;'spectral'<br>
+approaches.<br>
+&nbsp;<br>
+See&nbsp;documentation&nbsp;of&nbsp;'find_lsp_genetic'&nbsp;and&nbsp;'find_lsp_spectral'.<br>
+&nbsp;<br>
+This&nbsp;should&nbsp;receive&nbsp;and&nbsp;empty&nbsp;dictionary&nbsp;'lookup'&nbsp;as&nbsp;input&nbsp;to<br>
+parametrize&nbsp;the&nbsp;fitness&nbsp;function.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-fixed_time_bisection"><strong>fixed_time_bisection</strong></a>(self, start_time, initial_area=0.01, output_file=None)</dt><dd><tt>Determine&nbsp;the&nbsp;least&nbsp;sensitive&nbsp;point&nbsp;at&nbsp;a&nbsp;fixed&nbsp;timestep.<br>
+&nbsp;<br>
+In&nbsp;order&nbsp;to&nbsp;find&nbsp;the&nbsp;lsp,&nbsp;bisection&nbsp;is&nbsp;used&nbsp;together&nbsp;with&nbsp;junction<br>
+removal:&nbsp;All&nbsp;junctions&nbsp;at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;triggered&nbsp;are&nbsp;removed&nbsp;in<br>
+the&nbsp;next&nbsp;step,&nbsp;if&nbsp;there&nbsp;was&nbsp;at&nbsp;least&nbsp;one&nbsp;junction&nbsp;where&nbsp;the&nbsp;same&nbsp;leak<br>
+area&nbsp;caused&nbsp;no&nbsp;alarm.&nbsp;A&nbsp;maximum&nbsp;of&nbsp;10&nbsp;maximization&nbsp;trials&nbsp;will&nbsp;be<br>
+used.&nbsp;In&nbsp;the&nbsp;end,&nbsp;the&nbsp;list&nbsp;of&nbsp;remaining&nbsp;lsp&nbsp;candidates&nbsp;is&nbsp;printed.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+start_time:&nbsp;int,&nbsp;time&nbsp;in&nbsp;seconds<br>
+the&nbsp;starting&nbsp;time&nbsp;of&nbsp;the&nbsp;leak.<br>
+&nbsp;<br>
+initial_area:&nbsp;float,&nbsp;default=0.01<br>
+initial&nbsp;area&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;m^2<br>
+&nbsp;<br>
+output_file:&nbsp;str,&nbsp;optional<br>
+if&nbsp;this&nbsp;is&nbsp;given,&nbsp;self.<strong>search_info</strong>&nbsp;will&nbsp;be&nbsp;written&nbsp;to&nbsp;output_file<br>
+in&nbsp;YAML&nbsp;format.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-info"><strong>info</strong></a>(self, msg)</dt><dd><tt>Useful&nbsp;for&nbsp;logging</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-maximize_leak_area"><strong>maximize_leak_area</strong></a>(self, initial_area, junction_name, start_time, maximization_trials, lower_bound=None, upper_bound=None, verbose=False)</dt><dd><tt>Maximize&nbsp;the&nbsp;leak&nbsp;area&nbsp;for&nbsp;a&nbsp;junction,&nbsp;s.t.&nbsp;no&nbsp;alarm&nbsp;is&nbsp;triggered.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+initial_area:&nbsp;float<br>
+an&nbsp;initial&nbsp;guess&nbsp;for&nbsp;the&nbsp;leakage&nbsp;area&nbsp;in&nbsp;cm^2<br>
+&nbsp;<br>
+junction_name:&nbsp;str<br>
+name&nbsp;of&nbsp;a&nbsp;network&nbsp;junction&nbsp;where&nbsp;the&nbsp;leak&nbsp;should&nbsp;be&nbsp;placed<br>
+&nbsp;<br>
+start_time:&nbsp;int,&nbsp;start&nbsp;time&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+maximization_trials:&nbsp;int,&nbsp;must&nbsp;be&nbsp;positive<br>
+number&nbsp;of&nbsp;trials&nbsp;in&nbsp;the&nbsp;leak&nbsp;maximization&nbsp;process<br>
+&nbsp;<br>
+lower_bound:&nbsp;float,&nbsp;default=None<br>
+a&nbsp;leak-area&nbsp;value&nbsp;in&nbsp;m^2&nbsp;which&nbsp;is&nbsp;known&nbsp;to&nbsp;produce&nbsp;NO&nbsp;alarm<br>
+&nbsp;<br>
+upper_bound:&nbsp;float,&nbsp;default=None<br>
+a&nbsp;leak-area&nbsp;value&nbsp;in&nbsp;m^2&nbsp;which&nbsp;is&nbsp;known&nbsp;to&nbsp;produce&nbsp;an&nbsp;alarm<br>
+&nbsp;<br>
+verbose:&nbsp;bool,&nbsp;default=False<br>
+If&nbsp;True,&nbsp;the&nbsp;initial&nbsp;leak&nbsp;area&nbsp;and&nbsp;the&nbsp;results&nbsp;of&nbsp;the&nbsp;maximization<br>
+trials&nbsp;will&nbsp;be&nbsp;printed<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+max_area:&nbsp;float<br>
+the&nbsp;maximal&nbsp;leak&nbsp;area&nbsp;which&nbsp;does&nbsp;not&nbsp;produce&nbsp;an&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-place_leak_and_detect"><strong>place_leak_and_detect</strong></a>(self, leak_properties)</dt><dd><tt>Detect&nbsp;a&nbsp;leak&nbsp;with&nbsp;given&nbsp;properties.<br>
+&nbsp;<br>
+self.<strong>network_file</strong>&nbsp;is&nbsp;used&nbsp;to&nbsp;load&nbsp;the&nbsp;network&nbsp;in&nbsp;which&nbsp;the&nbsp;leak&nbsp;is<br>
+placed.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+leak_properties:&nbsp;LeakProperties.LeakProperties&nbsp;<a href="builtins.html#object">object</a><br>
+this&nbsp;is&nbsp;passed&nbsp;to&nbsp;compute_pressures.&nbsp;See&nbsp;documentation&nbsp;of<br>
+the&nbsp;LeakProperties&nbsp;class&nbsp;for&nbsp;details<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+an&nbsp;array&nbsp;containing&nbsp;the&nbsp;times&nbsp;in&nbsp;seconds&nbsp;since&nbsp;the&nbsp;simulation&nbsp;start<br>
+at&nbsp;which&nbsp;an&nbsp;alarm&nbsp;was&nbsp;raised.&nbsp;An&nbsp;empty&nbsp;array&nbsp;corresponds&nbsp;to&nbsp;no&nbsp;alarm</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-remove_node"><strong>remove_node</strong></a>(self, node_name)</dt><dd><tt>Remove&nbsp;a&nbsp;node&nbsp;from&nbsp;junction&nbsp;name&nbsp;list&nbsp;and&nbsp;search&nbsp;caches.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-test_leak_over_time"><strong>test_leak_over_time</strong></a>(self, area)</dt><dd><tt>Test&nbsp;a&nbsp;leak&nbsp;with&nbsp;fixed&nbsp;area&nbsp;across&nbsp;all&nbsp;nodes&nbsp;and&nbsp;timesteps.<br>
+&nbsp;<br>
+For&nbsp;each&nbsp;timestep,&nbsp;this&nbsp;method&nbsp;will&nbsp;record&nbsp;the&nbsp;junctions&nbsp;where&nbsp;a&nbsp;leak<br>
+with&nbsp;size&nbsp;'leak_area'&nbsp;did&nbsp;NOT&nbsp;trigger&nbsp;an&nbsp;alarm.&nbsp;It&nbsp;will&nbsp;use<br>
+self.<strong>bisection_search_cache</strong>&nbsp;both&nbsp;to&nbsp;read&nbsp;relevant&nbsp;junctions&nbsp;and<br>
+timesteps&nbsp;in&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;search&nbsp;and&nbsp;to&nbsp;store&nbsp;junctions&nbsp;and<br>
+timesteps&nbsp;that&nbsp;remain&nbsp;relevant&nbsp;for&nbsp;further&nbsp;search&nbsp;after&nbsp;one<br>
+iteration.&nbsp;Hence,&nbsp;if&nbsp;you&nbsp;call&nbsp;this&nbsp;method&nbsp;again&nbsp;with&nbsp;a&nbsp;different<br>
+area,&nbsp;it&nbsp;will&nbsp;presumably&nbsp;perform&nbsp;much&nbsp;faster.<br>
+&nbsp;<br>
+Note:&nbsp;The&nbsp;calling&nbsp;function&nbsp;is&nbsp;resoponsible&nbsp;for&nbsp;restoring&nbsp;the&nbsp;cache<br>
+afterwards.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+area:&nbsp;float<br>
+leak&nbsp;area&nbsp;in&nbsp;m^2<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+n_excluded:&nbsp;int<br>
+number&nbsp;of&nbsp;junctions,&nbsp;which&nbsp;are&nbsp;definitely&nbsp;NOT&nbsp;the<br>
+least&nbsp;sensitive&nbsp;point.&nbsp;These&nbsp;are&nbsp;junctions,&nbsp;at&nbsp;which&nbsp;a&nbsp;leak<br>
+of&nbsp;the&nbsp;given&nbsp;area&nbsp;always&nbsp;triggered&nbsp;an&nbsp;alarm.<br>
+&nbsp;<br>
+unnoticed:&nbsp;dictionary<br>
+the&nbsp;keys&nbsp;are&nbsp;start&nbsp;times&nbsp;of&nbsp;the&nbsp;leaks&nbsp;in&nbsp;seconds,&nbsp;the&nbsp;values&nbsp;(str)<br>
+are&nbsp;names&nbsp;of&nbsp;the&nbsp;network&nbsp;junctions.&nbsp;&nbsp;For&nbsp;each&nbsp;time,&nbsp;the&nbsp;names&nbsp;of&nbsp;the<br>
+junctions&nbsp;for&nbsp;which&nbsp;NO&nbsp;alarm&nbsp;was&nbsp;triggered&nbsp;are&nbsp;given.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-write_search_info"><strong>write_search_info</strong></a>(self, output_file)</dt><dd><tt>Write&nbsp;self.<strong>search_info</strong>&nbsp;to&nbsp;output_file&nbsp;(str)&nbsp;in&nbsp;YAML-format.</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="LspFinder-hanoi"><strong>hanoi</strong></a>(kind, ignore_nodes=['2', '3'])<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;an&nbsp;<a href="#LspFinder">LspFinder</a>&nbsp;with&nbsp;default&nbsp;settings&nbsp;for&nbsp;Hanoi.</tt></dd></dl>
+
+<dl><dt><a name="LspFinder-ltown"><strong>ltown</strong></a>(train_demands='real', dont_train=False, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;an&nbsp;<a href="#LspFinder">LspFinder</a>&nbsp;with&nbsp;default&nbsp;settings&nbsp;for&nbsp;L-Town.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-analyze_ltown_node"><strong>analyze_ltown_node</strong></a>(node_name, start_time, initial_leak_area=0.01, maximization_trials=10, lspFinder=None, **kwargs)</dt><dd><tt>Maximize&nbsp;the&nbsp;leak&nbsp;area&nbsp;for&nbsp;a&nbsp;node-time&nbsp;pair&nbsp;in&nbsp;L-Town.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;uses&nbsp;<a href="#LspFinder">LspFinder</a>.ltown()&nbsp;(See&nbsp;the&nbsp;code&nbsp;for&nbsp;default&nbsp;settings).<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+All&nbsp;parameters&nbsp;are&nbsp;passed&nbsp;to&nbsp;<a href="#LspFinder">LspFinder</a>.maximize_leak_area<br>
+&nbsp;<br>
+node_name:&nbsp;str<br>
+name&nbsp;of&nbsp;a&nbsp;network&nbsp;junction&nbsp;where&nbsp;the&nbsp;leak&nbsp;should&nbsp;be&nbsp;placed<br>
+&nbsp;<br>
+start_time:&nbsp;int,&nbsp;start&nbsp;time&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+initial_leak_area:&nbsp;float,&nbsp;default=0.01&nbsp;m^2<br>
+an&nbsp;initial&nbsp;guess&nbsp;for&nbsp;the&nbsp;leakage&nbsp;area.<br>
+&nbsp;<br>
+maximization_trials:&nbsp;int,&nbsp;must&nbsp;be&nbsp;positive,&nbsp;default=10<br>
+number&nbsp;of&nbsp;trials&nbsp;in&nbsp;the&nbsp;leak&nbsp;maximization&nbsp;process<br>
+&nbsp;<br>
+lspFinder:&nbsp;<a href="#LspFinder">LspFinder</a>,&nbsp;default=None<br>
+<a href="#LspFinder">LspFinder</a>&nbsp;to&nbsp;perform&nbsp;the&nbsp;search.&nbsp;If&nbsp;None&nbsp;is&nbsp;given,&nbsp;the&nbsp;normal<br>
+<a href="#LspFinder">LspFinder</a>.ltown()&nbsp;is&nbsp;used.<br>
+&nbsp;<br>
+**kwargs:&nbsp;keyword&nbsp;arguments&nbsp;passed&nbsp;to&nbsp;<a href="#LspFinder">LspFinder</a>.ltown<br>
+&nbsp;<br>
+Returns<br>
+--------<br>
+max_area:&nbsp;float<br>
+the&nbsp;maximal&nbsp;leak&nbsp;area&nbsp;which&nbsp;does&nbsp;not&nbsp;produce&nbsp;an&nbsp;alarm</tt></dd></dl>
+ <dl><dt><a name="-compare_toy2real"><strong>compare_toy2real</strong></a>(train_demands, junction_file=None, start_time=450300)</dt><dd><tt>Compare&nbsp;the&nbsp;results&nbsp;of&nbsp;area&nbsp;maximization&nbsp;based&nbsp;on&nbsp;training&nbsp;data.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;compare&nbsp;the&nbsp;maximum&nbsp;unnoticed&nbsp;area&nbsp;at&nbsp;some<br>
+nodes&nbsp;of&nbsp;the&nbsp;L-Town&nbsp;network&nbsp;based&nbsp;on&nbsp;whether&nbsp;the&nbsp;leakage&nbsp;detector&nbsp;was<br>
+trained&nbsp;on&nbsp;realistic&nbsp;data&nbsp;or&nbsp;on&nbsp;toy&nbsp;data.&nbsp;In&nbsp;a&nbsp;realistic&nbsp;scenario,&nbsp;one<br>
+might&nbsp;need&nbsp;to&nbsp;train&nbsp;the&nbsp;leakage&nbsp;detector&nbsp;on&nbsp;toy&nbsp;data&nbsp;because&nbsp;realistic<br>
+data&nbsp;is&nbsp;not&nbsp;always&nbsp;available.&nbsp;Depending&nbsp;on&nbsp;the&nbsp;'train_demands'&nbsp;parameter<br>
+(either&nbsp;'toy'&nbsp;or&nbsp;'real')&nbsp;this&nbsp;will&nbsp;save&nbsp;the&nbsp;resulting&nbsp;maximal&nbsp;areas&nbsp;in<br>
+the&nbsp;file&nbsp;'trained_on_real.npy'&nbsp;or&nbsp;'trained_on_toy.npy'&nbsp;in&nbsp;the&nbsp;folder<br>
+../Results/L-Town/Detector_Comparison<br>
+If&nbsp;junction&nbsp;names&nbsp;are&nbsp;given&nbsp;in&nbsp;an&nbsp;input&nbsp;file,&nbsp;the&nbsp;corresponding&nbsp;junctions<br>
+are&nbsp;used.&nbsp;Otherwise,&nbsp;10&nbsp;junctions&nbsp;are&nbsp;randomly&nbsp;selected.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+&nbsp;<br>
+train_demands:&nbsp;str,&nbsp;'toy'&nbsp;or&nbsp;'real'<br>
+Which&nbsp;demands&nbsp;should&nbsp;be&nbsp;used&nbsp;for&nbsp;training?<br>
+&nbsp;<br>
+junction_file:&nbsp;str,&nbsp;default=None<br>
+path&nbsp;to&nbsp;a&nbsp;'.npy'-file&nbsp;containing&nbsp;junction&nbsp;names&nbsp;in&nbsp;L-Town.&nbsp;If&nbsp;None&nbsp;is<br>
+given,&nbsp;10&nbsp;junctions&nbsp;are&nbsp;randomly&nbsp;selected.<br>
+&nbsp;<br>
+start_time:&nbsp;start&nbsp;time&nbsp;of&nbsp;the&nbsp;leak&nbsp;in&nbsp;seconds<br>
+default:&nbsp;450300&nbsp;(5&nbsp;days,&nbsp;5&nbsp;hours&nbsp;and&nbsp;5&nbsp;minutes&nbsp;after&nbsp;start)<br>
+The&nbsp;leak&nbsp;will&nbsp;always&nbsp;last&nbsp;three&nbsp;hours.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;has&nbsp;no&nbsp;return&nbsp;value.</tt></dd></dl>
+ <dl><dt><a name="-getpid"><strong>getpid</strong></a>()</dt><dd><tt>Return&nbsp;the&nbsp;current&nbsp;process&nbsp;id.</tt></dd></dl>
+ <dl><dt><a name="-run_hanoi"><strong>run_hanoi</strong></a>(kind)</dt><dd><tt>Run&nbsp;the&nbsp;default&nbsp;analysis&nbsp;for&nbsp;Hanoi.</tt></dd></dl>
+ <dl><dt><a name="-run_ltown"><strong>run_ltown</strong></a>()</dt><dd><tt>Run&nbsp;the&nbsp;default&nbsp;analysis&nbsp;for&nbsp;L-Town.</tt></dd></dl>
+ <dl><dt><a name="-run_parallel_trials"><strong>run_parallel_trials</strong></a>(algorithm, n_trials)</dt><dd><tt>Run&nbsp;trials&nbsp;for&nbsp;the&nbsp;genetic&nbsp;or&nbsp;spectral&nbsp;algorithm&nbsp;on&nbsp;L-Town&nbsp;in&nbsp;parallel.<br>
+&nbsp;<br>
+The&nbsp;following&nbsp;nodes&nbsp;are&nbsp;ignored:<br>
+['n44',&nbsp;'n111',&nbsp;'n300',&nbsp;'n303',&nbsp;'n336',&nbsp;'n343']<br>
+&nbsp;<br>
+The&nbsp;initial&nbsp;area&nbsp;is&nbsp;set&nbsp;to&nbsp;0.004&nbsp;m^2.<br>
+&nbsp;<br>
+Results&nbsp;will&nbsp;be&nbsp;written&nbsp;to&nbsp;'../Results/L-Town/Basic_GA/Trial-&lt;n&gt;'&nbsp;for<br>
+the&nbsp;genetic&nbsp;algorithm&nbsp;and&nbsp;'../Results/L-Town/Spectral_GA/Trial-&lt;n&gt;'&nbsp;for<br>
+the&nbsp;spectral&nbsp;algorithm.<br>
+&nbsp;<br>
+Parameters<br>
+-----------<br>
+algorithm:&nbsp;one&nbsp;of&nbsp;'genetic'&nbsp;or&nbsp;'spectral'<br>
+LSP&nbsp;search&nbsp;algorithm&nbsp;to&nbsp;use<br>
+&nbsp;<br>
+n_trials:&nbsp;int<br>
+number&nbsp;of&nbsp;parallel&nbsp;trials<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;has&nbsp;no&nbsp;return&nbsp;value.</tt></dd></dl>
+ <dl><dt><a name="-sleep"><strong>sleep</strong></a>(...)</dt><dd><tt><a href="#-sleep">sleep</a>(seconds)<br>
+&nbsp;<br>
+Delay&nbsp;execution&nbsp;for&nbsp;a&nbsp;given&nbsp;number&nbsp;of&nbsp;seconds.&nbsp;&nbsp;The&nbsp;argument&nbsp;may&nbsp;be<br>
+a&nbsp;floating&nbsp;point&nbsp;number&nbsp;for&nbsp;subsecond&nbsp;precision.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>HOURS_PER_DAY</strong> = 24<br>
+<strong>SECONDS_PER_DAY</strong> = 86400<br>
+<strong>SECONDS_PER_HOUR</strong> = 3600</td></tr></table>
+</body></html>

@@ -1,0 +1,17 @@
+search_steps:
+  '40.00':
+  - n45
+  - n387
+  - n388
+  '80.00':
+  - n387
+threshold_file: src/Resources/thresholds.csv
+sensor_config: ../Data/L-Town/old_pressure_sensors.txt
+id: 3820214
+excluded_nodes:
+- n44
+- n111
+- n300
+- n303
+- n336
+- n343
